@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+*{
+    font-family: 'Poppins';
+    color: white;
+}
+.cont{
+    background-color: #0F0645;
+    border-radius: 70px;
+    margin: 0 auto;
+    position: relative;
+    left: 25%;
+    width: 50%;
+    padding: 30px;
+    height: auto;
+    box-shadow: 6px 6px 24px #000000;
+    overflow: auto;
+    display: inline-block;
+}
+.fields{
+    float: left;
+    width: 50%;
+    margin-bottom: 5%;
+    padding: 0%;
+    text-align: right;
+}
+a{
+    cursor: pointer;
+}
+.login{
+    width: 100%;
+}
+.login input{
+    height: 30px;
+}
+.fields{
+    float: left;
+}
+.fields input{
+    width:90%;
+    margin-top: 10px;
+    border-radius: 25px;
+    height: 30px;
+    padding-left: 10px;
+}
+.fields input[type=password]{
+    width: 90%;
+    margin-left: 13px;
+}
+.fields label{
+    padding-left: 20px;
+}
+.logo{
+    text-align: center;
+    width: 100%;
+    height: auto;
+    margin-bottom: 0;
+}
+h5{
+    color: #57DBB3
+}
+.sub{
+    padding-left: 20px;
+    float: left;
+    width: 48%;
+    text-align: left;
+    height: auto;
+}
+.sub input{
+    width: 85%;
+    text-align: left;
+}
+.h{
+    margin-top: 0;
+    color: white;
+    font-weight: normal;
+}
+.label{
+    float: left;
+    color: white;
+}
+.uploads{
+    padding: 5px;
+    padding-right: 25px;
+    border: none;
+    border-radius: 10px;
+    float: right;
+    color: #0F0645;
+    background-color: #57DBB3;
+    cursor: pointer;
+}
+.uploads img{
+    margin-left: 15px;
+    position: relative;
+    top: 5px;
+}
+.grey{
+    background-color: #8895A5;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.grey img{
+    height: 10px;
+    width: 10px;
+    object-fit: contain;
+    position: relative;
+    top: -5px;
+    left: 2px;
+}
+input[type=email], input[type=password]{
+    float: left;
+    width: 95%;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    padding-left: 15px;
+    border-radius: 57px;
+}
+input[type=checkbox]{
+    width: auto;
+    float: left;
+    vertical-align: left;
+}
+.checkbox{
+    width: 100%;
+    display: inline-block;
+}
+.link{
+    color: #F64C71;
+}
+.button{
+    color: #FFFFFF;
+    font-weight: bold;
+    background-color: #0F0645;
+    border: 3px solid #0094FF;
+    width: 98%;
+    margin-top: 20px;
+    padding: 5px;
+    border-radius: 31px;
+}
