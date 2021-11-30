@@ -17,6 +17,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/TicketDetails',[PagesController::class,"TicketDetails"]);
+Route::get('/cancel',[PagesController::class,"TicketDetails"]);
 
 Route::get('/AvailableRoute',[PagesController::class,"AvailableRoutes"]);
+
+Route::get('/dashboard', function () {
+    
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
+
+
+Route::get('/custom-login', function () {
+    return view('login');
+});
