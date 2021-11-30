@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\PagesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,7 +12,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+//never return view in route
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/TicketDetails',[PagesController::class,"TicketDetails"]);
+
+Route::get('/AvailableRoute',[PagesController::class,"AvailableRoutes"]);
