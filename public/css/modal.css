@@ -1,0 +1,201 @@
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    background-color: #4C15E9;
+    margin: auto;
+    padding-right: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    border: 0px;
+    border-radius: 18px;
+    color: white;
+  }
+  .dark{
+      background-color: #0F0645;
+      padding: 20px;
+      height: 300px;
+  }
+  .dark h2{
+      color: white;
+      font-weight: 800;
+      text-align: center;
+      margin-top: 100px;
+  }
+  .modal-img{
+      width: 45%;
+      height: 70%;
+      object-fit: cover;
+      border-radius: 18px 0px 0px 18px;
+      display: inline;
+  }
+  /* The Close Button */
+  .close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .form{ 
+    width:50%; 
+    float:right;
+    position: relative;
+    margin-top: 100px;
+    display: inline;
+  }
+  .form input, .form select{
+      float: right;
+      width: 65%;
+      border-radius: 20px;
+  }
+   .form label {
+    text-align: right;
+    clear: both;
+    color: white;
+    float:left;
+    margin-right:15px;
+}
+.confirm{
+    width:65%; 
+    float:right;
+    margin-top: 50px;
+}
+.confirm button{
+    width: 45%;
+    border: 0px;
+    padding: 5px;
+    color: white;
+    border-radius: 8px;
+}
+.mini-btn{
+    width: 50%;
+    float: right;
+    display: inline;
+    height: fit-content;
+    margin: auto;
+}
+.mini-btn button{
+    display: inline;
+    border: 0px;
+    width: 30%;
+    color: white;
+    padding: 8.25px 25px 8.25px 25px;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #826DFF;
+}
+.table{
+    border-collapse:separate;
+    width: 89%;
+}
+.table th{
+    width: 20%;
+    color: white;
+    padding: 5px 0px 5px 0px;
+}
+.table td{
+    width: 20%;
+    color: #4C15E9;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 0px;
+    padding: 5px 0px 5px 0px;
+    border-radius: 15px;
+}
+.sc:hover{
+    background-color: #E8E6FB;
+}
+.new{
+    width: 102%;
+    padding-right: 5%;
+    margin-right: 0%;
+}
+.new th{
+    width: 16.67%;
+}
+.new td{
+    width: 16.67%;
+    border-radius: 0px;
+}
+.new td:nth-child(1){
+    border-radius: 12px 0px 0px 12px;
+}
+.new td:nth-child(6){
+    border-radius: 0px 12px 12px 0px;
+}
+.row{
+    margin-bottom: 10px;
+}
+.row:hover{
+    background-color: #E8E6FB;
+}
+.table th:nth-child(1){
+    border-radius: 12px 0px 0px 12px;
+}
+.table th:nth-child(5){
+    border-radius: 0px 12px 12px 0px;
+}
+.vhire-form{
+    background-color: red;
+    width: 92%;
+    margin: 60px 25px 0px 25px;
+}
+.vhire-form label{
+    color: white;
+    font-weight: bold;
+    margin-bottom: 5%;
+}
+.vhire-form input, .vhire-form select{
+    width: 100%;
+}
+.vhire-form input{
+    height: 40px;
+}
+.form-left{
+    width: 47.5%;
+    float: left;
+}
+.form-right{
+    width: 47.5%;
+    float: right;
+}
+
+.red button{
+    width: 24%;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.black tr{
+    width: 100%;
+}
+.black th{
+    width: 20%;
+}
+.black th:nth-child(5), .black td:nth-child(5){
+    border-radius: 0px 12px 12px 0px;
+}
+.modal-tab{
+    width: 30%;
+    margin-left: 23.5%;
+}
