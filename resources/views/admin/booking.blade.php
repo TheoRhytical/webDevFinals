@@ -77,32 +77,21 @@
 </div>
 
 <!-- The Modal -->
-<div id="add-vhire" class="modal">
+<div id="add-vhire" class="modal"> 
 
   <!-- Modal content -->
-  <div class="tab modal-tab">
-        <button id="bd" style="background-color: #0F0645; color: white">BOOKINGS DETAIL</button>
-        <button id="pd" style="background-color: #4C15E9; color: white">PASSENGER DETAIL</button>
-    </div>
-  <div class="modal-content dark" style="height: 450px;border-radius: 0px 18px 18px 18px">
+  <div class="modal-content dark" style="height: 450px;">
     <span class="close">&times;</span>
     <div class="vhire-form" id="modal-book">
-        <form>
+        <form autocomplete="off">
             <div class="form-left">
                 <label>DATE</label><br>
                 <input type="date"/><br><br>
-                <label>ROUTE</label><br>
-                <select>
-                    <option>1</option>
-                </select>
-                <br><br>
-                <label>DEPARTURE TIME</label><br>
-                <select>
-                    <option>1</option>
-                </select>
+                <label>PASSENGER</label><br>
+                <input type="text">  <!--autocomplete search bar-->
             </div>
             <div class="form-right">
-                <label>VHIRE</label><br>
+                <label>TRIP</label><br>
                 <select>
                     <option>1</option>
                 </select>
@@ -111,39 +100,6 @@
                 <select>
                     <option>PENDING</option>
                     <option>CONFIRMED</option>
-                </select>
-                <br><br>
-                <label>ARRIVAL TIME</label><br>
-                <select>
-                    <option>1</option>
-                </select>
-            </div>
-            <div class="confirm" style="float: left;width:90%;margin-left:30px;">
-                <button style="background-color: #27C124">SAVE</button>
-                <button style="background-color: #FFA800; float:right;">CANCEL</button>
-            </div>
-        </form>
-    </div>
-    <div class="vhire-form" id="modal-passenger" style="display: none;">
-        <form>
-            <div class="form-left">
-                <label>PASSENGER</label><br>
-                <select>
-                    <option>1</option>
-                </select>
-                <br><br>
-                <label>PHONE NUMBER</label><br>
-                <input type="tel"/>
-            </div>
-            <div class="form-right">
-                <label>ADDRESS</label><br>
-                <select>
-                    <option>1</option>
-                </select>
-                <br><br>
-                <label>EMAIL</label><br>
-                <select>
-                    <option>1</option>
                 </select>
             </div>
             <div class="confirm" style="float: left;width:90%;margin-left:30px;">

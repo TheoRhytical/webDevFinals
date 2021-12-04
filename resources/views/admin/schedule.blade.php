@@ -16,6 +16,10 @@
             <label style="position:relative; top: 5px; font-weight:800;">FILTER BY ROUTE:</label>
             <select class="filter">
                 <option>ALL</option>
+                <option>OPEN</option>
+                <option>CLOSED</option>
+                <option>DEPARTED</option>
+                <option>ARRIVED</option>
             </select>
         </div>
     </div>
@@ -35,7 +39,7 @@
             <td>CEBU-CORDOVA</td>
             <td>08:05-15:00</td>
             <td>CRISPIN</td>
-            <td>ACTIVE <img src="{{url('images/active.png')}}" style="float: right;margin-right:20px"/></td>
+            <td>OPEN <img src="{{url('images/active.png')}}" style="float: right;margin-right:20px"/></td>
             <td>
                 <table>
                     <tr>
@@ -50,7 +54,22 @@
             <td>CEBU-CORDOVA</td>
             <td>08:05-15:00</td>
             <td>CRISPIN</td>
-            <td>INACTIVE <img src="{{url('images/inactive.png')}}" style="float: right;margin-right:20px"/></td>
+            <td>CLOSED <img src="{{url('images/cancelled.png')}}" style="float: right;margin-right:20px"/></td>
+            <td>
+                <table>
+                    <tr>
+                        <td class="vhire" style="cursor: pointer;"><img src="{{url('images/edit.png')}}"/></td>
+                        <td class="del-scheds" style="cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr class="sc">
+            <td>1234</td>
+            <td>CEBU-CORDOVA</td>
+            <td>08:05-15:00</td>
+            <td>CRISPIN</td>
+            <td>ARRIVED <img src="{{url('images/inactive.png')}}" style="float: right;margin-right:20px"/></td>
             <td>
                 <table>
                     <tr>
@@ -65,10 +84,10 @@
 </div>
 
 <!-- The Modal -->
-<div id="add-vhire" class="modal">
+<div id="add-vhire" class="modal" style="padding-top:70px">
 
   <!-- Modal content -->
-  <div class="modal-content dark" style="height: 450px;">
+  <div class="modal-content dark" style="height: 500px;">  <!-- add to trip table-->
     <span class="close">&times;</span>
     <div class="vhire-form">
         <form>
@@ -84,6 +103,9 @@
                 <select>
                     <option>1</option>
                 </select>
+                <br><br>
+                <label>STATUS</label><br>
+                <input type="text" value="OPEN" readonly/>
             </div>
             <div class="form-right">
                 <label>DRIVER</label><br>
@@ -96,6 +118,8 @@
                     <option>1</option>
                 </select>
                 <br><br>
+                <label>SEAT CAPACITY</label><br>
+                <input type="number" min="1" value="1"/>
             </div>
         </form>
     </div>
