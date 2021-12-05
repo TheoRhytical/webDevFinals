@@ -17,14 +17,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/cancel',[PagesController::class,"TicketDetails"]);
+Route::middleware('auth')->group(function () {
+    // Add your routes here like this
+  
+
+    
+
+    Route::get('/dashboard', function () { 
+        return view('dashboard');
+    })->name('dashboard');
+
+  });
+
+Route::get('/TicketDetails',[PagesController::class,"TicketDetails"]);
 
 Route::get('/AvailableRoute',[PagesController::class,"AvailableRoutes"]);
-
-Route::get('/dashboard', function () {
-    
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
 
