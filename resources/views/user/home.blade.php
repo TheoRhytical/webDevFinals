@@ -7,7 +7,6 @@
 </style>
 @section('content')
 <div class="container">
-    <center><h1>Book your ride now!</h1></center>
     <div class="subcontainer">
         <form>
             <div class="input">
@@ -26,6 +25,8 @@
             </div>
         </form>
     </div>
+    <center><h1 style="background-color: transparent; color:#4C15E9;">WELCOME, JUAN DELA CRUZ!</h1></center>
+    <center><h1>Book your ride now!</h1></center>
     <center><img src="{{url('images/vhire.png')}}"></img></center>
 </div>
 @endsection

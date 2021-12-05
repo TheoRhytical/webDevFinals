@@ -1,6 +1,5 @@
 @extends('header')
 @extends('user.sidenav')
-
 <style>
     #tic{
         background-color: #EFF2FF;
@@ -13,8 +12,7 @@
             <table>
                 <tr>
                     <td style="color:#4C15E9; font-weight:bold">Vhire No</td>
-                    <td>{{$users[1]->PlateNum}}</td>
-
+                    <td>Plate Number</td>
                 </tr>
                 <tr>
                     <td style="color:#4C15E9; font-weight:bold">Terminal</td>`
@@ -23,25 +21,23 @@
                 </tr>
                 <tr>
                     <td style="color:#4C15E9; font-weight:bold">Time</td>
-                <td>{{$users[1]->ETD}} : {{$users[1]->ETA}}</td>
+                    <td>ETD - ETA</td>
                 </tr>
-
-                <!-- <tr>
+                <tr>
                     <td style="color:#4C15E9; font-weight:bold">Vhire No</td>
                     <td>Plate Number</td>
-                </tr> -->
-
+                </tr>
                 <tr>
                     <td style="color:#4C15E9; font-weight:bold">Quantity</td>
-                    <td>{{$users[1]->Quantity}}</td>
+                    <td>No. of seats</td>
                 </tr>
                 <tr>
                     <td style="color:#4C15E9; font-weight:bold">Php 100.00</td>
-                    <td>{{$users[1]->Fare}}</td>
+                    <td>Fare Price</td>
                 </tr>
                 <tr>
                     <td style="color:#4C15E9; font-weight:bold">Total Amount</td>
-                    <td><?php echo $users[1]->Quantity * $users[1]->Fare ?></td>
+                    <td>Price x Quantity</td>
                 </tr>
             </table>
             <center><button class="bttn" style="margin-bottom:30px; margin-top:30px">Cancel</button></center>
@@ -75,12 +71,5 @@
                 <h6 style="margin-top:0px">HH:MM AM/PM</h6>
             </div>
             </div>
-
-            //to show the data
-            <?php
-                
-                // dd($users);
-
-            ?>
 </div>
 @endsection

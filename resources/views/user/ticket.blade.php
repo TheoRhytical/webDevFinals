@@ -12,7 +12,7 @@
         <a href="cancel">
             <div class="tick">
                 <h3>Origin - Destination</h3>
-                <p style="float:right; padding-right:25px; padding-top:5px"><b style="color:red">Php 100</b></p><br>
+                <p style="float:right; padding-right:25px; padding-top:5px"><b style="color:#4C15E9">Php 100</b></p><br>
                 <p>Schedule Time</p>
                 <p>&nbsp; - &nbsp;</p>
                 <p>Schedule Date</p>
@@ -25,7 +25,7 @@
         <a href="cancel">
             <div class="tick">
                 <h3>Origin - Destination</h3>
-                <p style="float:right; padding-right:25px; padding-top:5px"><b style="color:red">Php 500</b></p><br>
+                <p style="float:right; padding-right:25px; padding-top:5px"><b style="color:#4C15E9">Php 500</b></p><br>
                 <p>Schedule Time</p>
                 <p>&nbsp; - &nbsp;</p>
                 <p>Schedule Date</p>
