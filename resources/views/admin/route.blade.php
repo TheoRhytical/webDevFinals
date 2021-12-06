@@ -24,7 +24,7 @@
             <th>ROUTE</th>
             <th>FROM</th>
             <th>TO</th>
-            <th>STATUS</th>
+            <th>FARE PRICE</th>
             <th></th>
         </tr>
     </table></center>
@@ -34,16 +34,7 @@
             <td>CEBU-CORDOVA</td>
             <td>CEBU</td>
             <td>CORDOVA</td>
-            <td>ACTIVE <img src="{{url('images/active.png')}}" style="float: right;margin-right:25px"/></td>
-            <td class="myBtn" style="width: 6%;cursor: pointer;"><img src="{{url('images/edit.png')}}"/></td>
-            <td class="Btnd" style="width: 6%;cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
-            <td style="width: 6%;cursor: pointer;"><img src="{{url('images/refresh.png')}}"/></td>
-        </tr>
-        <tr class="row">
-            <td>LILOAN-BABAG</td>
-            <td>LILOAN</td>
-            <td>BABAG</td>
-            <td>INACTIVE <img src="{{url('images/inactive.png')}}" style="float: right;margin-right:25px"/></td>
+            <td>Php 100.00</td>
             <td class="myBtn" style="width: 6%;cursor: pointer;"><img src="{{url('images/edit.png')}}"/></td>
             <td class="Btnd" style="width: 6%;cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
             <td style="width: 6%;cursor: pointer;"><img src="{{url('images/refresh.png')}}"/></td>
@@ -59,7 +50,7 @@
     <div class="form">
         <form>
             <label for="rname">Route Name</label>
-            <input type="text" id="rname"></input><br><br><br>
+            <input type="text" id="rname"></input><br><br>
             <label for="L1">Location 1</label>
             <select>
                 <option>1</option>
@@ -68,6 +59,8 @@
             <select>
                 <option>1</option>
             </select><br><br><br>
+            <label for="rname">Fare Price</label>
+            <input type="number" id="fare"></input><br>
             <div class="confirm">
                 <button style="background-color: #27C124">SAVE</button>
                 <button style="background-color: #FFA800; float:right;">CANCEL</button>
