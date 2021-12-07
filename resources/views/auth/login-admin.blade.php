@@ -12,7 +12,7 @@
                 <!-- Validation Errors -->
                 <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-                <form method="POST" action="{{ route('login') }}" class="login">
+                <form method="POST" action="" class="login">
                     @csrf
 
                     <!-- Email Address -->
@@ -46,8 +46,7 @@
 
                 </form>
                 <br>
-                <center><a class="link" href="admin">Login as admin</a></p></center>
-                <center><p style="color:#FFFFFF">Don't have an account?&nbsp;<a class="link" href="register">Create Now!</a></p></center>
+                <center><a class="link" href="passenger">Login as passenger</a></p></center>
             
                 <center><a class="link">www.vhire.ph</a><br></br></center>
                 <center><p style="margin-top:0px">&copy; 2021 vhire.cebu.ph. All Rights Reserved.</p></center>

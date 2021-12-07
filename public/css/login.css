@@ -6,7 +6,7 @@
 .cont{
     background-color: #0F0645;
     border-radius: 70px;
-    margin: 0 auto;
+    margin-top: 3%;
     position: relative;
     left: 25%;
     width: 50%;
@@ -135,6 +135,6 @@ input[type=checkbox]{
     border: 3px solid #0094FF;
     width: 98%;
     margin-top: 20px;
-    padding: 5px;
+    padding: 3px;
     border-radius: 31px;
 }

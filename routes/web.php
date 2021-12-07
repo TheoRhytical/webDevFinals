@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('admin.dashboard');
+    return view('auth.login');
 });
 Route::view("home", 'user.home');
 Route::view("route", 'user.route');
@@ -48,3 +48,7 @@ Route::view("routes", 'admin.route');
 Route::view("scheds", 'admin.schedule');
 Route::view("bookings", 'admin.booking');
 Route::view("account", 'admin.account');
+
+Route::view("register", 'auth.register');
+Route::view("admin", 'auth.login-admin');
+Route::view("passenger", 'auth.login');
