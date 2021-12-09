@@ -34,4 +34,20 @@ class PagesController extends Controller
         $currUser = Auth::user(); 
         return view('user.cancel',['users' => $users]);
         }
+        
+    public function Home(){
+
+        $terminals = DB::table('terminal')
+        ->select('terminalID', 'Location Name')
+        ->get();
+
+        $scheds = DB::table('trip')
+        ->select('ETD', 'ETA')
+        ->groupby('ETD', 'ETA')
+        ->get();
+            
+            // var_dump($users);
+        $currUser = Auth::user();
+        return view('user.home',['terminals' => $terminals, 'scheds' => $scheds]);
+    }    
 }
