@@ -11,11 +11,15 @@
         <form>
             <div class="input">
                 <label>From:</label> &nbsp;&nbsp;
-                <input type="text" placeholder="Current Location"></input>
+                <select>
+                    <option>Current Location</option>
+                </select>
             </div>
             <div class="input">
                 <label>To:</label> &nbsp;&nbsp;
-                <input type="text" placeholder="Destination"></input>
+                <select>
+                    <option>Destination</option>
+                </select>
             </div>
             <div class="input">
                 <label>Time:</label> &nbsp;&nbsp;
