@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PagesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('auth.login');
 });
-Route::view("home", 'user.home');
+Route::get("home", [PagesController::class, "Home"]);
 Route::view("route", 'user.route');
 Route::view("sched", 'user.schedule');
 Route::view("ticket", 'user.ticket');

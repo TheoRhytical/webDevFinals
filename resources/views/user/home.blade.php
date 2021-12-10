@@ -12,19 +12,28 @@
             <div class="input">
                 <label>From:</label> &nbsp;&nbsp;
                 <select>
-                    <option>Current Location</option>
+                        <option>Current Location</option>
+                    @foreach($terminals as $term)
+                        <option><?php echo $term->{'Location Name'}?></option>
+                    @endforeach
                 </select>
             </div>
             <div class="input">
                 <label>To:</label> &nbsp;&nbsp;
                 <select>
-                    <option>Destination</option>
+                        <option>Destination</option>
+                    @foreach($terminals as $term)
+                        <option><?php echo $term->{'Location Name'}?></option>
+                    @endforeach
                 </select>
             </div>
             <div class="input">
                 <label>Time:</label> &nbsp;&nbsp;
                 <select>
-                    <option>Select Time</option>
+                        <option>Select Time</option>
+                    @foreach($scheds as $sched)
+                        <option>{{$sched->ETD}} - {{$sched->ETA}}</option>
+                    @endforeach
                 </select>
             </div>
         </form>
