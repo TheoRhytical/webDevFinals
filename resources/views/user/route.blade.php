@@ -36,10 +36,12 @@
         </div>
         <button class="btn more" style="float:right">more</button>
     </div>
+
     <?php
 
         // dd($route)
 
     ?>
+    
 </div>
 @endsection

@@ -34,6 +34,21 @@ class PagesController extends Controller
         $currUser = Auth::user(); 
         return view('user.cancel',['users' => $users]);
         }
+
+    // public function Admin(){
+
+    // $admin = DB::table('admin')
+    // ->select('email','username')
+    // ->where('status', 1)
+    // ->get();
+
+    // $adminUser = Auth::Admin(); 
+    // return view('admin.account',['admin' => $admin]);
+
+    // }
+
+
+
         
     public function Home(){
 
