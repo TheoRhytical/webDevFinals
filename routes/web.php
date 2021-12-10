@@ -18,14 +18,11 @@ Route::get('/', function () {
     return view('admin.route');
 });
 Route::get("home", [PagesController::class, "Home"]);
-<<<<<<< HEAD
 /*Route::view("route", 'user.route');*/
 Route::get("sched", [PagesController::class, "Schedule"]);
-=======
 Route::get("route", [PagesController::class, "AvailableRoutes"]);
 Route::get("cancel", [PagesController::class, "TicketDetails"]);
 Route::view("sched", 'user.schedule');
->>>>>>> 486283c91d19b5e093b5d8d55d9d0995724cad50
 Route::view("ticket", 'user.ticket');
 Route::view("book", 'user.book');
 //Route::view("cancel", 'user.cancel');
