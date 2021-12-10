@@ -149,4 +149,15 @@ class PagesController extends Controller
         if($trips != NULL) return view('user.search',['trips' => $trips]);
         else return redirect('/home');
     }
+    public function AdminSched(){
+        $vhires = DB::table('trip')
+        ->select('vhire.PlateNum', 'route.routeID', 'trip.ETD', 'trip.ETA', 'driver.Fname', 'driver.Lname', 'trip.Status', 'vhire.Capacity')
+        ->join('route', 'trip.routeID', '=', 'route.routeID')
+        ->join('vhire', 'trip.vehicleID', '=', 'vhire.vehicleID')
+        ->join('terminal', 'route.D_termID', '=', 'terminal.terminalID')
+        ->join('driver', 'vhire.driverID', '=', 'driver.driverID')
+        ->get();
+
+        return view('admin.schedule',['vhires' => $vhires]);
+    }
 }

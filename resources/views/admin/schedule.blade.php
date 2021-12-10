@@ -34,12 +34,19 @@
             <th style="border-radius: 0px;">STATUS</th>
             <th style="border-radius: 0px 12px 12px 0px;"></th>
         </tr>
+        @foreach($vhires as $vhire)
         <tr class="sc">
-            <td>1234</td>
-            <td>CEBU-CORDOVA</td>
-            <td>08:05-15:00</td>
-            <td>CRISPIN</td>
-            <td>OPEN <img src="{{url('images/active.png')}}" style="float: right;margin-right:20px"/></td>
+            <td>{{$vhire->PlateNum}}</td>
+            <td>{{$vhire->routeID}}</td>
+            <td>{{$vhire->ETA}}-{{$vhire->ETD}}</td>
+            <td>{{$vhire->Fname}} {{$vhire->Lname}}</td>
+            @if($vhire->Status == 'ACTIVE')
+                <td>ACTIVE <img src="{{url('images/active.png')}}" style="float: right;margin-right:20px"/></td>
+            @elseif($vhire->Status == 'ARRIVED')
+                <td>ARRIVED <img src="{{url('images/inactive.png')}}" style="float: right;margin-right:20px"/></td>
+            @else
+                <td>CLOSED <img src="{{url('images/cancelled.png')}}" style="float: right;margin-right:20px"/></td>
+            @endif
             <td>
                 <table>
                     <tr>
@@ -49,36 +56,7 @@
                 </table>
             </td>
         </tr>
-        <tr class="sc">
-            <td>1234</td>
-            <td>CEBU-CORDOVA</td>
-            <td>08:05-15:00</td>
-            <td>CRISPIN</td>
-            <td>CLOSED <img src="{{url('images/cancelled.png')}}" style="float: right;margin-right:20px"/></td>
-            <td>
-                <table>
-                    <tr>
-                        <td class="vhire" style="cursor: pointer;"><img src="{{url('images/edit.png')}}"/></td>
-                        <td class="del-scheds" style="cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <tr class="sc">
-            <td>1234</td>
-            <td>CEBU-CORDOVA</td>
-            <td>08:05-15:00</td>
-            <td>CRISPIN</td>
-            <td>ARRIVED <img src="{{url('images/inactive.png')}}" style="float: right;margin-right:20px"/></td>
-            <td>
-                <table>
-                    <tr>
-                        <td class="vhire" style="cursor: pointer;"><img src="{{url('images/edit.png')}}"/></td>
-                        <td class="del-scheds" style="cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
+        @endforeach
     </table></center>
     </div>
 </div>
@@ -144,6 +122,4 @@
     </div>
   </div>
 </div>
-
-
 @endsection

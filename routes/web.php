@@ -50,11 +50,11 @@ Route::get('/custom-login', function () {
     return view('login');
 });
 //Route::view("dashboard", 'admin.dashboard');
-Route::get("dashboard", [PagesController::class, "Dashboard"]);
-Route::view("routes", 'admin.route');
-Route::view("scheds", 'admin.schedule');
-Route::view("bookings", 'admin.booking');
-Route::view("account", 'admin.account');
+Route::get("/dashboard", [PagesController::class, "Dashboard"]);
+Route::view("/routes", 'admin.route');
+Route::get("/scheds", [PagesController::class, "AdminSched"]);
+Route::view("/bookings", 'admin.booking');
+Route::view("/account", 'admin.account');
 
 Route::view("register", 'user.signup');
 Route::view("admin", 'auth.login-admin');
