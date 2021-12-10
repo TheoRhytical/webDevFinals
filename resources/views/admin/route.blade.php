@@ -31,10 +31,10 @@
     <div class="subcontainer white-bg" style="background-color: #FFFFFF; padding:0px 0px 0px 0px; position:relative; top: 0px;border-radius:12px">
     <center><table class="table"  cellspacing="0" cellpadding="0" style="width:100%; margin:0%; border-collapse: separate;border-spacing: 3px 25px;">
         <tr class="row">
-            <td>CEBU-CORDOVA</td>
+            <td>{{$rname[0]->O_termID}}-{{$rname[0]->D_termID}}</td>
             <td>CEBU</td>
-            <td>CORDOVA</td>
-            <td>Php 100.00</td>
+            <td>{{$rname[0]->D_termID}}</td>
+            <td>{{$rname[0]->Fare}}</td>
             <td class="myBtn" style="width: 6%;cursor: pointer;"><img src="{{url('images/edit.png')}}"/></td>
             <td class="Btnd" style="width: 6%;cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
             <td style="width: 6%;cursor: pointer;"><img src="{{url('images/refresh.png')}}"/></td>
@@ -48,21 +48,29 @@
   <div class="modal-content">
     <span class="close">&times;</span>
     <div class="form">
-        <form>
-            <label for="rname">Route Name</label>
+        <form> 
+           
+            <label for="rname">Route name</label>
             <input type="text" id="rname"></input><br><br>
-            <label for="L1">Location 1</label>
+            <label for="L1">Terminal origin</label>
+            
+            
             <select>
-                <option>1</option>
+                @foreach ($rname as $indivroute)  
+                <option value="{{$indivroute->O_termID}}">{{$indivroute->O_termID}}</option>
+                @endforeach
             </select><br><br><br>
-            <label for="L2">Location 2</label>
+            <label for="L2">Terminal destination</label>
             <select>
-                <option>1</option>
+                @foreach ($rname as $indivroute)  
+                <option value="{{$indivroute->D_termID}}">{{$indivroute->D_termID}}</option>
+                @endforeach
+    
             </select><br><br><br>
             <label for="rname">Fare Price</label>
-            <input type="number" id="fare"></input><br>
+            <input value="100" id="fare"></input><br>
             <div class="confirm">
-                <button style="background-color: #27C124">SAVE</button>
+                <button style="background-color: #27C124" id="save">SAVE</button>
                 <button style="background-color: #FFA800; float:right;">CANCEL</button>
             </div>
         </form>
@@ -79,7 +87,7 @@
     <span class="close">&times;</span>
     <center><h2>ARE YOU SURE YOU WANT TO <br>DELETE SELECTED ROUTE?</h2></center>
     <div class="confirm" style="float: left;width:90%;margin-left:30px;">
-        <button style="background-color: #27C124">YES</button>
+        <button style="background-color: #27C124" id="condition">YES</button>
         <button style="background-color: #FFA800; float:right;">NO</button>
     </div>
   </div>

@@ -28,10 +28,10 @@ Route::view("cancel", 'user.cancel');
   //});
 
 
+//user logic
+require __DIR__.'/auth.php';//this part is really important this will aunthenticate user//
 
-require __DIR__.'/auth.php';
-
- Route::get('/TicketDetails',[PagesController::class,"TicketDetails"]);
+    Route::get('/TicketDetails',[PagesController::class,"TicketDetails"]);
 
     Route::get('/AvailableRoute',[PagesController::class,"AvailableRoutes"]);
 
@@ -45,8 +45,12 @@ require __DIR__.'/auth.php';
 Route::get('/custom-login', function () {
     return view('login');
 });
+
+//admin logic
+Route::get("/routes",[PagesController::class,"showterminal"]);
+
 Route::view("dashboard", 'admin.dashboard');
-Route::view("routes", 'admin.route');
+
 Route::view("scheds", 'admin.schedule');
 Route::view("bookings", 'admin.booking');
 Route::view("account", 'admin.account');

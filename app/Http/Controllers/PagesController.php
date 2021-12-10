@@ -11,7 +11,7 @@ class PagesController extends Controller
     public function AvailableRoutes(){
         // $currUser = Auth::user();
         $route = DB::table('route')
-        ->select ('O_termID', 'D_termID')
+        ->select ('O_termID', 'D_termID', 'Fare')
         ->get();
 
                 //to get the user has an ID property
@@ -47,9 +47,21 @@ class PagesController extends Controller
 
     // }
 
+    public function showterminal(){
+        // $currUser = Auth::user();
+        $rname = DB::table('route')
+        ->select ('O_termID', 'D_termID', 'Fare')
+        ->get();
 
-
+                //to get the user has an ID property
         
+        // var_dump($rname);
+        // return view('user.route',['route'=>$route]);
+        return view('admin.route',['rname'=>$rname]);
+        }    
+
+
+
     public function Home(){
 
         $terminals = DB::table('terminal')
