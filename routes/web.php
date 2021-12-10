@@ -15,7 +15,7 @@ use Routes\Auth;
 */
 
 Route::get('/', function () {
-    return redirect("/home");
+    return redirect("/passenger");
 });
 Route::get("/home", [PagesController::class, "Home"]);
 /*Route::view("route", 'user.route');*/
@@ -56,6 +56,6 @@ Route::get("/scheds", [PagesController::class, "AdminSched"]);
 Route::view("/bookings", 'admin.booking');
 Route::view("/account", 'admin.account');
 
-Route::view("register", 'user.signup');
-Route::view("admin", 'auth.login-admin');
-Route::view("passenger", 'auth.login');
+Route::view("/signup", 'auth.register');
+Route::view("/admin", 'auth.login-admin');
+Route::view("/passenger", 'auth.login');
