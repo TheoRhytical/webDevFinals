@@ -14,14 +14,15 @@ use App\Http\Controllers\PagesController;
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    return view('admin.route');
 });
 Route::get("home", [PagesController::class, "Home"]);
-Route::view("route", 'user.route');
+Route::get("route", [PagesController::class, "AvailableRoutes"]);
+Route::get("cancel", [PagesController::class, "TicketDetails"]);
 Route::view("sched", 'user.schedule');
 Route::view("ticket", 'user.ticket');
 Route::view("book", 'user.book');
-Route::view("cancel", 'user.cancel');
+//Route::view("cancel", 'user.cancel');
 
 //Route::middleware('auth')->group(function () {
     // Add your routes here like this
@@ -45,12 +46,13 @@ require __DIR__.'/auth.php';
 Route::get('/custom-login', function () {
     return view('login');
 });
-Route::view("dashboard", 'admin.dashboard');
+//Route::view("dashboard", 'admin.dashboard');
+Route::get("dashboard", [PagesController::class, "Dashboard"]);
 Route::view("routes", 'admin.route');
 Route::view("scheds", 'admin.schedule');
 Route::view("bookings", 'admin.booking');
 Route::view("account", 'admin.account');
 
-Route::view("register", 'auth.register');
+Route::view("register", 'user.signup');
 Route::view("admin", 'auth.login-admin');
 Route::view("passenger", 'auth.login');
