@@ -10,20 +10,30 @@ class PagesController extends Controller
 {
     public function AvailableRoutes(){
         // $currUser = Auth::user();
+        // $route = DB::table('route')
+        // ->select ('O_termID', 'D_termID')
+        // ->get();
+
+        $terminal = DB::table('terminal')
+        ->select('Location_Name', 'terminalID')
+        ->get();
+
         $route = DB::table('route')
-        ->select ('O_termID', 'D_termID')
+        ->select('routeID', 'O_termID', 'D_termID', 'terminal1.Location_Name AS origin', 'terminal2.Location_Name AS destination')
+        ->join('terminal AS terminal1', 'terminal1.terminalID', '=', 'route.O_termID')
+        ->join('terminal AS terminal2', 'terminal2.terminalID', '=', 'route.D_termID')
         ->get();
 
                 //to get the user has an ID property
         
-        return view('user.route',['route'=>$route]);
+        return view('user.route',['route'=>$route, 'terminal'=>$terminal]);
         //
         }
     
     public function TicketDetails(){
 
         $users = DB::table('vhire')
-        ->select('vhire.PlateNum','terminal.Location Name','trip.ETD','trip.ETA', 'orders.Quantity','route.Fare')
+        ->select('vhire.PlateNum','terminal.Location_Name','trip.ETD','trip.ETA', 'orders.Quantity','route.Fare')
         ->leftjoin('trip', 'trip.vehicleID', '=','vhire.vehicleID')
         ->leftjoin('route', 'trip.routeID', '=','route.routeID')
         ->leftjoin('terminal','route.O_termID', '=', 'terminal.terminalID')
@@ -53,7 +63,7 @@ class PagesController extends Controller
     public function Home(){
 
         $terminals = DB::table('terminal')
-        ->select('terminalID', 'Location Name')
+        ->select('terminalID', 'Location_Name')
         ->get();
 
         $scheds = DB::table('trip')
@@ -64,17 +74,21 @@ class PagesController extends Controller
             // var_dump($users);
         $currUser = Auth::user();
         return view('user.home',['terminals' => $terminals, 'scheds' => $scheds]);
-    } 
+    }    
 
-    public function Book($tripID){
-        $info = DB::table('trip')
-        ->select('trip.vehicleID', 'vhire.PlateNum', 'terminal.terminalID', 'terminal.Location Name', 'trip.ETD', 'trip.ETA', 'trip.routeID', 'route.Fare', 'trip.tripID')
-        ->leftjoin('route', 'trip.routeID', '=','route.routeID')
-        ->leftjoin('vhire', 'trip.vehicleID', '=','vhire.vehicleID')
-        ->leftjoin('terminal', 'route.O_termID', '=','terminal.terminalID')
-        ->where('tripID', $tripID)
+
+    public function Dashboard(){
+        $booking = DB::table('orders')
+        ->select('orders.orderID', 'orders.orderCreationDT', 'orders.tripID', 'customer.Fname', 'customer.Lname', 'orders.Status', 'terminal1.Location_Name AS origin', 'terminal2.Location_Name AS dest', 'trip.ETD', 'trip.ETA', 'vhire.vehicleID', 'vhire.PlateNum')
+        ->join('customer', 'orders.customerID', '=', 'customer.customerID')
+        ->join('trip', 'orders.tripID', '=', 'trip.tripID')
+        ->join('route', 'trip.routeID', '=', 'route.routeID')
+        ->join('terminal AS terminal1', 'route.O_termID', '=', 'terminal1.terminalID')
+        ->join('terminal AS terminal2', 'route.D_termID', '=', 'terminal2.terminalID')
+        ->join('vhire', 'trip.vehicleID', '=', 'vhire.vehicleID')
         ->get();
 
+<<<<<<< HEAD
         $currUser = Auth::user();
         return view('user.book',['info' => $info, 'currUser' => $currUser]);
     }
@@ -92,5 +106,24 @@ class PagesController extends Controller
 
         $currUser = Auth::user();
         return view('user.schedule',['trips' => $trips, 'terms' => $terms]);
+=======
+        $vhire = DB::table('trip')
+        ->select('vhire.vehicleID', 'vhire.PlateNum', 'trip.routeID', 'trip.tripID', 'driver.Fname', 'driver.Lname')
+        ->join('vhire', 'trip.vehicleID', '=', 'vhire.vehicleID')
+        ->join('driver', 'vhire.driverID', '=', 'driver.driverID')
+        ->get();
+
+        $revenue = DB::table('orders')
+        ->sum('AmountDue');
+
+        $total = DB::table('orders')
+        ->count();
+
+        $sold = DB::table('orders')
+        ->where('Status', '=', 'CONFIRMED')
+        ->count();
+
+        return view('admin.dashboard', ['booking' => $booking, 'vhire' => $vhire, 'revenue'=> $revenue, 'total'=> $total, 'sold'=> $sold]);
+>>>>>>> 486283c91d19b5e093b5d8d55d9d0995724cad50
     }
 }

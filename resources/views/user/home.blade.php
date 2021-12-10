@@ -14,7 +14,7 @@
                 <select>
                         <option>Current Location</option>
                     @foreach($terminals as $term)
-                        <option><?php echo $term->{'Location Name'}?></option>
+                        <option>{{$term->Location_Name}}</option>
                     @endforeach
                 </select>
             </div>
@@ -23,7 +23,7 @@
                 <select>
                         <option>Destination</option>
                     @foreach($terminals as $term)
-                        <option><?php echo $term->{'Location Name'}?></option>
+                        <option>{{$term->Location_Name}}</option>
                     @endforeach
                 </select>
             </div>
