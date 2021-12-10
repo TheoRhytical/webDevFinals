@@ -88,23 +88,6 @@ class PagesController extends Controller
         ->join('vhire', 'trip.vehicleID', '=', 'vhire.vehicleID')
         ->get();
 
-        $currUser = Auth::user();
-        return view('user.book',['info' => $info, 'currUser' => $currUser]);
-    }
-    public function Schedule(){
-        $trips = DB::table('trip')
-        ->select('*')
-        ->join('route', 'trip.routeID', '=', 'route.routeID')
-        ->join('vhire', 'trip.vehicleID', '=', 'vhire.vehicleID')
-        ->join('terminal', 'route.D_termID', '=', 'terminal.terminalID')
-        ->get();
-
-        $terms = DB::table('terminal')
-        ->select('terminalID', 'Location Name')
-        ->get();
-
-        $currUser = Auth::user();
-        return view('user.schedule',['trips' => $trips, 'terms' => $terms]);
         $vhire = DB::table('trip')
         ->select('vhire.vehicleID', 'vhire.PlateNum', 'trip.routeID', 'trip.tripID', 'driver.Fname', 'driver.Lname')
         ->join('vhire', 'trip.vehicleID', '=', 'vhire.vehicleID')
@@ -122,5 +105,21 @@ class PagesController extends Controller
         ->count();
 
         return view('admin.dashboard', ['booking' => $booking, 'vhire' => $vhire, 'revenue'=> $revenue, 'total'=> $total, 'sold'=> $sold]);
+    }
+    
+    public function Schedule(){
+        $trips = DB::table('trip')
+        ->select('*')
+        ->join('route', 'trip.routeID', '=', 'route.routeID')
+        ->join('vhire', 'trip.vehicleID', '=', 'vhire.vehicleID')
+        ->join('terminal', 'route.D_termID', '=', 'terminal.terminalID')
+        ->get();
+
+        $terms = DB::table('terminal')
+        ->select('terminalID', 'Location Name')
+        ->get();
+
+        $currUser = Auth::user();
+        return view('user.schedule',['trips' => $trips, 'terms' => $terms]);
     }
 }
