@@ -15,15 +15,30 @@
                     @foreach($trips as $trip)
                         @if($trip->O_termID == $term->terminalID)
                             <div class="scheds">
-                                <h3>Vhire {{$trip->vehicleID}} ({{$trip->PlateNum}})</h3>
-                                <p><?php echo $trip->{'Location_Name'} ?></p>
-                                <p>{{$trip->FreeSeats}}</p>
-                                <p>PHP {{$trip->Fare}}.00</p>
-                                <a href="/book/{{$trip->tripID}}"><button></button></a>
+                                <table class="line">
+                                    <tr>
+                                        <td  style="text-align: left;">
+                                            <h3 style="width:100%;">Vhire {{$trip->vehicleID}} ({{$trip->PlateNum}})</h3>
+                                        </td>
+                                        <td>
+                                            <p><?php echo $trip->{'Location_Name'} ?></p>
+                                        </td>
+                                        <td>
+                                            <p>{{$trip->FreeSeats}}</p>
+                                        </td>
+                                        <td>
+                                            <p>PHP {{$trip->Fare}}.00</p>
+                                        </td>
+                                        <td>
+                                            <a href="/book/{{$trip->tripID}}"><button></button></a>
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
                         @endif
                     @endforeach
                 </div>
+                <br>
             @endforeach
     </div>
 </div>

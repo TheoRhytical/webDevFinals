@@ -36,6 +36,9 @@
                     @endforeach
                 </select>
             </div>
+            <div class="input" style="margin-left:30px;width:90%">
+                <input type="submit" value="Search" style="background-color: #4C15E9;width:100%; color:white">
+            </div>
         </form>
     </div>
     <center><h1 style="background-color: transparent; color:#4C15E9;">WELCOME, JUAN DELA CRUZ!</h1></center>
