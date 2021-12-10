@@ -22,10 +22,15 @@ Route::view("ticket", 'user.ticket');
 Route::view("book", 'user.book');
 Route::view("cancel", 'user.cancel');
 
-Route::middleware('auth')->group(function () {
+//Route::middleware('auth')->group(function () {
     // Add your routes here like this
-  
-    Route::get('/TicketDetails',[PagesController::class,"TicketDetails"]);
+  //});
+
+
+
+require __DIR__.'/auth.php';
+
+ Route::get('/TicketDetails',[PagesController::class,"TicketDetails"]);
 
     Route::get('/AvailableRoute',[PagesController::class,"AvailableRoutes"]);
 
@@ -33,11 +38,7 @@ Route::middleware('auth')->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
-  });
 
-
-
-require __DIR__.'/auth.php';
 
 
 Route::get('/custom-login', function () {
