@@ -15,16 +15,16 @@ use Routes\Auth;
 */
 
 Route::get('/', function () {
-    return view('admin.route');
+    return redirect("/home");
 });
-Route::get("home", [PagesController::class, "Home"]);
+Route::get("/home", [PagesController::class, "Home"]);
 /*Route::view("route", 'user.route');*/
-Route::get("sched", [PagesController::class, "Schedule"]);
-Route::get("route", [PagesController::class, "AvailableRoutes"]);
-Route::get("cancel", [PagesController::class, "TicketDetails"]);
-Route::view("sched", 'user.schedule');
-Route::view("ticket", 'user.ticket');
-Route::view("book", 'user.book');
+Route::get("/sched", [PagesController::class, "Schedule"]);
+Route::get("/route", [PagesController::class, "AvailableRoutes"]);
+Route::get("/cancel", [PagesController::class, "TicketDetails"]);
+Route::view("/ticket", 'user.ticket');
+Route::get("/book/{tripID}", [PagesController::class, "Book"]);
+Route::get("/search/{routeID}", [PagesController::class, "Search"]);
 //Route::view("cancel", 'user.cancel');
 
 //Route::middleware('auth')->group(function () {

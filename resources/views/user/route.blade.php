@@ -17,7 +17,7 @@
         @foreach ($route as $indivroute)
             @if($indivterm->terminalID == $indivroute->O_termID)
                 <div class="routes" style="margin-right: 5px;">
-                    <h3><a href="book">{{$indivroute->origin}} - {{$indivroute->destination}}</a></h3>
+                    <h3><a href="search/{{$indivroute->routeID}}">{{$indivroute->origin}} - {{$indivroute->destination}}</a></h3>
                 </div>
             @endif
         @endforeach   

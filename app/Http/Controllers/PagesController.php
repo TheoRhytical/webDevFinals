@@ -106,7 +106,7 @@ class PagesController extends Controller
 
         return view('admin.dashboard', ['booking' => $booking, 'vhire' => $vhire, 'revenue'=> $revenue, 'total'=> $total, 'sold'=> $sold]);
     }
-    
+
     public function Schedule(){
         $trips = DB::table('trip')
         ->select('*')
@@ -116,10 +116,37 @@ class PagesController extends Controller
         ->get();
 
         $terms = DB::table('terminal')
-        ->select('terminalID', 'Location Name')
+        ->select('terminalID', 'Location_Name')
         ->get();
 
         $currUser = Auth::user();
         return view('user.schedule',['trips' => $trips, 'terms' => $terms]);
+    }
+    public function Book($tripID){
+        $info = DB::table('trip')
+        ->select('trip.vehicleID', 'vhire.PlateNum', 'terminal.terminalID', 'terminal.Location_Name', 'trip.ETD', 'trip.ETA', 'trip.routeID', 'route.Fare', 'trip.tripID')
+        ->leftjoin('route', 'trip.routeID', '=','route.routeID')
+        ->leftjoin('vhire', 'trip.vehicleID', '=','vhire.vehicleID')
+        ->leftjoin('terminal', 'route.O_termID', '=','terminal.terminalID')
+        ->where('tripID', $tripID)
+        ->get();
+
+        $currUser = Auth::user();
+        if($info != NULL) return view('user.book',['info' => $info, 'currUser' => $currUser]);
+        else return redirect('/home');
+    }
+    
+    public function Search($routeID){
+        $trips = DB::table('trip')
+        ->select('*')
+        ->join('route', 'trip.routeID', '=', 'route.routeID')
+        ->join('vhire', 'trip.vehicleID', '=', 'vhire.vehicleID')
+        ->join('terminal', 'route.D_termID', '=', 'terminal.terminalID')
+        ->where('trip.routeID', $routeID)
+        ->get();
+
+        $currUser = Auth::user();
+        if($trips != NULL) return view('user.search',['trips' => $trips]);
+        else return redirect('/home');
     }
 }

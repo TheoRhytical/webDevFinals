@@ -16,7 +16,7 @@
             <h4 class="left">Vhire No. (Code No.)</h4>
             <input type="text" className="right" placeholder="{{$info[0]->vehicleID}} / {{$info[0]->PlateNum}}" readOnly></input>
             <h4 class="left">Terminal</h4>
-            <input type="text" class="right" placeholder="{{$info[0]->terminalID}} / <?php echo $info[0]->{'Location Name'};?>" readOnly></input>
+            <input type="text" class="right" placeholder="{{$info[0]->terminalID}} / <?php echo $info[0]->{'Location_Name'};?>" readOnly></input>
             <h4 class="left">Time</h4>
             <input type="text" class="right" placeholder="{{$info[0]->ETD}} - {{$info[0]->ETA}}" readOnly></input>
             <h4 class="left">Quantity</h4>
