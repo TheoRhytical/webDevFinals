@@ -14,7 +14,7 @@
                 <select>
                         <option>Current Location</option>
                     @foreach($terminals as $term)
-                        <option><?php echo $term->{'Location Name'}?></option>
+                        <option>{{$term->Location_Name}}</option>
                     @endforeach
                 </select>
             </div>
@@ -23,7 +23,7 @@
                 <select>
                         <option>Destination</option>
                     @foreach($terminals as $term)
-                        <option><?php echo $term->{'Location Name'}?></option>
+                        <option>{{$term->Location_Name}}</option>
                     @endforeach
                 </select>
             </div>
@@ -35,6 +35,9 @@
                         <option>{{$sched->ETD}} - {{$sched->ETA}}</option>
                     @endforeach
                 </select>
+            </div>
+            <div class="input" style="margin-left:30px;width:90%">
+                <input type="submit" value="Search" style="background-color: #4C15E9;width:100%; color:white">
             </div>
         </form>
     </div>

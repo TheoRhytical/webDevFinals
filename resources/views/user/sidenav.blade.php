@@ -1,27 +1,27 @@
 <br><br>
 <ul class="sideNav">
-    <a href="home">
+    <a href="/home">
         <div class="list" id="home">
             <li class="icon one">
                 Home
             </li>
         </div>
     </a>
-    <a href="route">
+    <a href="/route">
         <div class="list" id="routes">
             <li class="icon two">
                 Routes
             </li>
         </div>
     </a>
-    <a href="sched">
+    <a href="/sched">
         <div class="list" id="sched">
             <li class="icon three">
                 Schedules
             </li>
         </div>
     </a>
-    <a href="ticket">
+    <a href="/ticket">
         <div class="list" id="tic">
             <li class="icon four">
                 Tickets

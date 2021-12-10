@@ -1,7 +1,7 @@
 <x-guest-layout>
     <section style="background-color: #4C15E9; padding: 45px; color: white; padding-top:5px">
         
-        <div class="cont">
+        <div class="cont" style="background-color: #006400;">
             <div style="overflow:auto; width:75%; position:relative; left:13%;">
                 <img src="{{url('images/trans_logo.png')}}" style="left: 50%;" class="logo"></img>
                 <center><h3 class="h">Book Now!</h3></center>

@@ -323,6 +323,10 @@ input:focus{
     float: right;
     cursor: pointer;
 }
+.line td{
+    text-align: center;
+    width: 23%;
+}
 .tick{
     background-color: #FFFFFF;
     padding-left: 20px;

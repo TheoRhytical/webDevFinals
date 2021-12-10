@@ -7,35 +7,24 @@
 </style>
 @section('content')
 <div class="container">
+    @foreach ($terminal as $indivterm)
     <div class="subcontainer">
         <div>
-            <h2>TERMINAL 1</h2>
-            <button class="btn"></button>
-        </div>
-
-        <div>
-            @foreach ($route as $indivroute)
-            <div class="routes">
-                <h3><a href="book">{{$indivroute->O_termID}} - {{$indivroute->D_termID}}</a></h3>
-            </div>
-            @endforeach
-        </div>
-        <button class="btn more" style="float:right">more</button>
-    </div>
-    <div class="subcontainer">
-        <div>
-            <h2>TERMINAL 2</h2>
+            <h2>{{$indivterm->Location_Name}}</h2>
             <button class="btn"></button>
         </div>
         <div>
         @foreach ($route as $indivroute)
-            <div class="routes">
-                <h3><a href="book">{{$indivroute->D_termID}} - {{$indivroute->O_termID}}</a></h3>
-            </div>
-            @endforeach
+            @if($indivterm->terminalID == $indivroute->O_termID)
+                <div class="routes" style="margin-right: 5px;">
+                    <h3><a href="search/{{$indivroute->routeID}}">{{$indivroute->origin}} - <br>{{$indivroute->destination}}</a></h3>
+                </div>
+            @endif
+        @endforeach   
         </div>
         <button class="btn more" style="float:right">more</button>
     </div>
+    @endforeach
 
     <?php
 

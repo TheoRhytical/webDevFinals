@@ -16,10 +16,10 @@
             <th>Tickets Sold</th>
             </tr>
             <tr>
-            <td class="up">4</td>
-            <td class="up">2</td>
-            <td class="up">P1987.00</td>
-            <td class="up">3</td>
+            <td class="up">{{$total}}</td>
+            <td class="up">{{$sold}}</td>
+            <td class="up">P{{$revenue}}.00</td>
+            <td class="up">{{$sold}}</td>
             </tr>
         </table>
     </div>
@@ -29,70 +29,56 @@
     </div>
     <div class="subcontainer white-bg" id="bookings">
         <h1 style="text-align: center; background-color:white; color:#250B71;font: weight 800px;">RECENT BOOKINGS</h1>
-        <div class="routes a-route">
-            <p class="small">Order ID</p> <br>
-            <p>Time and Date</p> <br>
-            <p class="big">Juan Dela Cruz</p> <br>
-            <p class="status" style="color: white;">Status: Confirmed</p> <br>
-            <p style="font-weight: 800;">FROM Cebu TO Lapu-Lapu City</p> <br>
-            <p>Mandaue City, Cebu at 08-26-2021</p> <br>
-            <p>VHire Code #1</p> <br>
+        @foreach($booking as $book)
+        <div class="routes a-route" style="margin-right: 5px;">
+            <p class="small">{{$book->orderID}}</p> <br>
+            <p>{{$book->orderCreationDT}}</p> <br>
+            <p class="big">{{$book->Fname}} {{$book->Lname}}</p> <br>
+            @if($book->Status=="PENDING")
+                <p class="status" style="color: white; background-color: #FFA800">Status: {{$book->Status}}</p> <br>
+            @elseif($book->Status=="CANCELLED")
+                <p class="status" style="color: white; background-color: #C12424">Status: {{$book->Status}}</p> <br>
+            @else
+                <p class="status" style="color: white;">Status: {{$book->Status}}</p> <br>
+            @endif
+            <p style="font-weight: 800;">FROM {{$book->origin}} TO {{$book->dest}}</p> <br>
+            <p>{{$book->ETD}} - {{$book->ETA}}</p> <br>
+            <p>Plate Number {{$book->PlateNum}}</p> <br>
         </div>
-        <div class="routes a-route" style="float:right">
-            <p class="small">Order ID</p> <br>
-            <p>Time and Date</p> <br>
-            <p class="big">Aling Marites</p> <br>
-            <p class="status" style="color: white; background-color:#FFA800;">Status: Pending</p> <br>
-            <p style="font-weight: 800;">FROM Cebu TO Lapu-Lapu City</p> <br>
-            <p>Mandaue City, Cebu at 08-26-2021</p> <br>
-            <p>VHire Code #1</p> <br>
-        </div>
-        <div class="routes a-route">
-            <p class="small">Order ID</p> <br>
-            <p>Time and Date</p> <br>
-            <p class="big">Aling Marites</p> <br>
-            <p class="status" style="color: white; background-color:#FFA800;">Status: Pending</p> <br>
-            <p style="font-weight: 800;">FROM Cebu TO Lapu-Lapu City</p> <br>
-            <p>Mandaue City, Cebu at 08-26-2021</p> <br>
-            <p>VHire Code #1</p> <br>
-        </div>
-        <div class="routes a-route" style="float:right">
-            <p class="small">Order ID</p> <br>
-            <p>Time and Date</p> <br>
-            <p class="big">Juan Dela Cruz</p> <br>
-            <p class="status" style="color: white;">Status: Confirmed</p> <br>
-            <p style="font-weight: 800;">FROM Cebu TO Lapu-Lapu City</p> <br>
-            <p>Mandaue City, Cebu at 08-26-2021</p> <br>
-            <p>VHire Code #1</p> <br>
-        </div>
+        @endforeach
     </div>
     <div class="subcontainer white-bg" id="departures" style="display: none;">
         <h1 style="text-align: center; background-color:white; color:#250B71;font: weight 800px;">VHIRE DEPARTURES</h1>
         <table class="departure" cellspacing="0" cellpadding="0">
             <tr>
                 <th>Vhire #</th>
-                <th>Vhire Code</th>
+                <th>Plate Number</th>
                 <th>Destination</th>
-                <th>Date</th>
+                <th>Driver</th>
                 <th>Total Bookings</th>
                 <th>Tickets Sold</th>
             </tr>
+            @foreach($vhire as $vehicle)
             <tr>
-                <td>VHIRE 1</td>
-                <td>1421</td>
-                <td>LILOAN - CONSOLACION</td>
-                <td>11-23-21</td>
-                <td>0</td>
-                <td>0</td>
+                <td>VHIRE {{$vehicle->vehicleID}}</td>
+                <td>{{$vehicle->PlateNum}}</td>
+                <td>{{$vehicle->routeID}}</td>
+                <td>{{$vehicle->Fname}} {{$vehicle->Lname}}</td>
+                <td>{{DB::table('orders')
+                    ->join('trip', 'trip.tripID', '=', 'orders.tripID')
+                    ->join('vhire', 'trip.vehicleID', '=', 'vhire.vehicleID')
+                    ->where('vhire.vehicleID', '=', $vehicle->vehicleID)
+                    ->count()}}
+                </td>
+                <td>{{DB::table('orders')
+                    ->join('trip', 'trip.tripID', '=', 'orders.tripID')
+                    ->join('vhire', 'trip.vehicleID', '=', 'vhire.vehicleID')
+                    ->where('vhire.vehicleID', '=', $vehicle->vehicleID)
+                    ->where('orders.Status', '=', 'CONFIRMED')
+                    ->count()}}
+                </td>
             </tr>
-            <tr>
-                <td>VHIRE 2</td>
-                <td>1422</td>
-                <td>CEBU - LAPU-LAPU</td>
-                <td>11-30-21</td>
-                <td>6</td>
-                <td>2</td>
-            </tr>
+            @endforeach
         </table>
     </div>
 </div>
