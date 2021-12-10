@@ -10,7 +10,7 @@
     <div class="schedule">
         <h3 style="display:inline-block; text-align: center;">{{$info[0]->routeID}}</h3>
         <h3 style="float:right; width:15%; text-align:center; background-color:#AFBBFC; cursor:pointer">
-            <a href="sched" style="color:#FFFFFF">Back</a>
+            <a href="{{ url()->previous() }}" style="color:#FFFFFF">Back</a>
         </h3>
         <div class="subcontainer" style="margin:0px; padding:20px; display: block; text-align: center">
             <h4 class="left">Vhire No. (Code No.)</h4>

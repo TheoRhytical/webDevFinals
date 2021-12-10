@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PagesController;
+use Routes\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,7 +19,7 @@ Route::get('/', function () {
 });
 Route::get("home", [PagesController::class, "Home"]);
 /*Route::view("route", 'user.route');*/
-Route::view("sched", 'user.schedule');
+Route::get("sched", [PagesController::class, "Schedule"]);
 Route::view("ticket", 'user.ticket');
 Route::get("book/{tripID}", [PagesController::class, "Book"]);
 /*Route::view("cancel", 'user.cancel');*/

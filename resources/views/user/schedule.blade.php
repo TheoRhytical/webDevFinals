@@ -8,38 +8,23 @@
 @section('content')
 <div class="container">
     <div class="schedule">
-        <h2>Schedule 1</h2>
-        <h3>Origin 1 to Destination 1</h3>
-        <div class="subcontainer" style="margin:0px; padding:20px">
-            <div class="scheds">
-                <h3>Vhire 1 (Code No.)</h3>
-                <p>terminal</p>
-                <p>no. of available seats</p>
-                <p>fare price</p>
-                <a href="book"><button></button></a>
-            </div>
-            <div class="scheds">
-                <h3>Vhire 2 (Code No.)</h3>
-                <p>terminal</p>
-                <p>no. of available seats</p>
-                <p>fare price</p>
-                <a href="book"><button></button></a>
-            </div>
-            <div class="scheds">
-                <h3>Vhire 3 (Code No.)</h3>
-                <p>terminal</p>
-                <p>no. of available seats</p>
-                <p>fare price</p>
-                <a href="book"><button></button></a>
-            </div>
-            <div class="scheds">
-                <h3>Vhire 4 (Code No.)</h3>
-                <p>terminal</p>
-                <p>no. of available seats</p>
-                <p>fare price</p>
-                <a href="book"><button></button></a>
-            </div>
-        </div>
+        <h2>{{ date('F d, Y') }}</h2>
+            @foreach($terms as $term)
+            <h3 style="text-align: center;"><?php echo $term->{'Location Name'} ?></h3>
+                <div class="subcontainer" style="margin:0px; padding:20px">
+                    @foreach($trips as $trip)
+                        @if($trip->O_termID == $term->terminalID)
+                            <div class="scheds">
+                                <h3>Vhire {{$trip->vehicleID}} ({{$trip->PlateNum}})</h3>
+                                <p><?php echo $trip->{'Location Name'} ?></p>
+                                <p>{{$trip->FreeSeats}}</p>
+                                <p>PHP {{$trip->Fare}}.00</p>
+                                <a href="book/{{$trip->tripID}}"><button></button></a>
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
+            @endforeach
     </div>
 </div>
 @endsection
