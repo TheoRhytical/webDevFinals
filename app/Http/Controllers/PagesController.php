@@ -49,5 +49,18 @@ class PagesController extends Controller
             // var_dump($users);
         $currUser = Auth::user();
         return view('user.home',['terminals' => $terminals, 'scheds' => $scheds]);
-    }    
+    } 
+
+    public function Book($tripID){
+        $info = DB::table('trip')
+        ->select('trip.vehicleID', 'vhire.PlateNum', 'terminal.terminalID', 'terminal.Location Name', 'trip.ETD', 'trip.ETA', 'trip.routeID', 'route.Fare', 'trip.tripID')
+        ->leftjoin('route', 'trip.routeID', '=','route.routeID')
+        ->leftjoin('vhire', 'trip.vehicleID', '=','vhire.vehicleID')
+        ->leftjoin('terminal', 'route.O_termID', '=','terminal.terminalID')
+        ->where('tripID', $tripID)
+        ->get();
+
+        $currUser = Auth::user();
+        return view('user.book',['info' => $info, 'currUser' => $currUser]);
+    }  
 }

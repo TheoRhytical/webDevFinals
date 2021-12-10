@@ -17,11 +17,11 @@ Route::get('/', function () {
     return view('auth.login');
 });
 Route::get("home", [PagesController::class, "Home"]);
-Route::view("route", 'user.route');
+/*Route::view("route", 'user.route');*/
 Route::view("sched", 'user.schedule');
 Route::view("ticket", 'user.ticket');
-Route::view("book", 'user.book');
-Route::view("cancel", 'user.cancel');
+Route::get("book/{tripID}", [PagesController::class, "Book"]);
+/*Route::view("cancel", 'user.cancel');*/
 
 Route::middleware('auth')->group(function () {
     // Add your routes here like this
