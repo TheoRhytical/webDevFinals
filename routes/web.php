@@ -48,15 +48,18 @@ Route::get('/custom-login', function () {
 });
 
 //admin logic
-Route::get("/routes",[PagesController::class,"showterminal"]);
 
+
+Route::get("/routes",[PagesController::class,"showterminal"]);
+Route::resource('route', RouterController::class);
+// Route::post("/routes",[PagesController::class,"condition"])->name('add.routes');;
 Route::view("dashboard", 'admin.dashboard');
 
 Route::view("scheds", 'admin.schedule');
 Route::view("bookings", 'admin.booking');
 Route::view("account", 'admin.account');
 
-Route::view("register", 'auth.register');
+// Route::view("register", 'auth.register');
 Route::view("admin", 'auth.login-admin');
 Route::view("passenger", 'auth.login');
 //Route::view("dashboard", 'admin.dashboard');
