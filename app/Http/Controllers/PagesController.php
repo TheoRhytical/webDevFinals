@@ -57,6 +57,7 @@ class PagesController extends Controller
     // return view('admin.account',['admin' => $admin]);
 
     // }
+    // Public function delete()
 
     public function showterminal(){
         // $currUser = Auth::user();
@@ -71,6 +72,11 @@ class PagesController extends Controller
         return view('admin.route',['rname'=>$rname]);
         }    
 
+    public function condition(Request $request){
+
+        var_dump($request);
+        
+    }
 
 
     public function Home(){

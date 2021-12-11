@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PagesController;
-use Routes\Auth;
+// use Routes\Auth;
+// use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,9 +28,9 @@ Route::get("/book/{tripID}", [PagesController::class, "Book"]);
 Route::get("/search/{routeID}", [PagesController::class, "Search"]);
 //Route::view("cancel", 'user.cancel');
 
-//Route::middleware('auth')->group(function () {
+Route::middleware('auth')->group(function () {
     // Add your routes here like this
-  //});
+  });
 
 
 //user logic
@@ -51,24 +52,19 @@ Route::get('/custom-login', function () {
 });
 
 //admin logic
-Route::get("/routes",[PagesController::class,"showterminal"]);
 
+
+Route::get("/routes",[PagesController::class,"showterminal"]);
+Route::resource('route', RouterController::class);
+// Route::post("/routes",[PagesController::class,"condition"])->name('add.routes');;
 Route::view("dashboard", 'admin.dashboard');
 
 Route::view("scheds", 'admin.schedule');
 Route::view("bookings", 'admin.booking');
 Route::view("account", 'admin.account');
 
-Route::view("register", 'auth.register');
+// Route::view("register", 'auth.register');
 Route::view("admin", 'auth.login-admin');
 Route::view("passenger", 'auth.login');
-//Route::view("dashboard", 'admin.dashboard');
-Route::get("/dashboard", [PagesController::class, "Dashboard"]);
-Route::view("/routes", 'admin.route');
-Route::get("/scheds", [PagesController::class, "AdminSched"]);
-Route::view("/bookings", 'admin.booking');
-Route::view("/account", 'admin.account');
 
-Route::view("/signup", 'auth.register');
-Route::view("/admin", 'auth.login-admin');
-Route::view("/passenger", 'auth.login');
+

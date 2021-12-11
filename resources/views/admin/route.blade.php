@@ -32,7 +32,7 @@
     <center><table class="table"  cellspacing="0" cellpadding="0" style="width:100%; margin:0%; border-collapse: separate;border-spacing: 3px 25px;">
         <tr class="row">
             <td>{{$rname[0]->O_termID}}-{{$rname[0]->D_termID}}</td>
-            <td>CEBU</td>
+            <td>{{$rname[0]->O_termID}}</td>
             <td>{{$rname[0]->D_termID}}</td>
             <td>{{$rname[0]->Fare}}</td>
             <td class="myBtn" style="width: 6%;cursor: pointer;"><img src="{{url('images/edit.png')}}"/></td>
@@ -48,29 +48,33 @@
   <div class="modal-content">
     <span class="close">&times;</span>
     <div class="form">
-        <form> 
-           
+        <form method="POST" action="{{route('add.routes')}}"> 
+           @csrf
             <label for="rname">Route name</label>
             <input type="text" id="rname"></input><br><br>
             <label for="L1">Terminal origin</label>
             
             
-            <select>
+            <select id="T1">
                 @foreach ($rname as $indivroute)  
                 <option value="{{$indivroute->O_termID}}">{{$indivroute->O_termID}}</option>
                 @endforeach
             </select><br><br><br>
             <label for="L2">Terminal destination</label>
-            <select>
+            <select id="T2">
                 @foreach ($rname as $indivroute)  
                 <option value="{{$indivroute->D_termID}}">{{$indivroute->D_termID}}</option>
                 @endforeach
     
             </select><br><br><br>
             <label for="rname">Fare Price</label>
-            <input value="100" id="fare"></input><br>
+            <input id="fare"></input><br>
+
+            <label for="rname">Travel Time</label>
+            <input id="TT"></input><br>
+
             <div class="confirm">
-                <button style="background-color: #27C124" id="save">SAVE</button>
+                <button style="background-color: #27C124" id="save"  type="submit">SAVE</button>
                 <button style="background-color: #FFA800; float:right;">CANCEL</button>
             </div>
         </form>
