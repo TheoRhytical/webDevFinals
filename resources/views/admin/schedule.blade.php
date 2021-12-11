@@ -38,10 +38,10 @@
         <tr class="sc">
             <td>{{$vhire->PlateNum}}</td>
             <td>{{$vhire->routeID}}</td>
-            <td>{{$vhire->ETA}}-{{$vhire->ETD}}</td>
+            <td>{{substr($vhire->ETA,0,-3)}}-{{substr($vhire->ETD,0,-3)}}</td>
             <td>{{$vhire->Fname}} {{$vhire->Lname}}</td>
             @if($vhire->Status == 'ACTIVE')
-                <td>ACTIVE <img src="{{url('images/active.png')}}" style="float: right;margin-right:20px"/></td>
+                <td>OPEN <img src="{{url('images/active.png')}}" style="float: right;margin-right:20px"/></td>
             @elseif($vhire->Status == 'ARRIVED')
                 <td>ARRIVED <img src="{{url('images/inactive.png')}}" style="float: right;margin-right:20px"/></td>
             @else

@@ -18,20 +18,20 @@ class PagesController extends Controller
         ->select('Location_Name', 'terminalID')
         ->get();
 
-        $route = DB::table('route')
+        $route = DB::table('trip')
         ->select ('O_termID', 'D_termID', 'Fare')
-        ->select('routeID', 'O_termID', 'D_termID', 'terminal1.Location_Name AS origin', 'terminal2.Location_Name AS destination')
+        ->select('route.routeID', 'O_termID', 'D_termID', 'terminal1.Location_Name AS origin', 'terminal2.Location_Name AS destination')
+        ->join('route', 'trip.routeID', '=', 'route.routeID')
         ->join('terminal AS terminal1', 'terminal1.terminalID', '=', 'route.O_termID')
         ->join('terminal AS terminal2', 'terminal2.terminalID', '=', 'route.D_termID')
         ->get();
-
-                //to get the user has an ID property
         
         return view('user.route',['route'=>$route, 'terminal'=>$terminal]);
         //
         }
     
-    public function TicketDetails(){
+    public function TicketDetails(Request $request){
+
 
         $users = DB::table('vhire')
         ->select('vhire.PlateNum','terminal.Location_Name','trip.ETD','trip.ETA', 'orders.Quantity','route.Fare')
@@ -39,12 +39,13 @@ class PagesController extends Controller
         ->leftjoin('route', 'trip.routeID', '=','route.routeID')
         ->leftjoin('terminal','route.O_termID', '=', 'terminal.terminalID')
         ->leftjoin('orders', 'orders.orderID', '=','trip.tripID')
+        ->where('orders.orderID', $request->input('orderID'))
         ->get();
         
             // var_dump($users);
         $currUser = Auth::user(); 
         return view('user.cancel',['users' => $users]);
-        }
+    }
 
     // public function Admin(){
 
@@ -141,8 +142,9 @@ class PagesController extends Controller
         $currUser = Auth::user();
         return view('user.schedule',['trips' => $trips, 'terms' => $terms]);
     }
-    public function Book($tripID){
-        $info = DB::table('trip')
+    public function Book(Request $request){
+        $tripID = $request->input('tripID');
+        $infos = DB::table('trip')
         ->select('trip.vehicleID', 'vhire.PlateNum', 'terminal.terminalID', 'terminal.Location_Name', 'trip.ETD', 'trip.ETA', 'trip.routeID', 'route.Fare', 'trip.tripID')
         ->leftjoin('route', 'trip.routeID', '=','route.routeID')
         ->leftjoin('vhire', 'trip.vehicleID', '=','vhire.vehicleID')
@@ -151,11 +153,13 @@ class PagesController extends Controller
         ->get();
 
         $currUser = Auth::user();
-        if($info != NULL) return view('user.book',['info' => $info, 'currUser' => $currUser]);
-        else return redirect('/home');
+
+        return view('user.book',['infos' => $infos, 'currUser' => $currUser]);
     }
     
-    public function Search($routeID){
+    public function Search(Request $request){
+        $routeID = $request->input('routeID');
+
         $trips = DB::table('trip')
         ->select('*')
         ->join('route', 'trip.routeID', '=', 'route.routeID')
@@ -168,6 +172,7 @@ class PagesController extends Controller
         if($trips != NULL) return view('user.search',['trips' => $trips]);
         else return redirect('/home');
     }
+
     public function AdminSched(){
         $vhires = DB::table('trip')
         ->select('vhire.PlateNum', 'route.routeID', 'trip.ETD', 'trip.ETA', 'driver.Fname', 'driver.Lname', 'trip.Status', 'vhire.Capacity')
@@ -178,5 +183,58 @@ class PagesController extends Controller
         ->get();
 
         return view('admin.schedule',['vhires' => $vhires]);
+    }
+
+    public function AdminBooking(){
+        $book = DB::table('orders')
+        ->select('customer.Fname', 'customer.Lname', 'orders.orderCreationDT', 'trip.routeID', 'orders.Status')
+        ->join('customer', 'customer.customerID', '=', 'orders.customerID')
+        ->join('trip', 'trip.tripID', '=', 'orders.tripID')
+        ->get();
+
+        $confirmed = DB::table('orders')
+        ->select('customer.Fname', 'customer.Lname', 'orders.orderCreationDT', 'trip.routeID', 'orders.Status')
+        ->join('customer', 'customer.customerID', '=', 'orders.customerID')
+        ->join('trip', 'trip.tripID', '=', 'orders.tripID')
+        ->where('orders.Status', '=', 'CONFIRMED')
+        ->get();
+
+        $pending = DB::table('orders')
+        ->select('customer.Fname', 'customer.Lname', 'orders.orderCreationDT', 'trip.routeID', 'orders.Status')
+        ->join('customer', 'customer.customerID', '=', 'orders.customerID')
+        ->join('trip', 'trip.tripID', '=', 'orders.tripID')
+        ->where('orders.Status', '=', 'PENDING')
+        ->get();
+
+        $cancelled = DB::table('orders')
+        ->select('customer.Fname', 'customer.Lname', 'orders.orderCreationDT', 'trip.routeID', 'orders.Status')
+        ->join('customer', 'customer.customerID', '=', 'orders.customerID')
+        ->join('trip', 'trip.tripID', '=', 'orders.tripID')
+        ->where('orders.Status', '=', 'CANCELLED')
+        ->get();
+        return view('admin.booking', ['book' => $book, 'confirmed' => $confirmed, 'pending' => $pending, 'cancelled' => $cancelled]);
+    }
+    public function Ticket(){
+        $currUser = Auth::user();
+
+        $orders = DB::table('orders')
+        ->select(
+            'O_term.Location_Name as O_Loc', 
+            'D_term.Location_Name as D_Loc',
+            'trip.ETD',
+            'trip.ETA',
+            'orders.Date',
+            'orders.Quantity',
+            'route.Fare',
+            'orders.orderID'
+            )
+        ->join ('trip', 'orders.tripID', '=', 'trip.tripID')
+        ->join('route', 'trip.routeID', '=', 'route.routeID')
+        ->join('terminal as O_term', 'route.O_termID', '=', 'O_term.terminalID')
+        ->join('terminal as D_term', 'route.D_termID', '=', 'D_term.terminalID')
+        ->where('customerID', $currUser->customerID)
+        ->get();
+
+        return view('user.ticket',['orders' => $orders]);
     }
 }

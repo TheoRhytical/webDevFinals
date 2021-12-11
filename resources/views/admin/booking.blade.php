@@ -15,10 +15,10 @@
             ADD BOOKING
         </div>
         <div class="mini-btn red" style="width:70%">
-            <button style="background-color: #4C15E9;">ALL</button>
-            <button>CONFIRMED</button>
-            <button>PENDING</button>
-            <button>CANCELLED</button>
+            <button style="background-color: #4C15E9;" id="bookALL">ALL</button>
+            <button id="bookCON">CONFIRMED</button>
+            <button id="bookPEN">PENDING</button>
+            <button id="bookCAN">CANCELLED</button>
         </div>
     </div>
     <center><table class="table new black"  cellspacing="0" cellpadding="0" style="margin:0%; border-collapse: separate;border-spacing: 0px 25px;">
@@ -29,48 +29,81 @@
             <th>STATUS</th>
             <th style="border-radius: 0px 12px 12px 0px;"></th>
         </tr>
-        <tr class="sc">
-            <td>Juan Dela Cruz</td>
-            <td>08-15-21<br> 15:00 - 19:20</td>
-            <td>CEBU-CORDOVA</td>
-            <td>CONFIRMED <img src="{{url('images/active.png')}}" style="float: right;margin-right:20px"/></td>
-            <td>
-                <table>
-                    <tr>
-                        <td class="vhire" style="cursor: pointer;"><img src="{{url('images/edit.png')}}"/></td>
-                        <td class="del-scheds" style="cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <tr class="sc">
-            <td>Juan Dela Cruz</td>
-            <td>08-15-21<br> 15:00 - 19:20</td>
-            <td>CEBU-CORDOVA</td>
-            <td>PENDING <img src="{{url('images/inactive.png')}}" style="float: right;margin-right:20px"/></td>
-            <td>
-                <table>
-                    <tr>
-                        <td class="vhire" style="cursor: pointer;"><img src="{{url('images/edit.png')}}"/></td>
-                        <td class="del-scheds" style="cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <tr class="sc">
-            <td>Juan Dela Cruz</td>
-            <td>08-15-21<br> 15:00 - 19:20</td>
-            <td>CEBU-CORDOVA</td>
-            <td>CANCELLED <img src="{{url('images/cancelled.png')}}" style="float: right;margin-right:20px"/></td>
-            <td>
-                <table>
-                    <tr>
-                        <td class="vhire" style="cursor: pointer;"><img src="{{url('images/edit.png')}}"/></td>
-                        <td class="del-scheds" style="cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
+            @foreach($book as $booking)
+            <tr class="sc bookAll">
+                <td>{{$booking->Fname}} {{$booking->Lname}}</td>
+                <td>{{$booking->orderCreationDT}}</td>
+                <td>{{$booking->routeID}}</td>
+                @if($booking->Status == 'CONFIRMED')
+                    <td>{{$booking->Status}} <img src="{{url('images/active.png')}}" style="float: right;margin-right:20px"/></td>
+                @elseif($booking->Status == 'PENDING')
+                    <td>{{$booking->Status}} <img src="{{url('images/inactive.png')}}" style="float: right;margin-right:20px"/></td>
+                @else
+                    <td>{{$booking->Status}} <img src="{{url('images/cancelled.png')}}" style="float: right;margin-right:20px"/></td>
+                @endif
+                <td>
+                    <table>
+                        <tr>
+                            <td class="vhire" style="cursor: pointer;"><img src="{{url('images/edit.png')}}"/></td>
+                            <td class="del-scheds" style="cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            @endforeach
+
+
+            @foreach($confirmed as $confirm)
+            <tr class="sc bookConfirmed" style="display: none;">
+                <td>{{$confirm->Fname}} {{$confirm->Lname}}</td>
+                <td>{{$confirm->orderCreationDT}}</td>
+                <td>{{$confirm->routeID}}</td>
+                <td>{{$confirm->Status}} <img src="{{url('images/active.png')}}" style="float: right;margin-right:20px"/></td>
+                <td>
+                    <table>
+                        <tr>
+                            <td class="vhire" style="cursor: pointer;"><img src="{{url('images/edit.png')}}"/></td>
+                            <td class="del-scheds" style="cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            @endforeach
+
+            @foreach($pending as $pend)
+            <tr class="sc bookPending" style="display: none;">
+                <td>{{$pend->Fname}} {{$pend->Lname}}</td>
+                <td>{{$pend->orderCreationDT}}</td>
+                <td>{{$pend->routeID}}</td>
+                <td>{{$pend->Status}} <img src="{{url('images/inactive.png')}}" style="float: right;margin-right:20px"/></td>
+                <td>
+                    <table>
+                        <tr>
+                            <td class="vhire" style="cursor: pointer;"><img src="{{url('images/edit.png')}}"/></td>
+                            <td class="del-scheds" style="cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            @endforeach
+
+            @foreach($cancelled as $cancel)
+            <tr class="sc bookCancel" style="display: none;">
+                <td>{{$cancel->Fname}} {{$cancel->Lname}}</td>
+                <td>{{$cancel->orderCreationDT}}</td>
+                <td>{{$cancel->routeID}}</td>
+                <td>{{$cancel->Status}} <img src="{{url('images/cancelled.png')}}" style="float: right;margin-right:20px"/></td>
+                <td>
+                    <table>
+                        <tr>
+                            <td class="vhire" style="cursor: pointer;"><img src="{{url('images/edit.png')}}"/></td>
+                            <td class="del-scheds" style="cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            @endforeach
+
     </table></center>
     </div>
     <img src="{{url('images/booking-img.png')}}" style="position: relative; left:6%"/>
@@ -83,12 +116,14 @@
   <div class="modal-content dark" style="height: 450px;">
     <span class="close">&times;</span>
     <div class="vhire-form" id="modal-book">
-        <form autocomplete="off">
+        <form>
             <div class="form-left">
                 <label>DATE</label><br>
                 <input type="date"/><br><br>
                 <label>PASSENGER</label><br>
-                <input type="text">  <!--autocomplete search bar-->
+                <select>
+                    <option>1</option>
+                </select>
             </div>
             <div class="form-right">
                 <label>TRIP</label><br>
@@ -125,6 +160,4 @@
     </div>
   </div>
 </div>
-
-
 @endsection

@@ -16,7 +16,7 @@
                 </tr>
                 <tr>
                     <td style="color:#4C15E9; font-weight:bold">Terminal</td>`
-                    <td><?php echo $users[1]->{'Location Name'}?></td>
+                    <td><?php echo $users[1]->{'Location_Name'}?></td>
                     
                 </tr>
                 <tr>

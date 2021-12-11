@@ -32,7 +32,7 @@
                 <select>
                         <option>Select Time</option>
                     @foreach($scheds as $sched)
-                        <option>{{$sched->ETD}} - {{$sched->ETA}}</option>
+                        <option>{{substr($sched->ETD,0,-3)}} - {{substr($sched->ETA,0,-3)}}</option>
                     @endforeach
                 </select>
             </div>
