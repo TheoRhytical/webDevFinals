@@ -4,37 +4,37 @@
     #tic{
         background-color: #EFF2FF;
     }
+    button{
+        all:initial;
+        width: 100%;
+    }
 </style>
 @section('content')
 <div class="container">
     <div class="subcontainer" style="padding:20px">
         <h3 class="history">Ticket History</h3>
-        <a href="cancel">
+        <form action="/TicketDetails" method="POST">
+        @csrf
+        @foreach($orders as $order)
+        <button type="submit" value="{{$order->orderID}}">
             <div class="tick">
-                <h3>Origin - Destination</h3>
-                <p style="float:right; padding-right:25px; padding-top:5px"><b style="color:#4C15E9">Php 100</b></p><br>
+                <h3>{{$order->O_Loc}} - {{$order->D_Loc}}</h3>
+                <p style="float:right; padding-right:25px; padding-top:5px"><b style="color:#4C15E9">PHP {{$order->Fare}}.00</b></p><br>
                 <p>Schedule Time</p>
-                <p>&nbsp; - &nbsp;</p>
+                <p>{{substr($order->ETD,0,-3)}}-{{substr($order->ETA,0,-3)}}</p>
                 <p>Schedule Date</p>
-                <p>&nbsp; - &nbsp;</p>
+                <p>{{date('F d, Y', strtotime($order->Date))}}</p>
                 <p>Terminal</p>
-                <p>&nbsp; - &nbsp;</p>
+                <p>{{$order->O_Loc}}</p>
                 <p>Qty. of Seats</p>
+                <p>{{$order->Quantity}}</p>
             </div>
-        </a>
-        <a href="cancel">
-            <div class="tick">
-                <h3>Origin - Destination</h3>
-                <p style="float:right; padding-right:25px; padding-top:5px"><b style="color:#4C15E9">Php 500</b></p><br>
-                <p>Schedule Time</p>
-                <p>&nbsp; - &nbsp;</p>
-                <p>Schedule Date</p>
-                <p>&nbsp; - &nbsp;</p>
-                <p>Terminal</p>
-                <p>&nbsp; - &nbsp;</p>
-                <p>Qty. of Seats</p>
-            </div>
-        </a>
+        </button>
+        @endforeach
+        </form>
     </div>
 </div>
 @endsection
+<script>
+    
+</script>

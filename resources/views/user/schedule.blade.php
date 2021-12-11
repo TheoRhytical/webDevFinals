@@ -9,6 +9,8 @@
 <div class="container">
     <div class="schedule">
         <h2>{{ date('F d, Y') }}</h2>
+            <form action="/book" method="POST">
+                @csrf
             @foreach($terms as $term)
             <h3 style="text-align: center;"><?php echo $term->{'Location_Name'} ?></h3>
                 <div class="subcontainer" style="margin:0px; padding:20px">
@@ -30,7 +32,7 @@
                                             <p>PHP {{$trip->Fare}}.00</p>
                                         </td>
                                         <td>
-                                            <a href="/book/{{$trip->tripID}}"><button></button></a>
+                                            <button type="submit" value="{{$trip->tripID}}" name="tripID"></button>
                                         </td>
                                     </tr>
                                 </table>
@@ -40,6 +42,7 @@
                 </div>
                 <br>
             @endforeach
+        </form>
     </div>
 </div>
 @endsection

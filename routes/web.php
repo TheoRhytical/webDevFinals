@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\OrdersController;
 use Routes\Auth;
 /*
 |--------------------------------------------------------------------------
@@ -17,28 +18,24 @@ use Routes\Auth;
 Route::get('/', function () {
     return redirect("/dashboard");
 });
-Route::get("/home", [PagesController::class, "Home"]);
-/*Route::view("route", 'user.route');*/
-Route::get("/sched", [PagesController::class, "Schedule"]);
-Route::get("/route", [PagesController::class, "AvailableRoutes"]);
-Route::get("/cancel", [PagesController::class, "TicketDetails"]);
-Route::view("/ticket", 'user.ticket');
-Route::get("/book/{tripID}", [PagesController::class, "Book"]);
-Route::get("/search/{routeID}", [PagesController::class, "Search"]);
-//Route::view("cancel", 'user.cancel');
 
-//Route::middleware('auth')->group(function () {
-    // Add your routes here like this
-  //});
+
+Route::middleware('auth')->group(function () {
+    Route::get("/home", [PagesController::class, "Home"]);
+    Route::get("/sched", [PagesController::class, "Schedule"]);
+    Route::get("/route", [PagesController::class, "AvailableRoutes"]);
+    Route::post("/cancel", [PagesController::class, "TicketDetails"]);
+    Route::get("/ticket", [PagesController::class, "Ticket"]);
+    Route::post("/book", [PagesController::class, "Book"]);
+    Route::post("/BookingAction", [OrdersController::class, "book"]);
+    Route::post("/search", [PagesController::class, "Search"]);
+});
 
 
 //user logic
 require __DIR__.'/auth.php';//this part is really important this will aunthenticate user//
 
-    Route::get('/TicketDetails',[PagesController::class,"TicketDetails"]);
-
-    Route::get('/AvailableRoute',[PagesController::class,"AvailableRoutes"]);
-
+    Route::post('/TicketDetails',[PagesController::class,"TicketDetails"]);
     Route::get('/dashboard', function () { 
         return view('dashboard');
     })->name('dashboard');

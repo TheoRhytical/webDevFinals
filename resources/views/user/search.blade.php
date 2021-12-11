@@ -8,8 +8,10 @@
 @section('content')
 <div class="container">
     <div class="schedule">
-            <h3 style="text-align: center;">{{$trips[0]->routeID}}</h3>
+            <h3 style="text-align: center;">{{$trips->first()->routeID}}</h3>
                 <div class="subcontainer" style="margin:0px; padding:20px">
+                    <form action="/book" method="POST">
+                    @csrf
                     @foreach($trips as $trip)
                             <div class="scheds">
                             <table class="line">
@@ -27,13 +29,14 @@
                                             <p>PHP {{$trip->Fare}}.00</p>
                                         </td>
                                         <td>
-                                            <a href="/book/{{$trip->tripID}}"><button></button></a>
+                                            <button type="submit" value="{{$trip->tripID}}" name="tripID"></button>
                                         </td>
                                     </tr>
                                 </table>
                             </div>
                     @endforeach
-                </div>
+            </form>
+        </div>
     </div>
 </div>
 @endsection
