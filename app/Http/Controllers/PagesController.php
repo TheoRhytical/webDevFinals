@@ -32,19 +32,19 @@ class PagesController extends Controller
     
     public function TicketDetails(Request $request){
 
-
-        $users = DB::table('vhire')
-        ->select('vhire.PlateNum','terminal.Location_Name','trip.ETD','trip.ETA', 'orders.Quantity','route.Fare')
-        ->leftjoin('trip', 'trip.vehicleID', '=','vhire.vehicleID')
+        $users = DB::table('orders')
+        ->select('vhire.PlateNum','vhire.vehicleID','terminal.Location_Name','trip.ETD','trip.ETA', 'orders.Quantity','route.Fare', 'orders.orderID', 'orders.Date')
+        ->leftjoin('trip', 'orders.tripID', '=','trip.tripID')
         ->leftjoin('route', 'trip.routeID', '=','route.routeID')
         ->leftjoin('terminal','route.O_termID', '=', 'terminal.terminalID')
-        ->leftjoin('orders', 'orders.orderID', '=','trip.tripID')
+        ->leftjoin('vhire', 'vhire.vehicleID', '=','trip.vehicleID')
         ->where('orders.orderID', $request->input('orderID'))
         ->get();
         
             // var_dump($users);
-        $currUser = Auth::user(); 
-        return view('user.cancel',['users' => $users]);
+        $currUser = Auth::user();
+
+        return view('user.cancel',['users' => $users->first()]);
     }
 
     // public function Admin(){
@@ -227,6 +227,7 @@ class PagesController extends Controller
         ->join('terminal as O_term', 'route.O_termID', '=', 'O_term.terminalID')
         ->join('terminal as D_term', 'route.D_termID', '=', 'D_term.terminalID')
         ->where('customerID', $currUser->customerID)
+        ->where('orders.Status', '!=','CANCELLED')
         ->get();
 
         return view('user.ticket',['orders' => $orders]);

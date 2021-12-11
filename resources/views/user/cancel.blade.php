@@ -7,40 +7,43 @@
 </style>
 @section('content')
 <div class="container" style="width:40%; float:left; margin-left:12%">
-            <h1>November 18, 2021</h1>
+            <h1>{{ date('F d, Y', strtotime($users->Date)) }}</h1>
             <div class="subcontainer table"> 
             <table>
                 <tr>
                     <td style="color:#4C15E9; font-weight:bold">Vhire No</td>
-                    <td>Plate Number</td>
+                    <td>{{$users->vehicleID}}</td>
                 </tr>
                 <tr>
                     <td style="color:#4C15E9; font-weight:bold">Terminal</td>`
-                    <td><?php echo $users[1]->{'Location_Name'}?></td>
+                    <td><?php echo $users->{'Location_Name'}?></td>
                     
                 </tr>
                 <tr>
                     <td style="color:#4C15E9; font-weight:bold">Time</td>
-                    <td>ETD - ETA</td>
+                    <td>{{substr($users->ETD,0,-3)}} - {{substr($users->ETA,0,-3)}}</td>
                 </tr>
                 <tr>
-                    <td style="color:#4C15E9; font-weight:bold">Vhire No</td>
-                    <td>Plate Number</td>
+                    <td style="color:#4C15E9; font-weight:bold">Plate Number</td>
+                    <td>{{$users->PlateNum}}</td>
                 </tr>
                 <tr>
                     <td style="color:#4C15E9; font-weight:bold">Quantity</td>
-                    <td>No. of seats</td>
+                    <td>{{$users->Quantity}}</td>
                 </tr>
                 <tr>
-                    <td style="color:#4C15E9; font-weight:bold">Php 100.00</td>
-                    <td>Fare Price</td>
+                    <td style="color:#4C15E9; font-weight:bold">Fare Price</td>
+                    <td>{{$users->Fare}}</td>
                 </tr>
                 <tr>
                     <td style="color:#4C15E9; font-weight:bold">Total Amount</td>
-                    <td>Price x Quantity</td>
+                    <td>PHP {{$users->Quantity * $users->Fare}}.00</td>
                 </tr>
             </table>
-            <center><button class="bttn" style="margin-bottom:30px; margin-top:30px">Cancel</button></center>
+                <form action="/cancel" method="POST">
+                    @csrf
+                    <center><button class="bttn" style="margin-bottom:30px; margin-top:30px" name="orderID" value="{{$users->orderID}}">Cancel</button></center>
+                </form>
             </div>
         </div>
         <div class="container" style="width:21%; float:right; padding:5px">

@@ -16,17 +16,17 @@
         <form action="/TicketDetails" method="POST">
         @csrf
         @foreach($orders as $order)
-        <button type="submit" value="{{$order->orderID}}">
+        <button type="submit" name="orderID" value="{{$order->orderID}}">
             <div class="tick">
                 <h3>{{$order->O_Loc}} - {{$order->D_Loc}}</h3>
                 <p style="float:right; padding-right:25px; padding-top:5px"><b style="color:#4C15E9">PHP {{$order->Fare}}.00</b></p><br>
-                <p>Schedule Time</p>
+                <p><b>Time</b></p>
                 <p>{{substr($order->ETD,0,-3)}}-{{substr($order->ETA,0,-3)}}</p>
-                <p>Schedule Date</p>
+                <p><b>Date</b></p>
                 <p>{{date('F d, Y', strtotime($order->Date))}}</p>
-                <p>Terminal</p>
+                <p><b>Terminal</b></p>
                 <p>{{$order->O_Loc}}</p>
-                <p>Qty. of Seats</p>
+                <p><b>Quantity</b></p>
                 <p>{{$order->Quantity}}</p>
             </div>
         </button>
