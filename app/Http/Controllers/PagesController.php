@@ -162,6 +162,7 @@ class PagesController extends Controller
         if($trips != NULL) return view('user.search',['trips' => $trips]);
         else return redirect('/home');
     }
+
     public function AdminSched(){
         $vhires = DB::table('trip')
         ->select('vhire.PlateNum', 'route.routeID', 'trip.ETD', 'trip.ETA', 'driver.Fname', 'driver.Lname', 'trip.Status', 'vhire.Capacity')
@@ -172,5 +173,35 @@ class PagesController extends Controller
         ->get();
 
         return view('admin.schedule',['vhires' => $vhires]);
+    }
+
+    public function AdminBooking(){
+        $book = DB::table('orders')
+        ->select('customer.Fname', 'customer.Lname', 'orders.orderCreationDT', 'trip.routeID', 'orders.Status')
+        ->join('customer', 'customer.customerID', '=', 'orders.customerID')
+        ->join('trip', 'trip.tripID', '=', 'orders.tripID')
+        ->get();
+
+        $confirmed = DB::table('orders')
+        ->select('customer.Fname', 'customer.Lname', 'orders.orderCreationDT', 'trip.routeID', 'orders.Status')
+        ->join('customer', 'customer.customerID', '=', 'orders.customerID')
+        ->join('trip', 'trip.tripID', '=', 'orders.tripID')
+        ->where('orders.Status', '=', 'CONFIRMED')
+        ->get();
+
+        $pending = DB::table('orders')
+        ->select('customer.Fname', 'customer.Lname', 'orders.orderCreationDT', 'trip.routeID', 'orders.Status')
+        ->join('customer', 'customer.customerID', '=', 'orders.customerID')
+        ->join('trip', 'trip.tripID', '=', 'orders.tripID')
+        ->where('orders.Status', '=', 'PENDING')
+        ->get();
+
+        $cancelled = DB::table('orders')
+        ->select('customer.Fname', 'customer.Lname', 'orders.orderCreationDT', 'trip.routeID', 'orders.Status')
+        ->join('customer', 'customer.customerID', '=', 'orders.customerID')
+        ->join('trip', 'trip.tripID', '=', 'orders.tripID')
+        ->where('orders.Status', '=', 'CANCELLED')
+        ->get();
+        return view('admin.booking', ['book' => $book, 'confirmed' => $confirmed, 'pending' => $pending, 'cancelled' => $cancelled]);
     }
 }

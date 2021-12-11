@@ -13,11 +13,6 @@
             <img src="{{url('images/map.png')}}" style="position: relative;left:-10%;top:2px;"/>
             ADD ROUTE
         </div>
-        <div class="mini-btn">
-            <button style="background-color: #4C15E9;">ALL</button>
-            <button>ACTIVE</button>
-            <button>INACTIVE</button>
-        </div>
     </div>
     <center><table class="table" cellspacing="0" cellpadding="0">
         <tr style="background-color: #0F0645;color:white;">
@@ -30,15 +25,17 @@
     </table></center>
     <div class="subcontainer white-bg" style="background-color: #FFFFFF; padding:0px 0px 0px 0px; position:relative; top: 0px;border-radius:12px">
     <center><table class="table"  cellspacing="0" cellpadding="0" style="width:100%; margin:0%; border-collapse: separate;border-spacing: 3px 25px;">
+    @foreach($rname as $route)
         <tr class="row">
-            <td>{{$rname[0]->O_termID}}-{{$rname[0]->D_termID}}</td>
+            <td>{{$route->O_termID}}-{{$route->D_termID}}</td>
             <td>CEBU</td>
-            <td>{{$rname[0]->D_termID}}</td>
-            <td>{{$rname[0]->Fare}}</td>
+            <td>{{$route->D_termID}}</td>
+            <td>{{$route->Fare}}</td>
             <td class="myBtn" style="width: 6%;cursor: pointer;"><img src="{{url('images/edit.png')}}"/></td>
             <td class="Btnd" style="width: 6%;cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
             <td style="width: 6%;cursor: pointer;"><img src="{{url('images/refresh.png')}}"/></td>
         </tr>
+    @endforeach
     </table></center>
     </div>
 
