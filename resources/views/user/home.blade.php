@@ -8,10 +8,11 @@
 @section('content')
 <div class="container">
     <div class="subcontainer">
-        <form>
+        <form action="/HomeSearch" method="POST">
+            @csrf
             <div class="input">
                 <label>From:</label> &nbsp;&nbsp;
-                <select>
+                <select name="O_term">
                         <option>Current Location</option>
                     @foreach($terminals as $term)
                         <option>{{$term->Location_Name}}</option>
@@ -20,16 +21,16 @@
             </div>
             <div class="input">
                 <label>To:</label> &nbsp;&nbsp;
-                <select>
+                <select name="D_term">
                         <option>Destination</option>
                     @foreach($terminals as $term)
                         <option>{{$term->Location_Name}}</option>
                     @endforeach
                 </select>
             </div>
-            <div class="input">
+            <div class="input" name="time">
                 <label>Time:</label> &nbsp;&nbsp;
-                <select>
+                <select name="time">
                         <option>Select Time</option>
                     @foreach($scheds as $sched)
                         <option>{{substr($sched->ETD,0,-3)}} - {{substr($sched->ETA,0,-3)}}</option>
@@ -41,7 +42,7 @@
             </div>
         </form>
     </div>
-    <center><h1 style="background-color: transparent; color:#4C15E9;">WELCOME, JUAN DELA CRUZ!</h1></center>
+    <center><h1 style="background-color: transparent; color:#4C15E9;">WELCOME, {{$currUser->name}}!</h1></center>
     <center><h1>Book your ride now!</h1></center>
     <center><img src="{{url('images/vhire.png')}}"></img></center>
 </div>

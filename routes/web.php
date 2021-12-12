@@ -23,9 +23,10 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function () {
     Route::get("/home", [PagesController::class, "Home"]);
     Route::get("/sched", [PagesController::class, "Schedule"]);
-    Route::get("/route", [PagesController::class, "AvailableRoutes"]);
+    //Route::get("/route", [PagesController::class, "AvailableRoutes"]);
     Route::get("/ticket", [PagesController::class, "Ticket"]);
     Route::post("/search", [PagesController::class, "Search"]);
+    Route::post("/HomeSearch", [PagesController::class, "HomeSearch"]);
     Route::post("/book", [PagesController::class, "Book"]);
     Route::post("/BookingAction", [OrdersController::class, "book"]);
     Route::post("/cancel", [OrdersController::class, "cancel"]);

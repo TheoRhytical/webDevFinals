@@ -42,6 +42,8 @@
             </table>
                 <form action="/cancel" method="POST">
                     @csrf
+                    <input type="hidden" value="{{$users->tripID}}" name="tripID">
+                    <input type="hidden" value="{{$users->Quantity}}" name="Quantity">
                     <center><button class="bttn" style="margin-bottom:30px; margin-top:30px" name="orderID" value="{{$users->orderID}}">Cancel</button></center>
                 </form>
             </div>
