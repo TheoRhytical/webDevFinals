@@ -78,8 +78,18 @@ Route::get("/dashboard", [PagesController::class, "Dashboard"]);
 Route::get("/scheds", [PagesController::class, "AdminSched"]);
 //Route::view("/bookings", 'admin.booking');
 Route::get("/bookings", [PagesController::class, "AdminBooking"]);
-Route::view("/account", 'admin.account');
 
 Route::view("/signup", 'auth.register');
 Route::view("/admin", 'auth.login-admin');
 Route::view("/passenger", 'auth.login');
+
+// Route::view("/account", 'admin.account');
+Route::get("/account", [PagesController::class, "AddAdmin"])->name("account");
+Route::post("/deleteAcc", [PagesController::class, "DeleteAdminAcc"]);
+Route::post("/add_account", [PagesController::class, "AddAcc"]);
+Route::post("/update", [PagesController::class, "UpdateAcc"]);
+
+
+
+
+
