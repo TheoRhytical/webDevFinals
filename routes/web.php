@@ -16,7 +16,7 @@ use Routes\Auth;
 */
 
 Route::get('/', function () {
-    return redirect("/dashboard");
+    return redirect("/home");
 });
 
 
