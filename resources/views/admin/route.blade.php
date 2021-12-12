@@ -7,7 +7,6 @@
 </style>
 @section('content')
 <div class="container grey-bg">
-    <center><img src="{{url('images/routes.png')}}" style="width:88%; object-fit:cover; height: 380px;"></img></center>
     <div class="btns" style="display: inline-block;">
         <div class="button myBtn" style="float: left;margin-left:25px;">
             <img src="{{url('images/map.png')}}" style="position: relative;left:-10%;top:2px;"/>

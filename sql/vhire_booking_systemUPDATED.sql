@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 12, 2021 at 10:13 AM
+-- Generation Time: Dec 12, 2021 at 12:18 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.0.13
 
@@ -44,8 +44,7 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`orderID`, `customerID`, `tripID`, `Quantity`, `Date`, `AmountDue`, `Status`, `orderCreationDT`, `statusChangeDT`) VALUES
-(1, 3, 10, 3, '2021-12-12', 0, 'CANCELLED', '2021-12-12 05:03:08', '2021-12-12 05:03:19'),
-(2, 3, 10, 12, '2021-12-12', 0, 'UNCONFIRMED', '2021-12-12 05:21:37', '2021-12-12 05:21:37');
+(3, 1, 10, 6, '2021-12-12', 0, 'UNCONFIRMED', '2021-12-12 09:43:41', '2021-12-12 09:43:41');
 
 --
 -- Triggers `orders`
@@ -112,9 +111,9 @@ CREATE TABLE `terminal` (
 
 INSERT INTO `terminal` (`terminalID`, `adminID`, `Location_Name`, `City`) VALUES
 ('AYLA', 1, 'Ayala Center Cebu', 'Cebu City'),
-('CLNK', 4, 'Cebu City Link Terminal', 'Cebu City'),
-('SMCC', 2, 'SM City Cebu', 'Cebu City'),
-('SMSC', 3, 'SM Seaside City', 'Cebu City');
+('CLNK', 1, 'Cebu City Link Terminal', 'Cebu City'),
+('SMCC', 1, 'SM City Cebu', 'Cebu City'),
+('SMSC', 1, 'SM Seaside City', 'Cebu City');
 
 -- --------------------------------------------------------
 
@@ -137,7 +136,7 @@ CREATE TABLE `trip` (
 --
 
 INSERT INTO `trip` (`tripID`, `vehicleID`, `routeID`, `FreeSeats`, `ETD`, `ETA`, `Status`) VALUES
-(10, 1, 'AYLA-CLNK', 4, '08:00:00', '08:45:00', 'ACTIVE'),
+(10, 1, 'AYLA-CLNK', 10, '08:00:00', '08:45:00', 'ACTIVE'),
 (11, 1, 'CLNK-AYLA', 16, '08:45:00', '09:30:00', 'ACTIVE'),
 (20, 2, 'CLNK-SMCC', 16, '08:00:00', '08:45:00', 'ARRIVED'),
 (21, 2, 'SMCC-CLNK', 16, '08:45:00', '09:30:00', 'ACTIVE'),
@@ -151,16 +150,23 @@ INSERT INTO `trip` (`tripID`, `vehicleID`, `routeID`, `FreeSeats`, `ETD`, `ETA`,
 --
 
 CREATE TABLE `users` (
-  `userID` int(10) UNSIGNED NOT NULL,
+  `userID` int(11) NOT NULL,
   `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `contactNum` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` enum('ACTIVE','INACTIVE') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'ACTIVE',
-  `role` enum('CUSTOMER','ADMIN') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `role` enum('CUSTOMER','ADMIN','DRIVER') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'CUSTOMER',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`userID`, `username`, `email`, `password`, `contactNum`, `status`, `role`, `created_at`, `updated_at`) VALUES
+(1, 'Jay Tejada', 'secret.pass@gmail.com', '$2y$10$VVLjZQiD0gDIX.OxmsHP9u08nf4eeZiCAHjtE0nvdx6kBVhNZYEBm', '032 1234 123', 'ACTIVE', 'ADMIN', '2021-12-12 01:26:44', '2021-12-12 01:26:44');
 
 -- --------------------------------------------------------
 
@@ -185,8 +191,8 @@ CREATE TABLE `vhire` (
 --
 
 INSERT INTO `vhire` (`vehicleID`, `driverID`, `PlateNum`, `Brand`, `Model`, `Color`, `Capacity`, `Weight`, `status`) VALUES
-(1, 2, 'ABC1234', 'Toyota', 'Avanza', '#ff0000', 1, 1, 'ACTIVE'),
-(2, 2, 'ABC1234', 'Toyota', 'Innova', '#FFFFFF', 16, 24.5, 'ACTIVE'),
+(1, 1, 'ABC1234', 'Toyota', 'Avanza', '#ff0000', 1, 1, 'ACTIVE'),
+(2, 1, 'ABC1234', 'Toyota', 'Innova', '#FFFFFF', 16, 24.5, 'ACTIVE'),
 (3, 1, 'ANZ9874', 'Izuzu', 'Ambot', '#000000', 14, 25.3, 'ACTIVE');
 
 --
@@ -213,14 +219,16 @@ ALTER TABLE `route`
 -- Indexes for table `terminal`
 --
 ALTER TABLE `terminal`
-  ADD PRIMARY KEY (`terminalID`);
+  ADD PRIMARY KEY (`terminalID`),
+  ADD KEY `admin_FK` (`adminID`);
 
 --
 -- Indexes for table `trip`
 --
 ALTER TABLE `trip`
   ADD PRIMARY KEY (`tripID`),
-  ADD KEY `routeFK` (`routeID`);
+  ADD KEY `routeFK` (`routeID`),
+  ADD KEY `vehicle_FK` (`vehicleID`);
 
 --
 -- Indexes for table `users`
@@ -244,7 +252,7 @@ ALTER TABLE `vhire`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `orderID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `orderID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `trip`
@@ -256,13 +264,50 @@ ALTER TABLE `trip`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `vhire`
 --
 ALTER TABLE `vhire`
   MODIFY `vehicleID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `customer_FK` FOREIGN KEY (`customerID`) REFERENCES `users` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `trip_FK` FOREIGN KEY (`tripID`) REFERENCES `trip` (`tripID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `route`
+--
+ALTER TABLE `route`
+  ADD CONSTRAINT `D_term_FK` FOREIGN KEY (`D_termID`) REFERENCES `terminal` (`terminalID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `O_term_FK` FOREIGN KEY (`O_termID`) REFERENCES `terminal` (`terminalID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `terminal`
+--
+ALTER TABLE `terminal`
+  ADD CONSTRAINT `admin_FK` FOREIGN KEY (`adminID`) REFERENCES `users` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `trip`
+--
+ALTER TABLE `trip`
+  ADD CONSTRAINT `route_FK` FOREIGN KEY (`routeID`) REFERENCES `route` (`routeID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `vehicle_FK` FOREIGN KEY (`vehicleID`) REFERENCES `vhire` (`vehicleID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `vhire`
+--
+ALTER TABLE `vhire`
+  ADD CONSTRAINT `driver_FK` FOREIGN KEY (`driverID`) REFERENCES `users` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

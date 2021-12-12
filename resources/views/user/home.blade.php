@@ -5,6 +5,9 @@
         background-color: #EFF2FF;
     }
 </style>
+<?php
+    $currUser = Auth::user();
+?>
 @section('content')
 <div class="container">
     <div class="subcontainer">

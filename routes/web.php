@@ -24,7 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::get("/home", [PagesController::class, "Home"]);
     Route::get("/sched", [PagesController::class, "Schedule"]);
     Route::get("/route", [PagesController::class, "AvailableRoutes"]);
-      Route::post('/TicketDetails',[PagesController::class,"TicketDetails"]);
+    Route::post('/TicketDetails',[PagesController::class,"TicketDetails"]);
     Route::post("/cancel", [PagesController::class, "TicketDetails"]);
     Route::get("/ticket", [PagesController::class, "Ticket"]);
     Route::post("/search", [PagesController::class, "Search"]);
