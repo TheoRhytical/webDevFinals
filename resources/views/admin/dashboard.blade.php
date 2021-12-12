@@ -30,7 +30,7 @@
     <div class="subcontainer white-bg" id="bookings">
         <h1 style="text-align: center; background-color:white; color:#250B71;font: weight 800px;">RECENT BOOKINGS</h1>
         @foreach($booking as $book)
-        <div class="routes a-route" style="margin-right: 5px;">
+        <div class="routes a-route" style="margin-right: 4px;">
             <p class="small">{{$book->orderID}}</p> <br>
             <p>{{$book->orderCreationDT}}</p> <br>
             <p class="big">{{$book->Fname}} {{$book->Lname}}</p> <br>
@@ -41,7 +41,7 @@
             @else
                 <p class="status" style="color: white;">Status: {{$book->Status}}</p> <br>
             @endif
-            <p style="font-weight: 800;">FROM {{$book->origin}} TO {{$book->dest}}</p> <br>
+            <p style="font-weight: 800;">FROM {{$book->origin}} <br> TO {{$book->dest}}</p> <br>
             <p>{{$book->ETD}} - {{$book->ETA}}</p> <br>
             <p>Plate Number {{$book->PlateNum}}</p> <br>
         </div>

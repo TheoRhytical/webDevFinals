@@ -122,13 +122,17 @@
                 <input type="date"/><br><br>
                 <label>PASSENGER</label><br>
                 <select>
-                    <option>1</option>
+                @foreach($passenger as $pass)
+                    <option value="{{$pass->customerID}}">{{$pass->Username}}</option>
+                @endforeach
                 </select>
             </div>
             <div class="form-right">
                 <label>TRIP</label><br>
                 <select>
-                    <option>1</option>
+                @foreach($trips as $trip)
+                    <option value="{{$trip->tripID}}">{{$trip->routeID}} &nbsp; {{$trip->ETD}} - {{$trip->ETA}}</option>
+                @endforeach
                 </select>
                 <br><br>
                 <label>STATUS</label><br>

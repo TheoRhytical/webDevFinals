@@ -40,7 +40,7 @@
             <td>{{$vhire->routeID}}</td>
             <td>{{substr($vhire->ETA,0,-3)}}-{{substr($vhire->ETD,0,-3)}}</td>
             <td>{{$vhire->Fname}} {{$vhire->Lname}}</td>
-            @if($vhire->Status == 'ACTIVE')
+            @if($vhire->Status == 'OPEN')
                 <td>OPEN <img src="{{url('images/active.png')}}" style="float: right;margin-right:20px"/></td>
             @elseif($vhire->Status == 'ARRIVED')
                 <td>ARRIVED <img src="{{url('images/inactive.png')}}" style="float: right;margin-right:20px"/></td>

@@ -229,7 +229,15 @@ class PagesController extends Controller
         ->join('trip', 'trip.tripID', '=', 'orders.tripID')
         ->where('orders.Status', '=', 'CANCELLED')
         ->get();
-        return view('admin.booking', ['book' => $book, 'confirmed' => $confirmed, 'pending' => $pending, 'cancelled' => $cancelled]);
+
+        $trips = DB::table('trip')
+        ->select('*')
+        ->get();
+
+        $passenger = DB::table('customer')
+        ->select('*')
+        ->get();
+        return view('admin.booking', ['book' => $book, 'confirmed' => $confirmed, 'pending' => $pending, 'cancelled' => $cancelled, 'trips' => $trips, 'passenger' => $passenger]);
     }
     public function Ticket(){
         $currUser = Auth::user();
