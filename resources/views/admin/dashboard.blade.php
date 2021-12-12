@@ -34,7 +34,7 @@
             <p class="small">{{$book->orderID}}</p> <br>
             <p>{{$book->orderCreationDT}}</p> <br>
             <p class="big">{{$book->username}}</p> <br>
-            @if($book->Status=="PENDING")
+            @if($book->Status=="UNCONFIRMED")
                 <p class="status" style="color: white; background-color: #FFA800">Status: {{$book->Status}}</p> <br>
             @elseif($book->Status=="CANCELLED")
                 <p class="status" style="color: white; background-color: #C12424">Status: {{$book->Status}}</p> <br>
@@ -63,7 +63,7 @@
                 <td>VHIRE {{$vehicle->vehicleID}}</td>
                 <td>{{$vehicle->PlateNum}}</td>
                 <td>{{$vehicle->routeID}}</td>
-                <td>{{$vehicle->Fname}} {{$vehicle->Lname}}</td>
+                <td>{{$vehicle->username}}</td>
                 <td>{{DB::table('orders')
                     ->join('trip', 'trip.tripID', '=', 'orders.tripID')
                     ->join('vhire', 'trip.vehicleID', '=', 'vhire.vehicleID')

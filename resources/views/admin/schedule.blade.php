@@ -39,7 +39,7 @@
             <td>{{$vhire->PlateNum}}</td>
             <td>{{$vhire->routeID}}</td>
             <td>{{substr($vhire->ETA,0,-3)}}-{{substr($vhire->ETD,0,-3)}}</td>
-            <td>{{$vhire->Fname}} {{$vhire->Lname}}</td>
+            <td>{{$vhire->username}}</td>
             @if($vhire->Status == 'OPEN')
                 <td>OPEN <img src="{{url('images/active.png')}}" style="float: right;margin-right:20px"/></td>
             @elseif($vhire->Status == 'ARRIVED')
@@ -79,7 +79,9 @@
                 <br><br>
                 <label>ROUTE</label><br>
                 <select>
-                    <option>1</option>
+                    @foreach($routes as $route)
+                    <option value="{{$route->routeID}}">{{$route->routeID}}</option>
+                    @endforeach
                 </select>
                 <br><br>
                 <label>STATUS</label><br>
@@ -88,7 +90,9 @@
             <div class="form-right">
                 <label>DRIVER</label><br>
                 <select>
-                    <option>1</option>
+                    @foreach($drivers as $driver)
+                    <option value="{{driver->userID}}">{{$driver->username}}</option>
+                    @endforeach
                 </select>
                 <br><br>
                 <label>ARRIVAL TIME</label><br><!--timeof arrival-->
