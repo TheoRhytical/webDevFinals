@@ -239,7 +239,7 @@ class PagesController extends Controller
         ->select('users.username', 'orders.orderCreationDT', 'trip.routeID', 'orders.Status')
         ->join('users', 'users.userID', '=', 'orders.customerID')
         ->join('trip', 'trip.tripID', '=', 'orders.tripID')
-        ->where('orders.Status', '=', 'PENDING')
+        ->where('orders.Status', '=', 'UNCONFIRMED')
         ->get();
 
         $cancelled = DB::table('orders')
@@ -262,6 +262,13 @@ class PagesController extends Controller
 
 
     public function AddBooking(Request $request){
+
+        $this->validate($request,[
+            'customerID' =>'required',
+            'tripID' =>'required',
+            'Quantity' => 'required|max:255',
+        ]);
+
 
             $fare = DB::table('trip')
             ->select('*')
