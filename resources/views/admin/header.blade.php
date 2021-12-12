@@ -16,5 +16,6 @@
 <script src="{{ asset('js/dashboard-tab.js') }}" defer></script>
 <script src="{{ asset('js/open-modal.js') }}" defer></script>
 <script src="{{ asset('js/filter-booking.js') }}" defer></script>
+<script src="{{ asset('js/filter-active.js') }}" defer></script>
 </body>
 </html>
