@@ -1,10 +1,3 @@
-<style>
-    button{
-        all:initial;
-        width: 100%;
-    }
-</style>
-
 <br><br>
 <ul class="sideNav">
     <a href="/home">
@@ -38,7 +31,7 @@
     <br><br><br>
     <form action="/logout" method="POST">
         @csrf
-    <button type="submit">
+    <button type="submit" style="all: initial; width: 100%; cursor: pointer">
         <div class="list">
             <li class="icon five">
                 Logout
