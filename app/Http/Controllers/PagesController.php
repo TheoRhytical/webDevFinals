@@ -91,7 +91,15 @@ class PagesController extends Controller
     
     }
 
+    public function destroy(Request $request){
+        dd($request);
 
+        $input = $request->input();
+
+        $dest = DB::table('route')->where('routeID', '=', $request->routeID)->delete();
+        //redirect to routes
+        return redirect('routes');
+    }
 
     public function Home(){
 
@@ -203,7 +211,7 @@ class PagesController extends Controller
 
     public function AdminSched(){
         $vhires = DB::table('trip')
-        ->select('vhire.PlateNum', 'route.routeID', 'trip.ETD', 'trip.ETA', 'users.username', 'trip.Status', 'vhire.Capacity')
+        ->select('vhire.PlateNum', 'route.routeID', 'trip.ETD', 'trip.ETA','trip.FreeSeats', 'users.username', 'trip.Status', 'vhire.Capacity')
         ->join('route', 'trip.routeID', '=', 'route.routeID')
         ->join('vhire', 'trip.vehicleID', '=', 'vhire.vehicleID')
         ->join('terminal', 'route.D_termID', '=', 'terminal.terminalID')
