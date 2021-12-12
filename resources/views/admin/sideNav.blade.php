@@ -38,16 +38,13 @@
         </div>
     </a>
     <br><br><br>
-    <form action="/logout" method="POST">
-        @csrf
-    <button type="submit" style="all: initial; width: 100%; cursor: pointer">
+    <a href="/">
         <div class="list">
             <li class="icon five">
                 Logout
             </li>
         </div>
-    </button>
-    </form>
+    </a>
     <br>
     <p class="p">Contact Us</p><br>
     <p class="p">vhire_cebu@gmail.com</p>
