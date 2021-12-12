@@ -81,6 +81,7 @@ Route::get("/scheds", [PagesController::class, "AdminSched"]);
 
 Route::get("/bookings", [PagesController::class, "AdminBooking"])->name('booking');
 Route::post("/book_form", [PagesController::class, "AddBooking"]);
+Route::post("/delete_books", [PagesController::class, "DeleteBooking"]);
 
 Route::view("/signup", 'auth.register');
 Route::view("/admin", 'auth.login-admin');

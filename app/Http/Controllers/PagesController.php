@@ -223,27 +223,27 @@ class PagesController extends Controller
 
     public function AdminBooking(){
         $book = DB::table('orders')
-        ->select('users.username', 'orders.orderCreationDT', 'trip.routeID', 'orders.Status')
+        ->select('orders.orderID','users.username', 'orders.orderCreationDT', 'trip.routeID', 'orders.Status')
         ->join('users', 'users.userID', '=', 'orders.customerID')
         ->join('trip', 'trip.tripID', '=', 'orders.tripID')
         ->get();
 
         $confirmed = DB::table('orders')
-        ->select('users.username', 'orders.orderCreationDT', 'trip.routeID', 'orders.Status')
+        ->select('orders.orderID','users.username', 'orders.orderCreationDT', 'trip.routeID', 'orders.Status')
         ->join('users', 'users.userID', '=', 'orders.customerID')
         ->join('trip', 'trip.tripID', '=', 'orders.tripID')
         ->where('orders.Status', '=', 'CONFIRMED')
         ->get();
 
         $pending = DB::table('orders')
-        ->select('users.username', 'orders.orderCreationDT', 'trip.routeID', 'orders.Status')
+        ->select('orders.orderID','users.username', 'orders.orderCreationDT', 'trip.routeID', 'orders.Status')
         ->join('users', 'users.userID', '=', 'orders.customerID')
         ->join('trip', 'trip.tripID', '=', 'orders.tripID')
         ->where('orders.Status', '=', 'UNCONFIRMED')
         ->get();
 
         $cancelled = DB::table('orders')
-        ->select('users.username', 'orders.orderCreationDT', 'trip.routeID', 'orders.Status')
+        ->select('orders.orderID','users.username', 'orders.orderCreationDT', 'trip.routeID', 'orders.Status')
         ->join('users', 'users.userID', '=', 'orders.customerID')
         ->join('trip', 'trip.tripID', '=', 'orders.tripID')
         ->where('orders.Status', '=', 'CANCELLED')
@@ -260,7 +260,14 @@ class PagesController extends Controller
         return view('admin.booking', ['book' => $book, 'confirmed' => $confirmed, 'pending' => $pending, 'cancelled' => $cancelled, 'trips' => $trips, 'passenger' => $passenger]);
     }
 
+    public function DeleteBooking(Request $request){
+        // dd($request->all());
+        //delete
+        DB::table('orders')->where('orderID', '=', $request->del_book)->delete();
+        //redirect to account
+        return redirect()->route('booking');
 
+    }
     public function AddBooking(Request $request){
 
         $this->validate($request,[

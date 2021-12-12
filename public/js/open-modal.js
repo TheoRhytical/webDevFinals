@@ -27,16 +27,30 @@ $( ".del-scheds" ).click(function() {
   $("#del-sched").show();
 });
 
+
+$( ".del-books" ).click(function() {
+  var bookID = $(this).attr('data-book-id');
+  console.log(bookID);
+  $('#del_book').val(bookID); 
+  $("#del-book-modal").show();
+});
+
+
+
+
+
 $( ".close" ).click(function() {
     $("#mymodal").hide();
     $("#myModal").hide();
     $("#add-vhire").hide();
     $("#edit-vhire").hide();
     $("#del-sched").hide();
+    $("#del-book-modal").hide();
 });
 
 $(".exit-modal").click(function (){
   $('#del-sched').hide();
+  $('#del-book-modal').hide();
   $('#add-vhire').hide();
   $('#edit-vhire').hide();
   $('#add-booking').hide();
