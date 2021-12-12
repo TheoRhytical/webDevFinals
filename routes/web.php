@@ -24,6 +24,8 @@ Route::middleware('auth')->group(function () {
     Route::get("/home", [PagesController::class, "Home"]);
     Route::get("/sched", [PagesController::class, "Schedule"]);
     Route::get("/route", [PagesController::class, "AvailableRoutes"]);
+      Route::post('/TicketDetails',[PagesController::class,"TicketDetails"]);
+    Route::post("/cancel", [PagesController::class, "TicketDetails"]);
     Route::get("/ticket", [PagesController::class, "Ticket"]);
     Route::post("/search", [PagesController::class, "Search"]);
     Route::post("/HomeSearch", [PagesController::class, "HomeSearch"]);
@@ -44,9 +46,16 @@ require __DIR__.'/auth.php';//this part is really important this will aunthentic
 
 
 
-Route::get('/custom-login', function () {
+    Route::get('/custom-login', function () {
     return view('login');
+
+
 });
+
+
+//user logic
+require __DIR__.'/auth.php';//this part is really important this will aunthenticate user//
+
 
 //admin logic
 
