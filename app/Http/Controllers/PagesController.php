@@ -89,7 +89,7 @@ class PagesController extends Controller
         return redirect('routes');
     
     }
-    public function end()
+    public function end(){}
 
 
     public function Home(){
@@ -121,9 +121,9 @@ class PagesController extends Controller
         ->get();
 
         $vhire = DB::table('trip')
-        ->select('vhire.vehicleID', 'vhire.PlateNum', 'trip.routeID', 'trip.tripID', 'driver.Fname', 'driver.Lname')
+        ->select('vhire.vehicleID', 'vhire.PlateNum', 'trip.routeID', 'trip.tripID', 'users.username')
         ->join('vhire', 'trip.vehicleID', '=', 'vhire.vehicleID')
-        ->join('driver', 'vhire.driverID', '=', 'driver.driverID')
+        ->join('users', 'vhire.driverID', '=', 'users.userID')
         ->get();
 
         $revenue = DB::table('orders')
@@ -201,11 +201,11 @@ class PagesController extends Controller
 
     public function AdminSched(){
         $vhires = DB::table('trip')
-        ->select('vhire.PlateNum', 'route.routeID', 'trip.ETD', 'trip.ETA', 'driver.Fname', 'driver.Lname', 'trip.Status', 'vhire.Capacity')
+        ->select('vhire.PlateNum', 'route.routeID', 'trip.ETD', 'trip.ETA', 'users.username', 'trip.Status', 'vhire.Capacity')
         ->join('route', 'trip.routeID', '=', 'route.routeID')
         ->join('vhire', 'trip.vehicleID', '=', 'vhire.vehicleID')
         ->join('terminal', 'route.D_termID', '=', 'terminal.terminalID')
-        ->join('driver', 'vhire.driverID', '=', 'driver.driverID')
+        ->join('users', 'vhire.driverID', '=', 'users.userID')
         ->get();
 
         return view('admin.schedule',['vhires' => $vhires]);
