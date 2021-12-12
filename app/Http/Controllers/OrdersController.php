@@ -26,4 +26,11 @@ class OrdersController extends Controller
 
         return redirect('/ticket');
     }
+    public function confirm(Request $request){
+        $query = DB::table('orders')
+            ->where('orderID', $request->input('orderID'))
+            ->update(['Status' => 'CONFIRMED']);
+
+        return redirect('/bookings');
+    }
 }
