@@ -44,6 +44,7 @@ $(".exit-modal").click(function (){
   $('#del-sched').hide();
   $('#add-vhire').hide();
   $('#edit-vhire').hide();
+  $('#add-booking').hide();
 });
 
 // When the user clicks anywhere outside of the modal, close it

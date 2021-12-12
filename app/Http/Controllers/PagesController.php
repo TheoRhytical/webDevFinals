@@ -247,7 +247,7 @@ class PagesController extends Controller
         ->select('users.username', 'orders.orderCreationDT', 'trip.routeID', 'orders.Status')
         ->join('users', 'users.userID', '=', 'orders.customerID')
         ->join('trip', 'trip.tripID', '=', 'orders.tripID')
-        ->where('orders.Status', '=', 'PENDING')
+        ->where('orders.Status', '=', 'UNCONFIRMED')
         ->get();
 
         $cancelled = DB::table('orders')
@@ -267,6 +267,36 @@ class PagesController extends Controller
         ->get();
         return view('admin.booking', ['book' => $book, 'confirmed' => $confirmed, 'pending' => $pending, 'cancelled' => $cancelled, 'trips' => $trips, 'passenger' => $passenger]);
     }
+
+
+    public function AddBooking(Request $request){
+
+        $this->validate($request,[
+            'customerID' =>'required',
+            'tripID' =>'required',
+            'Quantity' => 'required|max:255',
+        ]);
+
+
+            $fare = DB::table('trip')
+            ->select('*')
+            ->join('route', 'trip.routeID', '=', 'route.routeID')
+            ->where('trip.tripID', '=', $request->tripID)
+            ->get();
+
+            // insert in database
+            DB::table('orders')->insert([
+                'customerID' => $request->passID,
+                'tripID'     => $request->tripID,
+                'Quantity'   => $request->quantity,
+                'Date'       => $request->date,
+                'status'     => $request->book_status,
+                'AmountDue'  => $request->quantity * $fare[0]->Fare
+            ]);
+
+        return redirect()->route('booking');
+    }
+
     public function Ticket(){
         $currUser = Auth::user();
 

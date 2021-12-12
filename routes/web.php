@@ -79,6 +79,7 @@ Route::view("passenger", 'auth.login');
 //Route::view("/bookings", 'admin.booking');
 
 
+
 Route::view("/signup", 'auth.register');
 Route::view("/admin", 'auth.login-admin');
 Route::view("/passenger", 'auth.login');
