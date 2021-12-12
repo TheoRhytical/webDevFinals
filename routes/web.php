@@ -23,7 +23,7 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function () {
     Route::get("/home", [PagesController::class, "Home"]);
     Route::get("/sched", [PagesController::class, "Schedule"]);
-    //Route::get("/route", [PagesController::class, "AvailableRoutes"]);
+    Route::get("/route", [PagesController::class, "AvailableRoutes"]);
     Route::get("/ticket", [PagesController::class, "Ticket"]);
     Route::post("/search", [PagesController::class, "Search"]);
     Route::post("/HomeSearch", [PagesController::class, "HomeSearch"]);
@@ -52,7 +52,7 @@ Route::get('/custom-login', function () {
 
 
 Route::get("/routes",[PagesController::class,"showterminal"]);
-Route::resource('route', RouterController::class);
+//Route::resource('route', RouterController::class);
 // Route::post("/routes",[PagesController::class,"condition"])->name('add.routes');;
 Route::view("dashboard", 'admin.dashboard');
 
