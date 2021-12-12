@@ -54,7 +54,7 @@ class PagesController extends Controller
     // ->where('status', 1)
     // ->get();
 
-    // $adminUser = Auth::Admin(); 
+    // // $adminUser = Auth::Admin(); 
     // return view('admin.account',['admin' => $admin]);
 
     // }
@@ -74,10 +74,20 @@ class PagesController extends Controller
         }    
 
     public function condition(Request $request){
+        // dd($request);
+        $input = $request->input();
+        $rID = $input['T1']."-".$input['T2'];
 
-        var_dump($request);
-        
+        $update = DB::table('route')
+            ->updateOrInsert(
+                ['routeID' => $rID,'O_termID' => $input['T1'], 'D_termID' => $input['T2']],
+                ['Fare' => $input['fare'], 'Trip Duration' => $input['Travel']]
+            );
+        // var_dump($request);
+        return redirect('routes');
+    
     }
+    public function end()
 
 
     public function Home(){

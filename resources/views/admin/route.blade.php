@@ -27,10 +27,10 @@
     <center><table class="table"  cellspacing="0" cellpadding="0" style="width:100%; margin:0%; border-collapse: separate;border-spacing: 3px 25px;">
     @foreach($rname as $route)
         <tr class="row">
-            <td>{{$rname[0]->O_termID}}-{{$rname[0]->D_termID}}</td>
-            <td>{{$rname[0]->O_termID}}</td>
-            <td>{{$rname[0]->D_termID}}</td>
-            <td>{{$rname[0]->Fare}}</td>
+            <td>{{$route->O_termID}}-{{$route->D_termID}}</td>
+            <td>{{$route->O_termID}}</td>
+            <td>{{$route->D_termID}}</td>
+            <td>{{$route->Fare}}</td>
             <td class="myBtn" style="width: 6%;cursor: pointer;"><img src="{{url('images/edit.png')}}"/></td>
             <td class="Btnd" style="width: 6%;cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
             <td style="width: 6%;cursor: pointer;"><img src="{{url('images/refresh.png')}}"/></td>
@@ -46,29 +46,28 @@
     <span class="close">&times;</span>
     <div class="form">
         <form method="POST" action="{{route('add.routes')}}"> 
-           @csrf
+            @csrf
             <label for="rname">Route name</label>
             <input type="text" id="rname"></input><br><br>
             <label for="L1">Terminal origin</label>
             
-            
-            <select id="T1">
+            <select id="T1" name="T1">
                 @foreach ($rname as $indivroute)  
                 <option value="{{$indivroute->O_termID}}">{{$indivroute->O_termID}}</option>
                 @endforeach
             </select><br><br><br>
             <label for="L2">Terminal destination</label>
-            <select id="T2">
+            <select id="T2" name="T2">
                 @foreach ($rname as $indivroute)  
                 <option value="{{$indivroute->D_termID}}">{{$indivroute->D_termID}}</option>
                 @endforeach
     
             </select><br><br><br>
             <label for="rname">Fare Price</label>
-            <input id="fare"></input><br>
+            <input id="fare" name="fare" ></input><br><br>
 
             <label for="rname">Travel Time</label>
-            <input id="TT"></input><br>
+            <input id="TT" name="Travel"></input><br>
 
             <div class="confirm">
                 <button style="background-color: #27C124" id="save"  type="submit">SAVE</button>

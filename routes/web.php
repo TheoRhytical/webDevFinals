@@ -24,18 +24,12 @@ Route::middleware('auth')->group(function () {
     Route::get("/home", [PagesController::class, "Home"]);
     Route::get("/sched", [PagesController::class, "Schedule"]);
     Route::get("/route", [PagesController::class, "AvailableRoutes"]);
+      Route::post('/TicketDetails',[PagesController::class,"TicketDetails"]);
     Route::post("/cancel", [PagesController::class, "TicketDetails"]);
     Route::get("/ticket", [PagesController::class, "Ticket"]);
     Route::post("/book", [PagesController::class, "Book"]);
     Route::post("/BookingAction", [OrdersController::class, "book"]);
     Route::post("/search", [PagesController::class, "Search"]);
-});
-
-
-//user logic
-require __DIR__.'/auth.php';//this part is really important this will aunthenticate user//
-
-    Route::post('/TicketDetails',[PagesController::class,"TicketDetails"]);
     Route::get('/dashboard', function () { 
         return view('dashboard');
     })->name('dashboard');
@@ -43,16 +37,26 @@ require __DIR__.'/auth.php';//this part is really important this will aunthentic
 
 
 
-Route::get('/custom-login', function () {
+    Route::get('/custom-login', function () {
     return view('login');
+
+
+});
+
+
+//user logic
+require __DIR__.'/auth.php';//this part is really important this will aunthenticate user//
+
+  
+   
 });
 
 //admin logic
 
 
-Route::get("/routes",[PagesController::class,"showterminal"]);
-Route::resource('route', RouterController::class);
-// Route::post("/routes",[PagesController::class,"condition"])->name('add.routes');;
+Route::get("/routes",[PagesController::class,"showterminal"])->name('adminroutes');
+Route::post("/routes",[PagesController::class,"condition"])->name('add.routes');
+
 Route::view("dashboard", 'admin.dashboard');
 
 Route::view("scheds", 'admin.schedule');
