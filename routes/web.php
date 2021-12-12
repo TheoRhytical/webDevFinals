@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\OrdersController;
+use App\Http\Controllers\RouteController;
 use Routes\Auth;
 /*
 |--------------------------------------------------------------------------
@@ -61,7 +62,7 @@ require __DIR__.'/auth.php';//this part is really important this will aunthentic
 
 
 Route::get("/routes",[PagesController::class,"showterminal"]);
-Route::resource('route', RouterController::class);
+Route::resource('route', RouteController::class);
 Route::post("/routes",[PagesController::class,"condition"])->name('add.routes');;
 Route::view("dashboard", 'admin.dashboard');
 

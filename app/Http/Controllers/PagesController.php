@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 
 
 class PagesController extends Controller
@@ -196,7 +197,8 @@ class PagesController extends Controller
         ->where('O_term.Location_Name', $O_term)
         ->get();
 
-        return view('user.search',['trips' => $trips]);
+        if(isset($trips->first()->routeID))return view('user.search',['trips' => $trips]);
+        else return Redirect::back()->with('msg', 'No trip exists with such route and time. Please try again.');
     }
 
     public function AdminSched(){

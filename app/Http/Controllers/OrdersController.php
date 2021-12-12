@@ -14,7 +14,8 @@ class OrdersController extends Controller
         $query = DB::table('orders')->insert([
             'tripID' => $request->input('tripID'),
             'customerID' => $currUser->userID,
-            'Quantity' => $request->input('quantity')
+            'Quantity' => $request->input('quantity'),
+            'AmountDue' => $request->input('Total'),
         ]);
 
         return redirect('/ticket');
