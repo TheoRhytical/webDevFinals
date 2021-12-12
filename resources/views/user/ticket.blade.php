@@ -23,7 +23,7 @@
                 <p><b>Time</b></p>
                 <p>{{substr($order->ETD,0,-3)}}-{{substr($order->ETA,0,-3)}}</p>
                 <p><b>Date</b></p>
-                <p>{{date('F d, Y', strtotime($order->Date))}}</p>
+                <p>{{date('F d, Y', strtotime($order->Date))}}</p><br>
                 <p><b>Terminal</b></p>
                 <p>{{$order->O_Loc}}</p>
                 <p><b>Quantity</b></p>
