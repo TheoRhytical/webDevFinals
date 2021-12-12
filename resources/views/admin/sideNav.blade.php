@@ -1,5 +1,6 @@
+
 <br><br>
-<ul class="sideNav">
+<ul class="sideNav scrolly">
     <center><p style="font-weight: bold;">WELCOME ADMIN</p></center>
     <a href="dashboard">
         <div class="list" id="dashboard">

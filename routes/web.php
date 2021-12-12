@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\OrdersController;
+use App\Http\Controllers\RouteController;
 use Routes\Auth;
 /*
 |--------------------------------------------------------------------------

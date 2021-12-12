@@ -10,6 +10,11 @@
 ?>
 @section('content')
 <div class="container">
+    @if(Session::has('msg'))
+    <div class="subcontainer exit">
+        <center><h2>{{Session::get('msg')}}</h2></center>
+    </div>
+    @endif
     <div class="subcontainer">
         <form action="/HomeSearch" method="POST">
             @csrf
@@ -45,7 +50,7 @@
             </div>
         </form>
     </div>
-    <center><h1 style="background-color: transparent; color:#4C15E9;">WELCOME, {{$currUser->Username}}!</h1></center>
+    <center><h1 style="background-color: transparent; color:#4C15E9;">WELCOME, {{$currUser->username}}!</h1></center>
     <center><h1>Book your ride now!</h1></center>
     <center><img src="{{url('images/vhire.png')}}"></img></center>
 </div>

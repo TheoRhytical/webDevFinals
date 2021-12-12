@@ -6,7 +6,7 @@ var fare = document.getElementById('Fare');
 qty.addEventListener('input', function(){
     var currQ = qty.value;
 
-    tot.value = currQ;
+    tot.value = currQ * fare.value;
     total.placeholder = "PHP "+(currQ * fare.value)+".00";
 });
 
