@@ -78,7 +78,9 @@ Route::get("/dashboard", [PagesController::class, "Dashboard"]);
 //Route::view("/routes", 'admin.route');
 Route::get("/scheds", [PagesController::class, "AdminSched"]);
 //Route::view("/bookings", 'admin.booking');
-Route::get("/bookings", [PagesController::class, "AdminBooking"]);
+
+Route::get("/bookings", [PagesController::class, "AdminBooking"])->name('booking');
+Route::post("/book_form", [PagesController::class, "AddBooking"]);
 
 Route::view("/signup", 'auth.register');
 Route::view("/admin", 'auth.login-admin');
