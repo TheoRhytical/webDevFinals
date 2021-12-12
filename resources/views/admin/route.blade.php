@@ -86,11 +86,15 @@
     <span class="close">&times;</span>
     <center><h2>ARE YOU SURE YOU WANT TO <br>DELETE SELECTED ROUTE?</h2></center>
     <div class="confirm" style="float: left;width:90%;margin-left:30px;">
-        <button style="background-color: #27C124" id="condition">YES</button>
-        <button style="background-color: #FFA800; float:right;">NO</button>
+            <form id="delete-form" action="{{route('delete.routes')}}" method="delete">
+                @method ('delete')
+                @csrf
+                <input type="hidden" id="curr-route" name="routeID"/>
+            </form>
+            <button type="submit" form="delete-form" style="background-color: #27C124">YES</button>
+            <button class="exit-modal" style="background-color: #FFA800; float:right;">NO</button>
+        </div>
     </div>
-  </div>
-</div>
 </div>
 
 

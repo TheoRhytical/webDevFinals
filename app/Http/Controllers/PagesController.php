@@ -89,11 +89,16 @@ class PagesController extends Controller
         return redirect('routes');
     
     }
-<<<<<<< HEAD
-=======
-    //public function end()
->>>>>>> 343625acf135f2ce2b4a3d63bf9f4865b9efbf53
 
+    public function destroy(Request $request){
+        dd($request);
+
+        $input = $request->input();
+
+        $dest = DB::table('route')->where('routeID', '=', $request->routeID)->delete();
+        //redirect to routes
+        return redirect('routes');
+    }
 
     public function Home(){
 
