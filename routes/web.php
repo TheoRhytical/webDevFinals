@@ -16,7 +16,7 @@ use Routes\Auth;
 */
 
 Route::get('/', function () {
-    return redirect("/dashboard");
+    return redirect("/home");
 });
 
 
@@ -27,9 +27,18 @@ Route::middleware('auth')->group(function () {
       Route::post('/TicketDetails',[PagesController::class,"TicketDetails"]);
     Route::post("/cancel", [PagesController::class, "TicketDetails"]);
     Route::get("/ticket", [PagesController::class, "Ticket"]);
+    Route::post("/search", [PagesController::class, "Search"]);
+    Route::post("/HomeSearch", [PagesController::class, "HomeSearch"]);
     Route::post("/book", [PagesController::class, "Book"]);
     Route::post("/BookingAction", [OrdersController::class, "book"]);
-    Route::post("/search", [PagesController::class, "Search"]);
+    Route::post("/cancel", [OrdersController::class, "cancel"]);
+});
+
+
+//user logic
+require __DIR__.'/auth.php';//this part is really important this will aunthenticate user//
+
+    Route::post('/TicketDetails',[PagesController::class,"TicketDetails"]);
     Route::get('/dashboard', function () { 
         return view('dashboard');
     })->name('dashboard');
@@ -47,16 +56,13 @@ Route::middleware('auth')->group(function () {
 //user logic
 require __DIR__.'/auth.php';//this part is really important this will aunthenticate user//
 
-  
-   
-});
 
 //admin logic
 
 
-Route::get("/routes",[PagesController::class,"showterminal"])->name('adminroutes');
-Route::post("/routes",[PagesController::class,"condition"])->name('add.routes');
-
+Route::get("/routes",[PagesController::class,"showterminal"]);
+//Route::resource('route', RouterController::class);
+// Route::post("/routes",[PagesController::class,"condition"])->name('add.routes');;
 Route::view("dashboard", 'admin.dashboard');
 
 Route::view("scheds", 'admin.schedule');

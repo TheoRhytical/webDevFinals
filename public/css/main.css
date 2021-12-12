@@ -277,6 +277,10 @@ input:focus{
     background-color: #FFFFFF;
     border-radius: 0px 11px 11px 0px;
 }
+.right input[type=number]{
+    color: #0F0645;
+    text-align: center;
+}
 .scheds{
     background-color: #FFFFFF;
     border-radius: 8px;
