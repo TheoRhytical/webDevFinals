@@ -4,6 +4,11 @@
     #book{
         background-color: #EFF2FF;
     }
+
+    #hidden {
+        display:none;    
+    }
+
 </style>
 @section('content')
 <div class="container grey-bg">
@@ -31,6 +36,7 @@
         </tr>
             @foreach($book as $booking)
             <tr class="sc bookAll">
+                <td id="hidden">{{$booking->orderID}}</td>
                 <td>{{$booking->username}}</td>
                 <td>{{$booking->orderCreationDT}}</td>
                 <td>{{$booking->routeID}}</td>
@@ -45,7 +51,7 @@
                     <table>
                         <tr>
                             <td class="vhire" style="cursor: pointer;"><img src="{{url('images/edit.png')}}"/></td>
-                            <td class="del-scheds" style="cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
+                            <td class="del-books" data-book-id="{{$booking->orderID}}" style="cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
                         </tr>
                     </table>
                 </td>
@@ -63,7 +69,7 @@
                     <table>
                         <tr>
                             <td class="vhire" style="cursor: pointer;"><img src="{{url('images/edit.png')}}"/></td>
-                            <td class="del-scheds" style="cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
+                            <td class="del-books" data-book-id="{{$confirm->orderID}}" style="cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
                         </tr>
                     </table>
                 </td>
@@ -80,7 +86,7 @@
                     <table>
                         <tr>
                             <td class="vhire" style="cursor: pointer;"><img src="{{url('images/edit.png')}}"/></td>
-                            <td class="del-scheds" style="cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
+                            <td class="del-books" data-book-id="{{$pend->orderID}}" style="cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
                         </tr>
                     </table>
                 </td>
@@ -97,7 +103,7 @@
                     <table>
                         <tr>
                             <td class="vhire" style="cursor: pointer;"><img src="{{url('images/edit.png')}}"/></td>
-                            <td class="del-scheds" style="cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
+                            <td class="del-books" data-book-id="{{$cancel->orderID}}" style="cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
                         </tr>
                     </table>
                 </td>
@@ -156,15 +162,19 @@
 </div>
 
 <!-- The Modal -->
-<div id="del-sched" class="modal">
+<div id="del-book-modal" class="modal">
 
   <!-- Modal content -->
   <div class="modal-content dark">
     <span class="close">&times;</span>
     <center><h2>ARE YOU SURE YOU WANT TO<br> DELETE SELECTED BOOKING?</h2></center>
     <div class="confirm" style="float: left;width:90%;margin-left:30px;">
-        <button style="background-color: #27C124">YES</button>
-        <button style="background-color: #FFA800; float:right;">NO</button>
+        <form id="del-form" action="delete_books" method="POST">
+            @csrf
+            <input name="del_book" type="hidden" id="del_book" value="">
+        </form>
+        <button form="del-form" style="background-color: #27C124">YES</button>
+        <button class="exit-modal" style="background-color: #FFA800; float:right;">NO</button>
     </div>
   </div>
 </div>

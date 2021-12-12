@@ -62,11 +62,10 @@ require __DIR__.'/auth.php';//this part is really important this will aunthentic
 
 
 Route::get("/routes",[PagesController::class,"showterminal"]);
-//Route::resource('route', RouterController::class);
-Route::post("/routes",[PagesController::class,"condition"])->name('add.routes');
-Route::delete("/routes",[PagesController::class,"destroy"])->name('delete.routes');
-
+Route::resource('route', RouteController::class);
+Route::post("/routes",[PagesController::class,"condition"])->name('add.routes');;
 Route::view("dashboard", 'admin.dashboard');
+
 Route::view("scheds", 'admin.schedule');
 Route::view("bookings", 'admin.booking');
 Route::view("account", 'admin.account');
@@ -75,26 +74,24 @@ Route::view("account", 'admin.account');
 Route::view("admin", 'auth.login-admin');
 Route::view("passenger", 'auth.login');
 //Route::view("dashboard", 'admin.dashboard');
+Route::get("/dashboard", [PagesController::class, "Dashboard"]);
 //Route::view("/routes", 'admin.route');
+Route::get("/scheds", [PagesController::class, "AdminSched"]);
 //Route::view("/bookings", 'admin.booking');
 
-
+Route::get("/bookings", [PagesController::class, "AdminBooking"])->name('booking');
+Route::post("/book_form", [PagesController::class, "AddBooking"]);
+Route::post("/delete_books", [PagesController::class, "DeleteBooking"]);
 
 Route::view("/signup", 'auth.register');
 Route::view("/admin", 'auth.login-admin');
 Route::view("/passenger", 'auth.login');
 
-Route::group(['middleware' => 'admin'], function () {
-    Route::get("/dashboard", [PagesController::class, "Dashboard"]);
-    Route::get("/scheds", [PagesController::class, "AdminSched"]);
-    Route::get("/bookings", [PagesController::class, "AdminBooking"]);
-    Route::get("/account", [PagesController::class, "AddAdmin"])->name("account");
-    Route::post("/deleteAcc", [PagesController::class, "DeleteAdminAcc"]);
-    Route::post("/add_account", [PagesController::class, "AddAcc"]);
-    Route::post("/update", [PagesController::class, "UpdateAcc"]);
-});
-
 // Route::view("/account", 'admin.account');
+Route::get("/account", [PagesController::class, "AddAdmin"])->name("account");
+Route::post("/deleteAcc", [PagesController::class, "DeleteAdminAcc"]);
+Route::post("/add_account", [PagesController::class, "AddAcc"]);
+Route::post("/update", [PagesController::class, "UpdateAcc"]);
 
 
 
