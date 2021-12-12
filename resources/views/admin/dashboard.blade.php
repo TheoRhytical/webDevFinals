@@ -33,7 +33,7 @@
         <div class="routes a-route" style="margin-right: 4px;">
             <p class="small">{{$book->orderID}}</p> <br>
             <p>{{$book->orderCreationDT}}</p> <br>
-            <p class="big">{{$book->Fname}} {{$book->Lname}}</p> <br>
+            <p class="big">{{$book->username}}</p> <br>
             @if($book->Status=="PENDING")
                 <p class="status" style="color: white; background-color: #FFA800">Status: {{$book->Status}}</p> <br>
             @elseif($book->Status=="CANCELLED")

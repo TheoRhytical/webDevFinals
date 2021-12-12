@@ -5,10 +5,12 @@
         background-color: #EFF2FF;
     }
 </style>
+<?php
+    $currUser = Auth::user();
+?>
 @section('content')
 <div class="container">
     <div class="schedule">
-        @foreach($infos as $info)
         <h3 style="display:inline-block; text-align: center;">{{$info->routeID}}</h3>
         <h3 style="float:right; width:15%; text-align:center; background-color:#AFBBFC; cursor:pointer">
             <a href="{{ url()->previous() }}" style="color:#FFFFFF">Back</a>
@@ -23,16 +25,18 @@
             <h4 class="left">Time</h4>
             <input type="text" class="right" placeholder="{{$info->ETD}} - {{$info->ETA}}" readOnly></input>
             <h4 class="left">Quantity</h4>
-            <input type="number" class="right" name="quantity" placeholder="1" min="1" id="amt"></input>
+            <input type="number" class="right" name="quantity" placeholder="Quantity" min="1" max="{{$info->FreeSeats}}" id="qty"></input>
             <h4 class="left">Fare Price</h4>
             <input type="text" class="right" placeholder="PHP {{$info->Fare}}.00" readOnly></input>
             <h4 class="left">Total Amount</h4>
-            <input type="text" class="right" placeholder="PHP 1.00" id="total" readOnly></input>
+            <input type="text" class="right" placeholder="PHP 100.00" id="totalPlace" readOnly></input>
+            <input type="hidden" class="right" value="{{$info->Fare}}"id="Fare"></input>
+            <input type="hidden" name="Total" id="tot" value="{{$info->tripID}}"/>
             <input type="hidden" name="tripID" value="{{$info->tripID}}"/>
             <button class="bttn" type="submit">Book Now</button>
         </form>
-        @endforeach
         </div>
     </div>
 </div>
 @endsection
+<script src="{{ asset('js/orders.js') }}" defer></script>

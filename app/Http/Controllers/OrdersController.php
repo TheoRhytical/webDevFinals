@@ -13,7 +13,7 @@ class OrdersController extends Controller
         $currUser = Auth::user();
         $query = DB::table('orders')->insert([
             'tripID' => $request->input('tripID'),
-            'customerID' => $currUser->customerID,
+            'customerID' => $currUser->userID,
             'Quantity' => $request->input('quantity')
         ]);
 
