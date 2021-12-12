@@ -3,7 +3,7 @@ var modal = document.getElementById("myModal");
 var Modal = document.getElementById("mymodal");
 var addv = document.getElementById("add-vhire");
 var delsched = document.getElementById("del-sched");
-
+var editsched = document.getElementById("edit-sched");
 
 $( ".myBtn" ).click(function() {
     $("#myModal").show();
@@ -27,12 +27,17 @@ $( ".del-scheds" ).click(function() {
   $("#del-sched").show();
 });
 
+$( ".e-vhire" ).click(function() {
+  $("#edit-sched").show();
+});
+
 $( ".close" ).click(function() {
     $("#mymodal").hide();
     $("#myModal").hide();
     $("#add-vhire").hide();
     $("#edit-vhire").hide();
     $("#del-sched").hide();
+    $("#edit-sched").hide();
 });
 
 $(".exit-modal").click(function (){
@@ -55,6 +60,9 @@ window.onclick = function(event) {
   if (event.target == delsched) {
     delsched.style.display = "none";
   }
+  if (event.target == editsched) {
+    editsched.style.display = "none";
+  }
 }
 
 $(document).on('click','.update',function(){
@@ -65,4 +73,16 @@ $(document).on('click','.update',function(){
   $('#a_ContactNum').val(_this.find('.contact').text());
   $('#a_Username').val(_this.find('.username').text());
   $('#a_status').val(_this.find('.status').text());
+})
+
+$(document).on('click','.e-vhire',function(){
+  var _this = $(this).parents('.sc');
+  
+  $('#vnum').val(_this.find('.plate').text());
+  $('#dept').val(_this.find('.etd').text());
+  $('#rot').val(_this.find('.rtid').text());
+  $('#statt').val(_this.find('.stat').text());
+  $('#drvr').val(_this.find('.driver').text());
+  $('#arriv').val(_this.find('.eta').text());
+  $('#cpcty').val(_this.find('.seat').text());
 })
