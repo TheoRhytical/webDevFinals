@@ -89,7 +89,7 @@ class PagesController extends Controller
         return redirect('routes');
     
     }
-    public function end()
+    // public function end(){}
 
 
     public function Home(){
