@@ -16,7 +16,7 @@ use Routes\Auth;
 */
 
 Route::get('/', function () {
-    return redirect("/home");
+    return redirect("/dashboard");
 });
 
 
@@ -24,7 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::get("/home", [PagesController::class, "Home"]);
     Route::get("/sched", [PagesController::class, "Schedule"]);
     Route::get("/route", [PagesController::class, "AvailableRoutes"]);
-      Route::post('/TicketDetails',[PagesController::class,"TicketDetails"]);
+    Route::post('/TicketDetails',[PagesController::class,"TicketDetails"]);
     Route::post("/cancel", [PagesController::class, "TicketDetails"]);
     Route::get("/ticket", [PagesController::class, "Ticket"]);
     Route::post("/search", [PagesController::class, "Search"]);
@@ -78,8 +78,18 @@ Route::get("/dashboard", [PagesController::class, "Dashboard"]);
 Route::get("/scheds", [PagesController::class, "AdminSched"]);
 //Route::view("/bookings", 'admin.booking');
 Route::get("/bookings", [PagesController::class, "AdminBooking"]);
-Route::view("/account", 'admin.account');
 
 Route::view("/signup", 'auth.register');
 Route::view("/admin", 'auth.login-admin');
 Route::view("/passenger", 'auth.login');
+
+// Route::view("/account", 'admin.account');
+Route::get("/account", [PagesController::class, "AddAdmin"])->name("account");
+Route::post("/deleteAcc", [PagesController::class, "DeleteAdminAcc"]);
+Route::post("/add_account", [PagesController::class, "AddAcc"]);
+Route::post("/update", [PagesController::class, "UpdateAcc"]);
+
+
+
+
+

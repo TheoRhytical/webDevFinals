@@ -30,18 +30,18 @@
     <div class="subcontainer white-bg" id="bookings">
         <h1 style="text-align: center; background-color:white; color:#250B71;font: weight 800px;">RECENT BOOKINGS</h1>
         @foreach($booking as $book)
-        <div class="routes a-route" style="margin-right: 5px;">
+        <div class="routes a-route" style="margin-right: 4px;">
             <p class="small">{{$book->orderID}}</p> <br>
             <p>{{$book->orderCreationDT}}</p> <br>
-            <p class="big">{{$book->Fname}} {{$book->Lname}}</p> <br>
-            @if($book->Status=="PENDING")
+            <p class="big">{{$book->username}}</p> <br>
+            @if($book->Status=="UNCONFIRMED")
                 <p class="status" style="color: white; background-color: #FFA800">Status: {{$book->Status}}</p> <br>
             @elseif($book->Status=="CANCELLED")
                 <p class="status" style="color: white; background-color: #C12424">Status: {{$book->Status}}</p> <br>
             @else
                 <p class="status" style="color: white;">Status: {{$book->Status}}</p> <br>
             @endif
-            <p style="font-weight: 800;">FROM {{$book->origin}} TO {{$book->dest}}</p> <br>
+            <p style="font-weight: 800;">FROM {{$book->origin}} <br> TO {{$book->dest}}</p> <br>
             <p>{{$book->ETD}} - {{$book->ETA}}</p> <br>
             <p>Plate Number {{$book->PlateNum}}</p> <br>
         </div>
@@ -63,7 +63,7 @@
                 <td>VHIRE {{$vehicle->vehicleID}}</td>
                 <td>{{$vehicle->PlateNum}}</td>
                 <td>{{$vehicle->routeID}}</td>
-                <td>{{$vehicle->Fname}} {{$vehicle->Lname}}</td>
+                <td>{{$vehicle->username}}</td>
                 <td>{{DB::table('orders')
                     ->join('trip', 'trip.tripID', '=', 'orders.tripID')
                     ->join('vhire', 'trip.vehicleID', '=', 'vhire.vehicleID')

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+
 
 class PagesController extends Controller
 {
@@ -87,6 +89,10 @@ class PagesController extends Controller
         return redirect('routes');
     
     }
+<<<<<<< HEAD
+=======
+    //public function end()
+>>>>>>> 343625acf135f2ce2b4a3d63bf9f4865b9efbf53
 
 
     public function Home(){
@@ -101,16 +107,15 @@ class PagesController extends Controller
         ->get();
             
             // var_dump($users);
-        $currUser = Auth::user();
         //return $currUser;
-        return view('user.home',['terminals' => $terminals, 'scheds' => $scheds, 'currUser' => $currUser]);
+        return view('user.home',['terminals' => $terminals, 'scheds' => $scheds]);
     }    
 
 
     public function Dashboard(){
         $booking = DB::table('orders')
-        ->select('orders.orderID', 'orders.orderCreationDT', 'orders.tripID', 'customer.Fname', 'customer.Lname', 'orders.Status', 'terminal1.Location_Name AS origin', 'terminal2.Location_Name AS dest', 'trip.ETD', 'trip.ETA', 'vhire.vehicleID', 'vhire.PlateNum')
-        ->join('customer', 'orders.customerID', '=', 'customer.customerID')
+        ->select('orders.orderID', 'orders.orderCreationDT', 'orders.tripID', 'users.username', 'orders.Status', 'terminal1.Location_Name AS origin', 'terminal2.Location_Name AS dest', 'trip.ETD', 'trip.ETA', 'vhire.vehicleID', 'vhire.PlateNum')
+        ->join('users', 'orders.customerID', '=', 'users.userID')
         ->join('trip', 'orders.tripID', '=', 'trip.tripID')
         ->join('route', 'trip.routeID', '=', 'route.routeID')
         ->join('terminal AS terminal1', 'route.O_termID', '=', 'terminal1.terminalID')
@@ -119,9 +124,9 @@ class PagesController extends Controller
         ->get();
 
         $vhire = DB::table('trip')
-        ->select('vhire.vehicleID', 'vhire.PlateNum', 'trip.routeID', 'trip.tripID', 'driver.Fname', 'driver.Lname')
+        ->select('vhire.vehicleID', 'vhire.PlateNum', 'trip.routeID', 'trip.tripID', 'users.username')
         ->join('vhire', 'trip.vehicleID', '=', 'vhire.vehicleID')
-        ->join('driver', 'vhire.driverID', '=', 'driver.driverID')
+        ->join('users', 'vhire.driverID', '=', 'users.userID')
         ->get();
 
         $revenue = DB::table('orders')
@@ -154,16 +159,14 @@ class PagesController extends Controller
     public function Book(Request $request){
         $tripID = $request->input('tripID');
         $infos = DB::table('trip')
-        ->select('trip.vehicleID', 'vhire.PlateNum', 'terminal.terminalID', 'terminal.Location_Name', 'trip.ETD', 'trip.ETA', 'trip.routeID', 'route.Fare', 'trip.tripID')
+        ->select('trip.vehicleID', 'vhire.PlateNum', 'terminal.terminalID', 'terminal.Location_Name', 'trip.ETD', 'trip.ETA', 'trip.routeID', 'trip.FreeSeats', 'route.Fare', 'trip.tripID')
         ->leftjoin('route', 'trip.routeID', '=','route.routeID')
         ->leftjoin('vhire', 'trip.vehicleID', '=','vhire.vehicleID')
         ->leftjoin('terminal', 'route.O_termID', '=','terminal.terminalID')
         ->where('tripID', $tripID)
         ->get();
 
-        $currUser = Auth::user();
-
-        return view('user.book',['infos' => $infos, 'currUser' => $currUser]);
+        return view('user.book',['info' => $infos->first()]);
     }
     
     public function Search(Request $request){
@@ -201,44 +204,61 @@ class PagesController extends Controller
 
     public function AdminSched(){
         $vhires = DB::table('trip')
-        ->select('vhire.PlateNum', 'route.routeID', 'trip.ETD', 'trip.ETA', 'driver.Fname', 'driver.Lname', 'trip.Status', 'vhire.Capacity')
+        ->select('vhire.PlateNum', 'route.routeID', 'trip.ETD', 'trip.ETA', 'users.username', 'trip.Status', 'vhire.Capacity')
         ->join('route', 'trip.routeID', '=', 'route.routeID')
         ->join('vhire', 'trip.vehicleID', '=', 'vhire.vehicleID')
         ->join('terminal', 'route.D_termID', '=', 'terminal.terminalID')
-        ->join('driver', 'vhire.driverID', '=', 'driver.driverID')
+        ->join('users', 'vhire.driverID', '=', 'users.userID')
         ->get();
 
-        return view('admin.schedule',['vhires' => $vhires]);
+        $routes = DB::table('route')
+        ->select('*')
+        ->get();
+
+        $drivers = DB::table('users')
+        ->select('*')
+        ->where('role', '=', 'DRIVER')
+        ->get();
+        return view('admin.schedule',['vhires' => $vhires, 'routes' => $routes, 'drivers' => $drivers]);
     }
 
     public function AdminBooking(){
         $book = DB::table('orders')
-        ->select('customer.Fname', 'customer.Lname', 'orders.orderCreationDT', 'trip.routeID', 'orders.Status')
-        ->join('customer', 'customer.customerID', '=', 'orders.customerID')
+        ->select('users.username', 'orders.orderCreationDT', 'trip.routeID', 'orders.Status')
+        ->join('users', 'users.userID', '=', 'orders.customerID')
         ->join('trip', 'trip.tripID', '=', 'orders.tripID')
         ->get();
 
         $confirmed = DB::table('orders')
-        ->select('customer.Fname', 'customer.Lname', 'orders.orderCreationDT', 'trip.routeID', 'orders.Status')
-        ->join('customer', 'customer.customerID', '=', 'orders.customerID')
+        ->select('users.username', 'orders.orderCreationDT', 'trip.routeID', 'orders.Status')
+        ->join('users', 'users.userID', '=', 'orders.customerID')
         ->join('trip', 'trip.tripID', '=', 'orders.tripID')
         ->where('orders.Status', '=', 'CONFIRMED')
         ->get();
 
         $pending = DB::table('orders')
-        ->select('customer.Fname', 'customer.Lname', 'orders.orderCreationDT', 'trip.routeID', 'orders.Status')
-        ->join('customer', 'customer.customerID', '=', 'orders.customerID')
+        ->select('users.username', 'orders.orderCreationDT', 'trip.routeID', 'orders.Status')
+        ->join('users', 'users.userID', '=', 'orders.customerID')
         ->join('trip', 'trip.tripID', '=', 'orders.tripID')
         ->where('orders.Status', '=', 'PENDING')
         ->get();
 
         $cancelled = DB::table('orders')
-        ->select('customer.Fname', 'customer.Lname', 'orders.orderCreationDT', 'trip.routeID', 'orders.Status')
-        ->join('customer', 'customer.customerID', '=', 'orders.customerID')
+        ->select('users.username', 'orders.orderCreationDT', 'trip.routeID', 'orders.Status')
+        ->join('users', 'users.userID', '=', 'orders.customerID')
         ->join('trip', 'trip.tripID', '=', 'orders.tripID')
         ->where('orders.Status', '=', 'CANCELLED')
         ->get();
-        return view('admin.booking', ['book' => $book, 'confirmed' => $confirmed, 'pending' => $pending, 'cancelled' => $cancelled]);
+
+        $trips = DB::table('trip')
+        ->select('*')
+        ->get();
+
+        $passenger = DB::table('users')
+        ->select('*')
+        ->where('role', '=', 'CUSTOMER')
+        ->get();
+        return view('admin.booking', ['book' => $book, 'confirmed' => $confirmed, 'pending' => $pending, 'cancelled' => $cancelled, 'trips' => $trips, 'passenger' => $passenger]);
     }
     public function Ticket(){
         $currUser = Auth::user();
@@ -258,10 +278,98 @@ class PagesController extends Controller
         ->join('route', 'trip.routeID', '=', 'route.routeID')
         ->join('terminal as O_term', 'route.O_termID', '=', 'O_term.terminalID')
         ->join('terminal as D_term', 'route.D_termID', '=', 'D_term.terminalID')
-        ->where('customerID', $currUser->customerID)
+        ->where('customerID', $currUser->userID)
         ->where('orders.Status', '!=','CANCELLED')
         ->get();
 
         return view('user.ticket',['orders' => $orders]);
+    }
+
+
+    public function UpdateAcc(Request $request){
+        // dd($request->all());
+        // validate
+        $this->validate($request,[
+            'a_Name' =>'required|max:255',
+            'a_Email' =>'required|max:255|email',
+            'a_ContactNum' => 'required|max:255',
+            // 'a_Password' => 'required'
+        ]);
+
+        $words = explode(" ", $request->a_Name);
+
+        $firstname = $words[0];
+        $middlename = $words[1];
+        $lastname = $words[2];
+
+        DB::table('admin')->where('adminID', '=', $request->a_adminID)->update([
+            'Email'      => $request->a_Email,
+            'ContactNum' => $request->a_ContactNum,
+            'Fname'      => $firstname,
+            'Mname'      => $middlename,
+            'Lname'      => $lastname,
+            'Username'   => $firstname. " " . $lastname,  
+            'Passwords'  => Hash::make($request->a_Password),
+            'status'     => $request->a_status,
+        ]);
+        
+        return redirect()->route('account');
+    }
+
+
+    public function deleteAdminAcc(Request $request){
+        //delete
+        DB::table('admin')->where('adminID', '=', $request->adminID)->delete();
+        //redirect to account
+        return redirect()->route('account');
+    }
+
+
+    public function AddAdmin(){
+        $admin = DB::table('admin')
+        ->select('*')
+        ->get();
+
+        $terminal = DB::table('terminal')
+        ->select('*')
+        ->get();
+
+        // $adminUser = Auth::Admin(); 
+        return view('admin.account',['admin' => $admin,'terminals'=>$terminal]);
+    }
+
+    public function AddAcc(Request $request){
+        // |not_in:0|min:0|numeric
+        //validate
+        $this->validate($request,[
+            'Name' =>'required|max:255',
+            'Email' =>'required|max:255|email',
+            'ContactNum' => 'required|max:255',
+            'Password' => 'required'
+        ]);
+
+
+        //separate first, middle and lastname
+        $words = explode(" ", $request->Name);
+
+        $firstname = $words[0];
+        $middlename = $words[1];
+        $lastname = $words[2];
+
+        //insert in database
+        DB::table('admin')->insert([
+            'Email' => $request->Email,
+            'Fname' => $firstname,
+            'Mname' => $middlename,
+            'Lname' => $lastname,
+            'ContactNum' => $request->ContactNum,
+            'Username' => $firstname. " " . $lastname,  
+            'Passwords' => Hash::make($request->Password),
+            'status' => 'ACTIVE',
+            'DateofBirth' => date("d-m-y")
+        ]);
+
+        //redirect
+        return redirect()->route('account');
     }
 }

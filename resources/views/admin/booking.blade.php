@@ -31,7 +31,7 @@
         </tr>
             @foreach($book as $booking)
             <tr class="sc bookAll">
-                <td>{{$booking->Fname}} {{$booking->Lname}}</td>
+                <td>{{$booking->username}}</td>
                 <td>{{$booking->orderCreationDT}}</td>
                 <td>{{$booking->routeID}}</td>
                 @if($booking->Status == 'CONFIRMED')
@@ -55,7 +55,7 @@
 
             @foreach($confirmed as $confirm)
             <tr class="sc bookConfirmed" style="display: none;">
-                <td>{{$confirm->Fname}} {{$confirm->Lname}}</td>
+                <td>{{$confirm->username}}</td>
                 <td>{{$confirm->orderCreationDT}}</td>
                 <td>{{$confirm->routeID}}</td>
                 <td>{{$confirm->Status}} <img src="{{url('images/active.png')}}" style="float: right;margin-right:20px"/></td>
@@ -72,7 +72,7 @@
 
             @foreach($pending as $pend)
             <tr class="sc bookPending" style="display: none;">
-                <td>{{$pend->Fname}} {{$pend->Lname}}</td>
+                <td>{{$pend->username}}</td>
                 <td>{{$pend->orderCreationDT}}</td>
                 <td>{{$pend->routeID}}</td>
                 <td>{{$pend->Status}} <img src="{{url('images/inactive.png')}}" style="float: right;margin-right:20px"/></td>
@@ -89,7 +89,7 @@
 
             @foreach($cancelled as $cancel)
             <tr class="sc bookCancel" style="display: none;">
-                <td>{{$cancel->Fname}} {{$cancel->Lname}}</td>
+                <td>{{$cancel->username}}</td>
                 <td>{{$cancel->orderCreationDT}}</td>
                 <td>{{$cancel->routeID}}</td>
                 <td>{{$cancel->Status}} <img src="{{url('images/cancelled.png')}}" style="float: right;margin-right:20px"/></td>
@@ -122,13 +122,17 @@
                 <input type="date"/><br><br>
                 <label>PASSENGER</label><br>
                 <select>
-                    <option>1</option>
+                @foreach($passenger as $pass)
+                    <option value="{{$pass->customerID}}">{{$pass->Username}}</option>
+                @endforeach
                 </select>
             </div>
             <div class="form-right">
                 <label>TRIP</label><br>
                 <select>
-                    <option>1</option>
+                @foreach($trips as $trip)
+                    <option value="{{$trip->tripID}}">{{$trip->routeID}} &nbsp; {{$trip->ETD}} - {{$trip->ETA}}</option>
+                @endforeach
                 </select>
                 <br><br>
                 <label>STATUS</label><br>
