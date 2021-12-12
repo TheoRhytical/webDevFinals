@@ -278,29 +278,19 @@ class PagesController extends Controller
 
 
     public function UpdateAcc(Request $request){
-        // dd($request->all());
         // validate
         $this->validate($request,[
-            'a_Name' =>'required|max:255',
+            'a_Username' =>'required|max:255',
             'a_Email' =>'required|max:255|email',
             'a_ContactNum' => 'required|max:255',
             // 'a_Password' => 'required'
         ]);
 
-        $words = explode(" ", $request->a_Name);
-
-        $firstname = $words[0];
-        $middlename = $words[1];
-        $lastname = $words[2];
-
-        DB::table('admin')->where('adminID', '=', $request->a_adminID)->update([
-            'Email'      => $request->a_Email,
-            'ContactNum' => $request->a_ContactNum,
-            'Fname'      => $firstname,
-            'Mname'      => $middlename,
-            'Lname'      => $lastname,
-            'Username'   => $firstname. " " . $lastname,  
-            'Passwords'  => Hash::make($request->a_Password),
+        DB::table('users')->where('userID', '=', $request->a_adminID)->update([
+            'email'      => $request->a_Email,
+            'contactNum' => $request->a_ContactNum,
+            'username'   => $request->a_Username,  
+            'password'  => Hash::make($request->a_Password),
             'status'     => $request->a_status,
         ]);
         
@@ -310,54 +300,56 @@ class PagesController extends Controller
 
     public function deleteAdminAcc(Request $request){
         //delete
-        DB::table('admin')->where('adminID', '=', $request->adminID)->delete();
+        DB::table('users')->where('userID', '=', $request->adminID)->delete();
         //redirect to account
         return redirect()->route('account');
     }
 
 
     public function AddAdmin(){
-        $admin = DB::table('admin')
+        $admin = DB::table('users')
         ->select('*')
+        ->where('role','=','ADMIN')
         ->get();
 
         $terminal = DB::table('terminal')
         ->select('*')
         ->get();
 
+        $active =  DB::table('users')
+        ->select('*')
+        ->where('status', '=','ACTIVE')
+        ->where('role', '=','ADMIN')
+        ->get();
+
+        $inactive =  DB::table('users')
+        ->select('*')
+        ->where('status', '=','INACTIVE')
+        ->where('role', '=','ADMIN')
+        ->get();
+
         // $adminUser = Auth::Admin(); 
-        return view('admin.account',['admin' => $admin,'terminals'=>$terminal]);
+        return view('admin.account',['admin' => $admin,'terminals'=>$terminal,'actives' => $active, 'inactives' => $inactive]);
     }
 
     public function AddAcc(Request $request){
-        // |not_in:0|min:0|numeric
         //validate
         $this->validate($request,[
-            'Name' =>'required|max:255',
+            'Username' =>'required|max:255',
             'Email' =>'required|max:255|email',
             'ContactNum' => 'required|max:255',
             'Password' => 'required'
         ]);
 
 
-        //separate first, middle and lastname
-        $words = explode(" ", $request->Name);
-
-        $firstname = $words[0];
-        $middlename = $words[1];
-        $lastname = $words[2];
-
         //insert in database
-        DB::table('admin')->insert([
-            'Email' => $request->Email,
-            'Fname' => $firstname,
-            'Mname' => $middlename,
-            'Lname' => $lastname,
-            'ContactNum' => $request->ContactNum,
-            'Username' => $firstname. " " . $lastname,  
-            'Passwords' => Hash::make($request->Password),
+        DB::table('users')->insert([
+            'email' => $request->Email,
+            'contactNum' => $request->ContactNum,
+            'username' => $request->Username,  
+            'password' => Hash::make($request->Password),
             'status' => 'ACTIVE',
-            'DateofBirth' => date("d-m-y")
+            'role' => 'ADMIN',
         ]);
 
         //redirect

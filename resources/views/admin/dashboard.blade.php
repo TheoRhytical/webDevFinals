@@ -4,6 +4,8 @@
     #dashboard{
         background-color: #EFF2FF;
     }
+
+    
 </style>
 @section('content')
 <div class="container grey-bg">

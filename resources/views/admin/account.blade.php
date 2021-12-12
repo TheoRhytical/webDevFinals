@@ -10,12 +10,36 @@
         display:none;    
     }
 
+    .scrolly{
+        overflow-y: auto;
+        height: 680px;
+    }
+
+    body{
+        overflow: hidden;
+    }
+
+    ::-webkit-scrollbar {
+        display: none;
+        padding: 0;
+        -ms-overflow-style: none;
+        scrollbar-width: 0px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        border-radius: 5px;
+    }
+    
+    ::-webkit-scrollbar-thumb { 
+        border-radius: 5px;
+    }
+
 
 
 </style>
 @section('content')
 
-<div class="container grey-bg">
+<div class="container grey-bg scrolly">
     <div class="subcontainer white-bg" style="background-color: #FFFFFF; padding:0px 0px 0px 0px;overflow: hidden; position:relative; top: 0px;border-radius:12px">
         <div class="btns" style="width:95%; float: left; margin: 5% 0% 0% 3%; text-align:center;">
             <div class="button vhire" style="float: left; padding: 7px 25px 7px 0px; width:25%;">
@@ -24,9 +48,9 @@
                 ADD ACCOUNT
             </div>
             <div class="mini-btn">
-                <button style="background-color: #4C15E9;">ALL</button>
-                <button>ACTIVE</button>
-                <button>INACTIVE</button>
+                <button id="showALL" style="background-color: #4C15E9;">ALL</button>
+                <button id="showACT">ACTIVE</button>
+                <button id="showIN">INACTIVE</button>
             </div>
         </div>
         <center>
@@ -40,14 +64,11 @@
                 </tr>
 
                 @foreach ($admin as $admin_acc)
-                <tr class="sc">
-                    <td class="id">{{$admin_acc->adminID}}</td>
-                    <td class="email">{{$admin_acc->Email}}</td>
-                    <td class="contact">{{$admin_acc->ContactNum}}</td>
-                    <td class="name" id="hidden">{{$admin_acc->Fname ." ". $admin_acc->Mname ." ". $admin_acc->Lname}}</td>
-                    <td class="Mname" id="hidden">{{$admin_acc->Mname}}</td>
-                    <td class="Lname" id="hidden">{{$admin_acc->Lname}}</td>
-                    <td class="Username" id="hidden">{{$admin_acc->Username}}</td>
+                <tr class="sc disp_all">
+                    <td class="id">{{$admin_acc->userID}}</td>
+                    <td class="email">{{$admin_acc->email}}</td>
+                    <td class="contact">{{$admin_acc->contactNum}}</td>
+                    <td class="username" id="hidden">{{$admin_acc->username}}</td>
                     <td class="status" id="hidden">{{$admin_acc->status}}</td>
 
                     @if($admin_acc->status == 'ACTIVE')
@@ -58,14 +79,63 @@
                     <td>
                         <table>
                             <tr>
-                                <td type="button" data-id="{{$admin_acc->adminID}}" class="update" style="cursor: pointer;"><img src="{{url('images/edit.png')}}" /></td>
+                                <td type="button" data-id="{{$admin_acc->userID}}" class="update" style="cursor: pointer;"><img src="{{url('images/edit.png')}}" /></td>
                                
-                                <td type="button" data-admin-id="{{$admin_acc->adminID}}" class="del-scheds" style="cursor: pointer;"><img src="{{url('images/delete-dark.png')}}" /></td>
+                                <td type="button" data-admin-id="{{$admin_acc->userID}}" class="del-scheds" style="cursor: pointer;"><img src="{{url('images/delete-dark.png')}}" /></td>
                             </tr>
                         </table>
                     </td>
                 </tr>
                 @endforeach
+                @foreach ($actives as $active)
+                <tr class="sc disp_act" style="display: none;">
+                    <td class="id">{{$active->userID}}</td>
+                    <td class="email">{{$active->email}}</td>
+                    <td class="contact">{{$active->contactNum}}</td>
+                    <td class="Username" id="hidden">{{$active->username}}</td>
+                    <td class="status" id="hidden">{{$active->status}}</td>
+
+                    @if($active->status == 'ACTIVE')
+                    <td class="active">{{$active->status}}<img src="{{url('images/active.png')}}" style="float: right;margin-right:20px" /></td>
+                    @else
+                    <td class="inactive">{{$active->status}}<img src="{{url('images/inactive.png')}}" style="float: right;margin-right:20px" /></td>
+                    @endif
+                    <td>
+                        <table>
+                            <tr>
+                                <td type="button" data-id="{{$active->userID}}" class="update" style="cursor: pointer;"><img src="{{url('images/edit.png')}}" /></td>
+                               
+                                <td type="button" data-admin-id="{{$active->userID}}" class="del-scheds" style="cursor: pointer;"><img src="{{url('images/delete-dark.png')}}" /></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                @endforeach
+                @foreach ($inactives as $inactive)
+                <tr class="sc disp_in" style="display: none;">
+                    <td class="id">{{$inactive->userID}}</td>
+                    <td class="email">{{$inactive->email}}</td>
+                    <td class="contact">{{$inactive->contactNum}}</td>
+                    <td class="Username" id="hidden">{{$inactive->username}}</td>
+                    <td class="status" id="hidden">{{$inactive->status}}</td>
+
+                    @if($inactive->status == 'ACTIVE')
+                    <td class="active">{{$inactive->status}}<img src="{{url('images/active.png')}}" style="float: right;margin-right:20px" /></td>
+                    @else
+                    <td class="inactive">{{$inactive->status}}<img src="{{url('images/inactive.png')}}" style="float: right;margin-right:20px" /></td>
+                    @endif
+                    <td>
+                        <table>
+                            <tr>
+                                <td type="button" data-id="{{$inactive->userID}}" class="update" style="cursor: pointer;"><img src="{{url('images/edit.png')}}" /></td>
+                               
+                                <td type="button" data-admin-id="{{$inactive->userID}}" class="del-scheds" style="cursor: pointer;"><img src="{{url('images/delete-dark.png')}}" /></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                @endforeach
+
             </table>
         </center>
     </div>
@@ -99,8 +169,8 @@
                     </select>
                 </div>
                 <div class="form-right">
-                    <label>NAME</label><br>
-                    <input name="a_Name" id="a_Name" type="text " value="{{ old('a_Name') }}" placeholder="Enter Complete Name" @error('a_Name') placeholder="{{$message}}" @enderror/>
+                    <label>USERNAME</label><br>
+                    <input name="a_Username" id="a_Username" type="text " value="{{ old('a_Username') }}" placeholder="Enter Complete Name" @error('a_Username') placeholder="{{$message}}" @enderror/>
                     <br><br>
                     <label>PHONE NUMBER</label><br>
                     <input name="a_ContactNum" id="a_ContactNum" type="tel" value="{{ old('a_ContactNum') }}" @error('a_ContactNum') placeholder="{{$message}}" @enderror /><br><br>
@@ -147,8 +217,8 @@
                     </select>
                 </div>
                 <div class="form-right">
-                    <label>NAME</label><br>
-                    <input name="Name" id="Name" type="text " value="{{ old('Name') }}" placeholder="Enter Complete Name" @error('Name') placeholder="{{$message}}" @enderror/>
+                    <label>USERNAME</label><br>
+                    <input name="Username" id="Username" type="text " value="{{ old('Username') }}" placeholder="Enter Complete Username" @error('Username') placeholder="{{$message}}" @enderror/>
                     <br><br>
                     <label>PHONE NUMBER</label><br>
                     <input name="ContactNum" id="ContactNum" type="tel" value="{{ old('ContactNum') }}" @error('ContactNum') placeholder="{{$message}}" @enderror />

@@ -63,6 +63,6 @@ $(document).on('click','.update',function(){
   $('#a_adminID').val(_this.find('.id').text());
   $('#a_Email').val(_this.find('.email').text());
   $('#a_ContactNum').val(_this.find('.contact').text());
-  $('#a_Name').val(_this.find('.name').text());
+  $('#a_Username').val(_this.find('.username').text());
   $('#a_status').val(_this.find('.status').text());
 })
