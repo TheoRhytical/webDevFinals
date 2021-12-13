@@ -128,7 +128,7 @@ class PagesController extends Controller
         ->get();
 
         $revenue = DB::table('orders')
-        ->where('status', '"CONFIRMED"')
+        ->where('status', '=', 'CONFIRMED')
         ->sum('AmountDue');
 
         $total = DB::table('orders')

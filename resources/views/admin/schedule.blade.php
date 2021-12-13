@@ -91,7 +91,7 @@
                 <label>DRIVER</label><br>
                 <select>
                     @foreach($drivers as $driver)
-                    <option value="{{driver->userID}}">{{$driver->username}}</option>
+                    <option value="{{$driver->userID}}">{{$driver->username}}</option>
                     @endforeach
                 </select>
                 <br><br>

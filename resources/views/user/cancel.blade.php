@@ -56,22 +56,9 @@
             <div class="progress">
                 <div class="stop"></div>
                 <div class="go"></div>
-                <div class="stop" style="top:290px"></div>
-                <div class="go" style="top:300px; background-color:#F1F4F9"></div>
-                <div class="stop" style="top:380px; background-color:#F1F4F9"></div>
             </div>
             <div class="details">
                 <h5 style="margin-bottom:5px; margin-top:5px">Booking Confirmed</h5>
-                <h6 style="margin-bottom:5px; margin-top:0px">MM/DD/YYYY</h6>
-                <h6 style="margin-top:0px">HH:MM AM/PM</h6>
-            </div>
-            <div style="float:right; margin-right:0px; width:75%">
-                <h5 style="margin-bottom:5px; margin-top:5px">Vehicle Confirmed</h5>
-                <h6 style="margin-bottom:5px; margin-top:0px">MM/DD/YYYY</h6>
-                <h6 style="margin-top:0px">HH:MM AM/PM</h6>
-            </div>
-            <div style="float:right; margin-right:0px; width:75%">
-                <h5 style="margin-bottom:5px; margin-top:5px">Ride Confirmed</h5>
                 <h6 style="margin-bottom:5px; margin-top:0px">MM/DD/YYYY</h6>
                 <h6 style="margin-top:0px">HH:MM AM/PM</h6>
             </div>
