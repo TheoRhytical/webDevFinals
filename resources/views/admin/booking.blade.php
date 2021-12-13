@@ -43,11 +43,11 @@
                 <td class="pcs" style="display:none;">{{$booking->Quantity}}</td>
                 <td class="tp" style="display:none;">{{$booking->routeID}} &nbsp; {{$booking->ETD}} - {{$booking->ETA}}</td>
                 @if($booking->Status == 'CONFIRMED')
-                    <td><p class="bstat">{{$booking->Status}}</p> <img src="{{url('images/active.png')}}" style="float: right;margin-right:20px"/></td>
+                    <td><p class="bstat">{{$booking->Status}}</p> <img src="{{url('images/active.png')}}" style="float: right;margin-right:20px; margin-top:15px;"/></td>
                 @elseif($booking->Status == 'UNCONFIRMED')
-                    <td><p class="bstat">{{$booking->Status}}</p> <img src="{{url('images/inactive.png')}}" style="float: right;margin-right:20px"/></td>
+                    <td><p class="bstat">{{$booking->Status}}</p> <img src="{{url('images/inactive.png')}}" style="float: right;margin-right:20px; margin-top:15px;"/></td>
                 @else
-                    <td><p class="bstat">{{$booking->Status}}</p> <img src="{{url('images/cancelled.png')}}" style="float: right;margin-right:20px"/></td>
+                    <td><p class="bstat">{{$booking->Status}}</p> <img src="{{url('images/cancelled.png')}}" style="float: right;margin-right:20px; margin-top:15px;"/></td>
                 @endif
                 <td>
                     <table>
@@ -69,7 +69,7 @@
                 <td class="brid">{{$booking->routeID}}</td>
                 <td class="pcs" style="display:none;">{{$booking->Quantity}}</td>
                 <td class="tp" style="display:none;">{{$booking->routeID}} &nbsp; {{$booking->ETD}} - {{$booking->ETA}}</td>
-                <td><p class="bstat">{{$booking->Status}}</p> <img src="{{url('images/active.png')}}" style="float: right;margin-right:20px"/></td>
+                <td><p class="bstat">{{$booking->Status}}</p> <img src="{{url('images/active.png')}}" style="float: right;margin-right:20px; margin-top:15px;"/></td>
                 <td>
                     <table>
                         <tr>
@@ -89,7 +89,7 @@
                 <td class="brid">{{$booking->routeID}}</td>
                 <td class="pcs" style="display:none;">{{$booking->Quantity}}</td>
                 <td class="tp" style="display:none;">{{$booking->routeID}} &nbsp; {{$booking->ETD}} - {{$booking->ETA}}</td>
-                <td><p class="bstat">{{$booking->Status}}</p> <img src="{{url('images/inactive.png')}}" style="float: right;margin-right:20px"/></td>
+                <td><p class="bstat">{{$booking->Status}}</p> <img src="{{url('images/inactive.png')}}" style="float: right;margin-right:20px; margin-top:15px;"/></td>
                 <td>
                     <table>
                         <tr>
@@ -109,7 +109,7 @@
                 <td class="brid">{{$booking->routeID}}</td>
                 <td class="pcs" style="display:none;">{{$booking->Quantity}}</td>
                 <td class="tp" style="display:none;">{{$booking->routeID}} &nbsp; {{$booking->ETD}} - {{$booking->ETA}}</td>
-                <td><p class="bstat">{{$booking->Status}}</p> <img src="{{url('images/cancelled.png')}}" style="float: right;margin-right:20px"/></td>
+                <td><p class="bstat">{{$booking->Status}}</p> <img src="{{url('images/cancelled.png')}}" style="float: right;margin-right:20px; margin-top:15px;"/></td>
                 <td>
                     <table>
                         <tr>
