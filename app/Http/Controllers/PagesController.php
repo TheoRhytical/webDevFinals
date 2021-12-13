@@ -212,9 +212,11 @@ class PagesController extends Controller
         ->join('users', 'vhire.driverID', '=', 'users.userID')
         ->orderby('trip.ETD')
         ->orderby('trip.routeID')
+        ->where('trip.status', '!=', 'DELETED')
         ->get();
+
         $open = DB::table('trip')
-        ->select('vhire.PlateNum', 'route.routeID', 'trip.ETD', 'trip.ETA', 'users.username', 'trip.Status', 'trip.FreeSeats',  'vhire.Capacity')
+        ->select('vhire.PlateNum', 'route.routeID', 'trip.ETD', 'trip.ETA', 'users.username', 'trip.Status', 'trip.FreeSeats',  'vhire.Capacity', 'trip.tripID')
         ->join('route', 'trip.routeID', '=', 'route.routeID')
         ->join('vhire', 'trip.vehicleID', '=', 'vhire.vehicleID')
         ->join('terminal', 'route.D_termID', '=', 'terminal.terminalID')
@@ -225,7 +227,7 @@ class PagesController extends Controller
         ->get();
 
         $closed = DB::table('trip')
-        ->select('vhire.PlateNum', 'route.routeID', 'trip.ETD', 'trip.ETA', 'users.username', 'trip.Status', 'trip.FreeSeats',  'vhire.Capacity')
+        ->select('vhire.PlateNum', 'route.routeID', 'trip.ETD', 'trip.ETA', 'users.username', 'trip.Status', 'trip.FreeSeats',  'vhire.Capacity', 'trip.tripID')
         ->join('route', 'trip.routeID', '=', 'route.routeID')
         ->join('vhire', 'trip.vehicleID', '=', 'vhire.vehicleID')
         ->join('terminal', 'route.D_termID', '=', 'terminal.terminalID')
@@ -236,12 +238,23 @@ class PagesController extends Controller
         ->get();
 
         $arrived = DB::table('trip')
-        ->select('vhire.PlateNum', 'route.routeID', 'trip.ETD', 'trip.ETA', 'users.username', 'trip.Status',  'trip.FreeSeats', 'vhire.Capacity')
+        ->select('vhire.PlateNum', 'route.routeID', 'trip.ETD', 'trip.ETA', 'users.username', 'trip.Status',  'trip.FreeSeats', 'vhire.Capacity', 'trip.tripID')
         ->join('route', 'trip.routeID', '=', 'route.routeID')
         ->join('vhire', 'trip.vehicleID', '=', 'vhire.vehicleID')
         ->join('terminal', 'route.D_termID', '=', 'terminal.terminalID')
         ->join('users', 'vhire.driverID', '=', 'users.userID')
         ->where('trip.status', 'ARRIVED')
+        ->orderby('trip.ETD')
+        ->orderby('trip.routeID')
+        ->get();
+
+        $deleted = DB::table('trip')
+        ->select('vhire.PlateNum', 'route.routeID', 'trip.ETD', 'trip.ETA', 'users.username', 'trip.Status',  'trip.FreeSeats', 'vhire.Capacity', 'trip.tripID')
+        ->join('route', 'trip.routeID', '=', 'route.routeID')
+        ->join('vhire', 'trip.vehicleID', '=', 'vhire.vehicleID')
+        ->join('terminal', 'route.D_termID', '=', 'terminal.terminalID')
+        ->join('users', 'vhire.driverID', '=', 'users.userID')
+        ->where('trip.status', 'DELETED')
         ->orderby('trip.ETD')
         ->orderby('trip.routeID')
         ->get();
@@ -258,7 +271,7 @@ class PagesController extends Controller
         $vehicles = DB::table('vhire')
         ->select('PlateNum')
         ->get();
-        return view('admin.schedule',['vehicles' => $vehicles, 'vhires' => $vhires, 'open' => $open, 'closed' => $closed, 'arrived' => $arrived, 'routes' => $routes, 'drivers' => $drivers]);
+        return view('admin.schedule',['deleted' => $deleted, 'vehicles' => $vehicles, 'vhires' => $vhires, 'open' => $open, 'closed' => $closed, 'arrived' => $arrived, 'routes' => $routes, 'drivers' => $drivers]);
     }
 
     public function AdminBooking(){
@@ -472,16 +485,6 @@ class PagesController extends Controller
                 ->select('vehicleID')
                 ->where('PlateNum', $request->vhire)
                 ->get()->first()->vehicleID;
-
-        //insert in database
-        // DB::update([
-        //     'vehicleID' => $vID,
-        //     'ETD' => $request->ETD,
-        //     'ETA' => $request->ETA,  
-        //     'routeID' => $request->route,
-        //     'status' => $request->status,
-        //     'FreeSeats' => $request->capacity,
-        // ])->where('orderID', $request->trip);
 
         DB::update('update trip 
             set ETD=?,

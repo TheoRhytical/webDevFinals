@@ -13,6 +13,9 @@
             case 'ARRIVED':
                 $('#arrived').show();
                 break;
+            case 'DELETED':
+                $('#deleted').show();
+                break;
         }
         
     });  

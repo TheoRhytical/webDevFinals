@@ -19,6 +19,7 @@
                 <option>OPEN</option>
                 <option>CLOSED</option>
                 <option>ARRIVED</option>
+                <option>DELETED</option>
             </select>
         </div>
     </div>
@@ -74,6 +75,7 @@
         <!--OPEN-->
         @foreach($open as $vhire)
         <tr class="sc">
+            <td class="trip" style="display:none;">{{$vhire->tripID}}</td>
             <td class="plate">{{$vhire->PlateNum}}</td>
             <td class="rtID">{{$vhire->routeID}}</td>
             <td><p class="etd">{{substr($vhire->ETD,0,-3)}}</p>-<p class="eta">{{substr($vhire->ETA,0,-3)}}</p></td>
@@ -105,6 +107,7 @@
         </tr>
         @foreach($closed as $vhire)
         <tr class="sc">
+            <td class="trip" style="display:none;">{{$vhire->tripID}}</td>
             <td class="plate">{{$vhire->PlateNum}}</td>
             <td class="rtID">{{$vhire->routeID}}</td>
             <td><p class="etd">{{substr($vhire->ETD,0,-3)}}</p>-<p class="eta">{{substr($vhire->ETA,0,-3)}}</p></td>
@@ -121,7 +124,7 @@
             </td>
         </tr>
         @endforeach
-        <!--ARRIVED-->
+    <!--ARRIVED-->
     </table></center>
     </div>
     <div class="subcontainer white-bg" id="arrived" style="display: none; background-color: #FFFFFF; padding:0px 0px 0px 0px;overflow: hidden; position:relative; top: 0px;border-radius:12px">
@@ -136,6 +139,7 @@
         </tr>
         @foreach($arrived as $vhire)
         <tr class="sc">
+            <td class="trip" style="display:none;">{{$vhire->tripID}}</td>
             <td class="plate">{{$vhire->PlateNum}}</td>
             <td class="rtID">{{$vhire->routeID}}</td>
             <td><p class="etd">{{substr($vhire->ETD,0,-3)}}</p>-<p class="eta">{{substr($vhire->ETA,0,-3)}}</p></td>
@@ -147,6 +151,38 @@
                     <tr>
                         <td class="e-sched" style="cursor: pointer;"><img src="{{url('images/edit.png')}}"/></td>
                         <td class="del-scheds" style="cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        @endforeach
+    </table></center>
+    </div>
+    <!--DELETED-->
+    <div class="subcontainer white-bg" id="deleted" style="display: none; background-color: #FFFFFF; padding:0px 0px 0px 0px;overflow: hidden; position:relative; top: 0px;border-radius:12px">
+    <center><table class="table new"  cellspacing="0" cellpadding="0" style="margin:0%; border-collapse: separate;border-spacing: 0px 25px;">
+        <tr style="background-color: #0F0645;color:white;">
+            <th>VHIRE #</th>
+            <th>ROUTE</th>
+            <th>DEPART - ARRIVE</th>
+            <th>DRIVER</th>
+            <th style="border-radius: 0px;">STATUS</th>
+            <th style="border-radius: 0px 12px 12px 0px;"></th>
+        </tr>
+        @foreach($deleted as $vhire)
+        <tr class="sc">
+            <td class="trip" style="display:none;">{{$vhire->tripID}}</td>
+            <td class="plate">{{$vhire->PlateNum}}</td>
+            <td class="rtID">{{$vhire->routeID}}</td>
+            <td><p class="etd">{{substr($vhire->ETD,0,-3)}}</p>-<p class="eta">{{substr($vhire->ETA,0,-3)}}</p></td>
+            <td class="pass">{{$vhire->username}}</td>
+            <td class="seat" style="display: none;">{{$vhire->FreeSeats}}</td>
+            <td><p class="stat">DELETED</p></td>
+
+            <td>
+                <table>
+                    <tr>
+                        <td class="e-sched" style="cursor: pointer;"><img src="{{url('images/edit.png')}}"/></td>
                     </tr>
                 </table>
             </td>
@@ -187,6 +223,7 @@
                     <option>OPEN</option>
                     <option>CLOSED</option>
                     <option>ARRIVED</option>
+                    <option>DELETED</option>
                 </select>
             </div>
             <div class="form-right">
