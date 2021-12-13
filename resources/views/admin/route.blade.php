@@ -4,9 +4,38 @@
     #routes{
         background-color: #EFF2FF;
     }
+
+    #hidden{
+        display: none;
+    }
+
+    .scrolly{
+        overflow-y: auto;
+        height: 680px;
+    }
+
+    body{
+        overflow: hidden;
+    }
+
+    ::-webkit-scrollbar {
+        display: none;
+        padding: 0;
+        -ms-overflow-style: none;
+        scrollbar-width: 0px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        border-radius: 5px;
+    }
+    
+    ::-webkit-scrollbar-thumb { 
+        border-radius: 5px;
+    }
+
 </style>
 @section('content')
-<div class="container grey-bg">
+<div class="container grey-bg scrolly">
     <div class="btns" style="display: inline-block;">
         <div class="button myBtn" style="float: left;margin-left:25px;">
             <img src="{{url('images/map.png')}}" style="position: relative;left:-10%;top:2px;"/>
@@ -26,13 +55,13 @@
     <center><table class="table"  cellspacing="0" cellpadding="0" style="width:100%; margin:0%; border-collapse: separate;border-spacing: 3px 25px;">
     @foreach($rname as $route)
         <tr class="row">
-            <td></td>
+            <td id="hidden"></td>
             <td>{{$route->O_termID}}-{{$route->D_termID}}</td>
             <td>{{$route->O_termID}}</td>
             <td>{{$route->D_termID}}</td>
             <td>{{$route->Fare}}</td>
             <td class="myBtn" style="width: 6%;cursor: pointer;"><img src="{{url('images/edit.png')}}"/></td>
-            <td class="Btnd" style="width: 6%;cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
+            <td  class="Btnd"  data-route-id="{{$route->O_termID}}-{{$route->D_termID}}" style="width: 6%;cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
             <td style="width: 6%;cursor: pointer;"><img src="{{url('images/refresh.png')}}"/></td>
         </tr>
     @endforeach
@@ -40,12 +69,12 @@
     </div>
 
     <!--Modal-->
-<div id="myModal" class="modal">
+<div id="myAddModal" class="modal">
   <!-- Modal content -->
   <div class="modal-content">
     <span class="close">&times;</span>
     <div class="form">
-        <form method="POST" action="{{route('add.routes')}}"> 
+        <form id="add_route_form" method="POST" action="{{route('add.routes')}}"> 
             @csrf
             <label for="rname">Route name</label>
             <input type="text" id="rname"></input><br><br>
@@ -69,11 +98,11 @@
             <label for="rname">Travel Time</label>
             <input id="TT" name="Travel"></input><br>
 
-            <div class="confirm">
-                <button style="background-color: #27C124" id="save"  type="submit">SAVE</button>
-                <button style="background-color: #FFA800; float:right;">CANCEL</button>
-            </div>
         </form>
+        <div class="confirm">
+            <button form="add_route_form" style="background-color: #27C124" id="save"  type="submit">SAVE</button>
+            <button class="exit-modal" style="background-color: #FFA800; float:right;">CANCEL</button>
+        </div>
     </div>
     <img src="{{url('images/modal.png')}}" class="modal-img">
   </div>
@@ -87,8 +116,12 @@
     <span class="close">&times;</span>
     <center><h2>ARE YOU SURE YOU WANT TO <br>DELETE SELECTED ROUTE?</h2></center>
     <div class="confirm" style="float: left;width:90%;margin-left:30px;">
-        <button style="background-color: #27C124" id="condition">YES</button>
-        <button style="background-color: #FFA800; float:right;">NO</button>
+        <form id="route-form" action="deleteRoute" method="POST">
+                @csrf
+                <input type="hidden" id="curr-route" name="routeID"/>
+        </form>
+        <button form="route-form" style="background-color: #27C124" id="condition">YES</button>
+        <button class="exit-modal" style="background-color: #FFA800; float:right;">NO</button>
     </div>
   </div>
 </div>

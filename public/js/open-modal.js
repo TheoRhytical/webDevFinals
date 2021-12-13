@@ -6,10 +6,12 @@ var delsched = document.getElementById("del-sched");
 
 
 $( ".myBtn" ).click(function() {
-    $("#myModal").show();
+    $("#myAddModal").show();
 });
 
 $( ".Btnd" ).click(function() {
+    var routeID = $(this).attr('data-route-id');
+    $('#curr-route').val(routeID); 
     $("#mymodal").show();
 });
 
@@ -40,15 +42,17 @@ $( ".del-books" ).click(function() {
 
 
 $( ".close" ).click(function() {
+    $("#myAddModal").hide();
     $("#mymodal").hide();
-    $("#myModal").hide();
     $("#add-vhire").hide();
     $("#edit-vhire").hide();
     $("#del-sched").hide();
     $("#del-book-modal").hide();
-});
-
-$(".exit-modal").click(function (){
+  });
+  
+  $(".exit-modal").click(function (){
+  $("#myAddModal").hide();
+  $("#mymodal").hide();
   $('#del-sched').hide();
   $('#del-book-modal').hide();
   $('#add-vhire').hide();

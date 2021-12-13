@@ -92,6 +92,15 @@ class PagesController extends Controller
     }
 
 
+    public function DeleteRoute(Request $request)
+    {
+        // dd($request->all());
+
+        //delete
+        DB::table('route')->where('routeID', '=', $request->routeID)->delete();
+        return redirect('routes');
+    }
+
 
     public function Home(){
 

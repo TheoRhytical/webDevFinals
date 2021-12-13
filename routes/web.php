@@ -65,6 +65,7 @@ Route::get("/routes",[PagesController::class,"showterminal"]);
 Route::resource('route', RouteController::class);
 Route::post("/routes",[PagesController::class,"condition"])->name('add.routes');;
 Route::view("dashboard", 'admin.dashboard');
+Route::post("/deleteRoute",[PagesController::class,"DeleteRoute"]);
 
 Route::view("scheds", 'admin.schedule');
 Route::view("bookings", 'admin.booking');

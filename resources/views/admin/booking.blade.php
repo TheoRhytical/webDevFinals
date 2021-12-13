@@ -9,9 +9,33 @@
         display:none;    
     }
 
+    .scrolly{
+        overflow-y: auto;
+        height: 680px;
+    }
+
+    body{
+        overflow: hidden;
+    }
+
+    ::-webkit-scrollbar {
+        display: none;
+        padding: 0;
+        -ms-overflow-style: none;
+        scrollbar-width: 0px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        border-radius: 5px;
+    }
+    
+    ::-webkit-scrollbar-thumb { 
+        border-radius: 5px;
+    }
+
 </style>
 @section('content')
-<div class="container grey-bg">
+<div class="container grey-bg scrolly">
     <div class="subcontainer white-bg" style="background-color: #FFFFFF; padding:0px 0px 0px 0px;overflow: hidden; position:relative; top: 0px;border-radius:12px">
     <div class="btns" style="width:95%; float: left; margin: 5% 0% 0% 3%; text-align:center;">
         <div class="button vhire" style="float: left; padding: 7px 25px 7px 0px; width:25%;">
