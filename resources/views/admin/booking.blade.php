@@ -146,9 +146,9 @@
                 <br><br>
                 <label>STATUS</label><br>
                 <select name="book_status">
-                    <option value="unconfirmed">CONFIRMED</option>
-                    <option value="confirmed">UNCONFIRMED</option>
-                    <option value="cancelled">CANCELLED</option>
+                    <option value="CONFIRMED">CONFIRMED</option>
+                    <option value="UNCONFIRMED">UNCONFIRMED</option>
+                    <option value="CANCELLED">CANCELLED</option>
                 </select>
             </div>
         </form>

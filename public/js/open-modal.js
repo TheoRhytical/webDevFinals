@@ -81,3 +81,4 @@ $(document).on('click','.update',function(){
   $('#a_Username').val(_this.find('.username').text());
   $('#a_status').val(_this.find('.status').text());
 })
+

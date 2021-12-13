@@ -26,6 +26,7 @@
     <center><table class="table"  cellspacing="0" cellpadding="0" style="width:100%; margin:0%; border-collapse: separate;border-spacing: 3px 25px;">
     @foreach($rname as $route)
         <tr class="row">
+            <td></td>
             <td>{{$route->O_termID}}-{{$route->D_termID}}</td>
             <td>{{$route->O_termID}}</td>
             <td>{{$route->D_termID}}</td>
