@@ -78,6 +78,7 @@
             <td><p class="etd">{{substr($vhire->ETD,0,-3)}}</p>-<p class="eta">{{substr($vhire->ETA,0,-3)}}</p></td>
             <td class="pass">{{$vhire->username}}</td>
             <td class="seat" style="display: none;">{{$vhire->FreeSeats}}</td>
+<<<<<<< HEAD
             @if($vhire->Status == 'OPEN')
                 <td><p class="stat">OPEN</p> <img src="{{url('images/active.png')}}" style="float: right;margin-right:20px; margin-top:15px"/></td>
             @elseif($vhire->Status == 'ARRIVED')
@@ -85,6 +86,9 @@
             @else
                 <td><p class="stat">CLOSED</p>  <img src="{{url('images/cancelled.png')}}" style="float: right;margin-right:20px; margin-top:15px"/></td>
             @endif
+=======
+            <td><p class="stat">OPEN</p> <img src="{{url('images/active.png')}}" style="float: right;margin-right:20px; margin-top:15px"/></td>
+>>>>>>> 06274e57cc80d91e474a76edd5c118f70d581ab2
             <td>
                 <table>
                     <tr>
@@ -115,6 +119,7 @@
             <td><p class="etd">{{substr($vhire->ETD,0,-3)}}</p>-<p class="eta">{{substr($vhire->ETA,0,-3)}}</p></td>
             <td class="pass">{{$vhire->username}}</td>
             <td class="seat" style="display: none;">{{$vhire->FreeSeats}}</td>
+<<<<<<< HEAD
             @if($vhire->Status == 'OPEN')
                 <td><p class="stat">OPEN</p> <img src="{{url('images/active.png')}}" style="float: right;margin-right:20px; margin-top:15px"/></td>
             @elseif($vhire->Status == 'ARRIVED')
@@ -122,6 +127,9 @@
             @else
                 <td><p class="stat">CLOSED</p>  <img src="{{url('images/cancelled.png')}}" style="float: right;margin-right:20px; margin-top:15px"/></td>
             @endif
+=======
+            <td><p class="stat">CLOSED</p>  <img src="{{url('images/cancelled.png')}}" style="float: right;margin-right:20px; margin-top:15px"/></td>
+>>>>>>> 06274e57cc80d91e474a76edd5c118f70d581ab2
             <td>
                 <table>
                     <tr>
@@ -152,6 +160,7 @@
             <td><p class="etd">{{substr($vhire->ETD,0,-3)}}</p>-<p class="eta">{{substr($vhire->ETA,0,-3)}}</p></td>
             <td class="pass">{{$vhire->username}}</td>
             <td class="seat" style="display: none;">{{$vhire->FreeSeats}}</td>
+<<<<<<< HEAD
             @if($vhire->Status == 'OPEN')
                 <td><p class="stat">OPEN</p> <img src="{{url('images/active.png')}}" style="float: right;margin-right:20px; margin-top:15px"/></td>
             @elseif($vhire->Status == 'ARRIVED')
@@ -159,6 +168,9 @@
             @else
                 <td><p class="stat">CLOSED</p>  <img src="{{url('images/cancelled.png')}}" style="float: right;margin-right:20px; margin-top:15px"/></td>
             @endif
+=======
+            <td><p class="stat">ARRIVED</p>  <img src="{{url('images/inactive.png')}}" style="float: right;margin-right:20px; margin-top:15px"/></td>
+>>>>>>> 06274e57cc80d91e474a76edd5c118f70d581ab2
             <td>
                 <table>
                     <tr>
@@ -199,9 +211,13 @@
                 <br><br>
                 <label>STATUS</label><br>
                 <select id="statt">
+<<<<<<< HEAD
                     <option>ARRIVED</option>
+=======
+>>>>>>> 06274e57cc80d91e474a76edd5c118f70d581ab2
                     <option>OPEN</option>
                     <option>CLOSED</option>
+                    <option>ARRIVED</option>
                 </select>
             </div>
             <div class="form-right">
