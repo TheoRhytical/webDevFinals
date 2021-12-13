@@ -209,6 +209,30 @@ class PagesController extends Controller
         ->join('terminal', 'route.D_termID', '=', 'terminal.terminalID')
         ->join('users', 'vhire.driverID', '=', 'users.userID')
         ->get();
+        $open = DB::table('trip')
+        ->select('vhire.PlateNum', 'route.routeID', 'trip.ETD', 'trip.ETA', 'users.username', 'trip.Status', 'vhire.Capacity')
+        ->join('route', 'trip.routeID', '=', 'route.routeID')
+        ->join('vhire', 'trip.vehicleID', '=', 'vhire.vehicleID')
+        ->join('terminal', 'route.D_termID', '=', 'terminal.terminalID')
+        ->join('users', 'vhire.driverID', '=', 'users.userID')
+        ->where('trip.status', '"ACTIVE"')
+        ->get();
+        $closed = DB::table('trip')
+        ->select('vhire.PlateNum', 'route.routeID', 'trip.ETD', 'trip.ETA', 'users.username', 'trip.Status', 'vhire.Capacity')
+        ->join('route', 'trip.routeID', '=', 'route.routeID')
+        ->join('vhire', 'trip.vehicleID', '=', 'vhire.vehicleID')
+        ->join('terminal', 'route.D_termID', '=', 'terminal.terminalID')
+        ->join('users', 'vhire.driverID', '=', 'users.userID')
+        ->where('trip.status', '"CLOSED"')
+        ->get();
+        $arrived = DB::table('trip')
+        ->select('vhire.PlateNum', 'route.routeID', 'trip.ETD', 'trip.ETA', 'users.username', 'trip.Status', 'vhire.Capacity')
+        ->join('route', 'trip.routeID', '=', 'route.routeID')
+        ->join('vhire', 'trip.vehicleID', '=', 'vhire.vehicleID')
+        ->join('terminal', 'route.D_termID', '=', 'terminal.terminalID')
+        ->join('users', 'vhire.driverID', '=', 'users.userID')
+        ->where('trip.status', '"ARRIVED"')
+        ->get();
 
         $routes = DB::table('route')
         ->select('*')
@@ -218,7 +242,7 @@ class PagesController extends Controller
         ->select('*')
         ->where('role', '=', 'DRIVER')
         ->get();
-        return view('admin.schedule',['vhires' => $vhires, 'routes' => $routes, 'drivers' => $drivers]);
+        return view('admin.schedule',['vhires' => $vhires, 'open' => $open, 'closed' => $closed, 'arrived' => $arrived, 'routes' => $routes, 'drivers' => $drivers]);
     }
 
     public function AdminBooking(){
