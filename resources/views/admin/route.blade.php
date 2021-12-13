@@ -63,7 +63,6 @@
             <td class="time" style="display: none;"><?php echo $route->{'Trip Duration'}; ?></td>
             <td class="e-route" style="width: 6%;cursor: pointer;"><img src="{{url('images/edit.png')}}"/></td>
              <td  class="Btnd"  data-route-id="{{$route->O_termID}}-{{$route->D_termID}}" style="width: 6%;cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
-
             <td style="width: 6%;cursor: pointer;"><img src="{{url('images/refresh.png')}}"/></td>
         </tr>
     @endforeach
@@ -76,10 +75,10 @@
   <div class="modal-content">
     <span class="close">&times;</span>
     <div class="form">
-        <form method="POST" action="{{route('add.routes')}}"> 
+        <form method="POST" action="updateRoute" id="edit-route-form"> 
             @csrf
             <label for="rname">Route name</label>
-            <input type="text" id="rname"></input><br><br>
+            <input type="text" id="rname" name="rname"></input><br><br>
             <label for="L1">Terminal origin</label>
             
             <select id="T1" name="T1">
@@ -100,11 +99,11 @@
             <label for="rname">Travel Time</label>
             <input id="TT" name="Travel"></input><br>
 
-            <div class="confirm">
-                <button style="background-color: #27C124" id="save"  type="submit">SAVE</button>
-                <button style="background-color: #FFA800; float:right;">CANCEL</button>
-            </div>
         </form>
+        <div class="confirm">
+            <button form="edit-route-form" style="background-color: #27C124" id="save"  type="submit">SAVE</button>
+            <button class="exit-modal" style="background-color: #FFA800; float:right;">CANCEL</button>
+        </div>
     </div>
     <img src="{{url('images/modal.png')}}" class="modal-img">
   </div>

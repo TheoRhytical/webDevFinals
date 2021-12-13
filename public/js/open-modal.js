@@ -21,6 +21,11 @@ $( ".Btnd" ).click(function() {
 $( ".vhire" ).click(function() {
   $("#add-vhire").show();
 });
+$( ".add_book_btn" ).click(function() {
+  $("#add-booking").show();
+});
+
+
 
 $( ".update" ).click(function() {
   $("#edit-vhire").show();
@@ -60,6 +65,7 @@ $( ".close" ).click(function() {
     $("#myAddModal").hide();
     $("#mymodal").hide();
     $("#add-vhire").hide();
+    $("#add-booking").hide();
     $("#edit-vhire").hide();
     $("#del-sched").hide();
     $("#edit-sched").hide();
@@ -75,6 +81,7 @@ $( ".close" ).click(function() {
   $('#del-book-modal').hide();
   $('#add-vhire').hide();
   $('#edit-vhire').hide();
+  $('#edit-route').hide();
   $('#add-booking').hide();
 });
 
