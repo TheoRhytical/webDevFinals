@@ -36,7 +36,7 @@ class PagesController extends Controller
     public function TicketDetails(Request $request){
 
         $users = DB::table('orders')
-        ->select('vhire.PlateNum','vhire.vehicleID','terminal.Location_Name','trip.ETD','trip.ETA', 'orders.Quantity','route.Fare', 'orders.orderID', 'orders.Date', 'trip.tripID')
+        ->select('vhire.PlateNum','vhire.vehicleID','terminal.Location_Name','trip.ETD','trip.ETA', 'orders.Quantity','route.Fare', 'orders.orderID', 'orders.orderCreationDT', 'orders.Date', 'trip.tripID')
         ->leftjoin('trip', 'orders.tripID', '=','trip.tripID')
         ->leftjoin('route', 'trip.routeID', '=','route.routeID')
         ->leftjoin('terminal','route.O_termID', '=', 'terminal.terminalID')
@@ -249,27 +249,27 @@ class PagesController extends Controller
 
     public function AdminBooking(){
         $book = DB::table('orders')
-        ->select('orders.orderID','users.username', 'orders.orderCreationDT', 'trip.routeID', 'trip.FreeSeats', 'orders.Status')
+        ->select('orders.orderID','users.username', 'orders.orderCreationDT', 'trip.routeID', 'trip.FreeSeats', 'orders.Status', 'orders.Quantity', 'trip.ETD', 'trip.ETA')
         ->join('users', 'users.userID', '=', 'orders.customerID')
         ->join('trip', 'trip.tripID', '=', 'orders.tripID')
         ->get();
 
         $confirmed = DB::table('orders')
-        ->select('orders.orderID','users.username', 'orders.orderCreationDT', 'trip.routeID', 'trip.FreeSeats',  'orders.Status')
+        ->select('orders.orderID','users.username', 'orders.orderCreationDT', 'trip.routeID', 'trip.FreeSeats',  'orders.Status', 'orders.Quantity', 'trip.ETD', 'trip.ETA')
         ->join('users', 'users.userID', '=', 'orders.customerID')
         ->join('trip', 'trip.tripID', '=', 'orders.tripID')
         ->where('orders.Status', '=', 'CONFIRMED')
         ->get();
 
         $pending = DB::table('orders')
-        ->select('orders.orderID','users.username', 'orders.orderCreationDT', 'trip.routeID', 'trip.FreeSeats',  'orders.Status')
+        ->select('orders.orderID','users.username', 'orders.orderCreationDT', 'trip.routeID', 'trip.FreeSeats',  'orders.Status', 'orders.Quantity', 'trip.ETD', 'trip.ETA')
         ->join('users', 'users.userID', '=', 'orders.customerID')
         ->join('trip', 'trip.tripID', '=', 'orders.tripID')
         ->where('orders.Status', '=', 'UNCONFIRMED')
         ->get();
 
         $cancelled = DB::table('orders')
-        ->select('orders.orderID','users.username', 'orders.orderCreationDT', 'trip.routeID', 'trip.FreeSeats',  'orders.Status')
+        ->select('orders.orderID','users.username', 'orders.orderCreationDT', 'trip.routeID', 'trip.FreeSeats',  'orders.Status', 'orders.Quantity')
         ->join('users', 'users.userID', '=', 'orders.customerID')
         ->join('trip', 'trip.tripID', '=', 'orders.tripID')
         ->where('orders.Status', '=', 'CANCELLED')
@@ -334,7 +334,8 @@ class PagesController extends Controller
             'orders.Date',
             'orders.Quantity',
             'route.Fare',
-            'orders.orderID'
+            'orders.orderID',
+            'orders.AmountDue'
             )
         ->join ('trip', 'orders.tripID', '=', 'trip.tripID')
         ->join('route', 'trip.routeID', '=', 'route.routeID')

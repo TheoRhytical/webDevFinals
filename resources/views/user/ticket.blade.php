@@ -19,7 +19,7 @@
         <button type="submit" name="orderID" value="{{$order->orderID}}">
             <div class="tick">
                 <h3>{{$order->O_Loc}} - {{$order->D_Loc}}</h3>
-                <p style="float:right; padding-right:25px; padding-top:5px"><b style="color:#4C15E9">PHP {{$order->Fare}}.00</b></p><br>
+                <p style="float:right; padding-right:25px; padding-top:5px"><b style="color:#4C15E9">PHP {{$order->AmountDue}}.00</b></p><br>
                 <p><b>Time</b></p>
                 <p>{{substr($order->ETD,0,-3)}}-{{substr($order->ETA,0,-3)}}</p>
                 <p><b>Date</b></p>
