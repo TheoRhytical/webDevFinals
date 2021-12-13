@@ -112,7 +112,7 @@ class PagesController extends Controller
 
     public function Dashboard(){
         $booking = DB::table('orders')
-        ->select('orders.orderID', 'orders.orderCreationDT', 'orders.tripID', 'users.username', 'orders.Status', 'terminal1.Location_Name AS origin', 'terminal2.Location_Name AS dest', 'trip.ETD', 'trip.ETA', 'vhire.vehicleID', 'vhire.PlateNum')
+        ->select('orders.orderID', 'orders.statusChangeDT', 'orders.tripID', 'users.username', 'orders.Status', 'terminal1.Location_Name AS origin', 'terminal2.Location_Name AS dest', 'trip.ETD', 'trip.ETA', 'vhire.vehicleID', 'vhire.PlateNum')
         ->join('users', 'orders.customerID', '=', 'users.userID')
         ->join('trip', 'orders.tripID', '=', 'trip.tripID')
         ->join('route', 'trip.routeID', '=', 'route.routeID')
@@ -128,6 +128,7 @@ class PagesController extends Controller
         ->get();
 
         $revenue = DB::table('orders')
+        ->where('status', '"CONFIRMED"')
         ->sum('AmountDue');
 
         $total = DB::table('orders')

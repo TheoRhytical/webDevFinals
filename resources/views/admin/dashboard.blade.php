@@ -34,7 +34,7 @@
         @foreach($booking as $book)
         <div class="routes a-route" style="margin-right: 4px;">
             <p class="small">{{$book->orderID}}</p> <br>
-            <p>{{date("F j, Y g:i a", strtotime($book->orderCreationDT))}}</p> <br>
+            <p>{{date("F j, Y g:i a", strtotime($book->statusChangeDT))}}</p> <br>
             <p class="big">{{$book->username}}</p> <br>
             @if($book->Status=="UNCONFIRMED")
                 <p class="status" style="color: white; background-color: #FFA800">Status: {{$book->Status}}</p> <br>
