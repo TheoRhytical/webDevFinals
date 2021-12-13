@@ -14,17 +14,16 @@
         </div>
         <div class="mini-btn" >
             <label style="position:relative; top: 5px; font-weight:800;">FILTER BY ROUTE:</label>
-            <select class="filter">
+            <select class="filter" >
                 <option>ALL</option>
                 <option>OPEN</option>
                 <option>CLOSED</option>
-                <option>DEPARTED</option>
                 <option>ARRIVED</option>
             </select>
         </div>
     </div>
 
-    <div class="subcontainer white-bg" style="background-color: #FFFFFF; padding:0px 0px 0px 0px;overflow: hidden; position:relative; top: 0px;border-radius:12px">
+    <div class="subcontainer white-bg" id="all" style="background-color: #FFFFFF; padding:0px 0px 0px 0px;overflow: hidden; position:relative; top: 0px;border-radius:12px">
     <center><table class="table new"  cellspacing="0" cellpadding="0" style="margin:0%; border-collapse: separate;border-spacing: 0px 25px;">
         <tr style="background-color: #0F0645;color:white;">
             <th>VHIRE #</th>
@@ -42,7 +41,7 @@
             <td><p class="etd">{{substr($vhire->ETD,0,-3)}}</p>-<p class="eta">{{substr($vhire->ETA,0,-3)}}</p></td>
             <td class="pass">{{$vhire->username}}</td>
             <td class="seat" style="display: none;">{{$vhire->FreeSeats}}</td>
-            @if($vhire->Status == 'OPEN')
+            @if($vhire->Status == 'ACTIVE')
                 <td><p class="stat">OPEN</p> <img src="{{url('images/active.png')}}" style="float: right;margin-right:20px; margin-top:15px"/></td>
             @elseif($vhire->Status == 'ARRIVED')
                 <td><p class="stat">ARRIVED</p>  <img src="{{url('images/inactive.png')}}" style="float: right;margin-right:20px; margin-top:15px"/></td>
@@ -61,8 +60,8 @@
         @endforeach
     </table></center>
     </div>
-    <div class="subcontainer white-bg" style="background-color: #FFFFFF; padding:0px 0px 0px 0px;overflow: hidden; position:relative; top: 0px;border-radius:12px">
-    <center><table class="table new"  cellspacing="0" cellpadding="0" style="margin:0%; border-collapse: separate;border-spacing: 0px 25px;">
+    <div class="subcontainer white-bg" id="open" style="display: none; background-color: #FFFFFF; padding:0px 0px 0px 0px;overflow: hidden; position:relative; top: 0px;border-radius:12px">
+    <center><table class="table new" cellspacing="0" cellpadding="0" style="margin:0%; border-collapse: separate;border-spacing: 0px 25px;">
         <tr style="background-color: #0F0645;color:white;">
             <th>VHIRE #</th>
             <th>ROUTE</th>
@@ -99,7 +98,7 @@
         <!--CLOSED-->
     </table></center>
     </div>
-    <div class="subcontainer white-bg" style="background-color: #FFFFFF; padding:0px 0px 0px 0px;overflow: hidden; position:relative; top: 0px;border-radius:12px">
+    <div class="subcontainer white-bg" id="closed" style="display: none; background-color: #FFFFFF; padding:0px 0px 0px 0px;overflow: hidden; position:relative; top: 0px;border-radius:12px">
     <center><table class="table new"  cellspacing="0" cellpadding="0" style="margin:0%; border-collapse: separate;border-spacing: 0px 25px;">
         <tr style="background-color: #0F0645;color:white;">
             <th>VHIRE #</th>
@@ -109,7 +108,7 @@
             <th style="border-radius: 0px;">STATUS</th>
             <th style="border-radius: 0px 12px 12px 0px;"></th>
         </tr>
-        @foreach($vhires as $vhire)
+        @foreach($closed as $vhire)
         <tr class="sc">
             <td class="plate">{{$vhire->PlateNum}}</td>
             <td class="rtID">{{$vhire->routeID}}</td>
@@ -136,7 +135,7 @@
         <!--ARRIVED-->
     </table></center>
     </div>
-    <div class="subcontainer white-bg" style="background-color: #FFFFFF; padding:0px 0px 0px 0px;overflow: hidden; position:relative; top: 0px;border-radius:12px">
+    <div class="subcontainer white-bg" id="arrived" style="display: none; background-color: #FFFFFF; padding:0px 0px 0px 0px;overflow: hidden; position:relative; top: 0px;border-radius:12px">
     <center><table class="table new"  cellspacing="0" cellpadding="0" style="margin:0%; border-collapse: separate;border-spacing: 0px 25px;">
         <tr style="background-color: #0F0645;color:white;">
             <th>VHIRE #</th>
@@ -146,7 +145,7 @@
             <th style="border-radius: 0px;">STATUS</th>
             <th style="border-radius: 0px 12px 12px 0px;"></th>
         </tr>
-        @foreach($vhires as $vhire)
+        @foreach($arrived as $vhire)
         <tr class="sc">
             <td class="plate">{{$vhire->PlateNum}}</td>
             <td class="rtID">{{$vhire->routeID}}</td>

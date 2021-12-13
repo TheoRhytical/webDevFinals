@@ -217,7 +217,7 @@ class PagesController extends Controller
         ->join('vhire', 'trip.vehicleID', '=', 'vhire.vehicleID')
         ->join('terminal', 'route.D_termID', '=', 'terminal.terminalID')
         ->join('users', 'vhire.driverID', '=', 'users.userID')
-        ->where('trip.status', '"ACTIVE"')
+        ->where('trip.status', 'ACTIVE')
         ->get();
         $closed = DB::table('trip')
         ->select('vhire.PlateNum', 'route.routeID', 'trip.ETD', 'trip.ETA', 'users.username', 'trip.Status', 'trip.FreeSeats',  'vhire.Capacity')
@@ -225,7 +225,7 @@ class PagesController extends Controller
         ->join('vhire', 'trip.vehicleID', '=', 'vhire.vehicleID')
         ->join('terminal', 'route.D_termID', '=', 'terminal.terminalID')
         ->join('users', 'vhire.driverID', '=', 'users.userID')
-        ->where('trip.status', '"CLOSED"')
+        ->where('trip.status', 'CLOSED')
         ->get();
         $arrived = DB::table('trip')
         ->select('vhire.PlateNum', 'route.routeID', 'trip.ETD', 'trip.ETA', 'users.username', 'trip.Status',  'trip.FreeSeats', 'vhire.Capacity')
@@ -233,7 +233,7 @@ class PagesController extends Controller
         ->join('vhire', 'trip.vehicleID', '=', 'vhire.vehicleID')
         ->join('terminal', 'route.D_termID', '=', 'terminal.terminalID')
         ->join('users', 'vhire.driverID', '=', 'users.userID')
-        ->where('trip.status', '"ARRIVED"')
+        ->where('trip.status', 'ARRIVED')
         ->get();
 
         $routes = DB::table('route')
