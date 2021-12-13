@@ -17,7 +17,7 @@
 
                     <!-- Email Address -->
                     <div>
-                        <label for="email" class="label">Username</label><br>
+                        <label for="email" class="label">Email</label><br>
 
                         <input id="email" type="email" placeholder="juandelacruz@email.com" type="email" name="email" :value="old('email')" required autofocus />
                     </div>
@@ -46,7 +46,6 @@
 
                 </form>
                 <br>
-                <center><a class="link" href="admin">Login as admin</a></p></center>
                 <center><p style="color:#FFFFFF">Don't have an account?&nbsp;<a class="link" href="register">Create Now!</a></p></center>
             
                 <center><a class="link">www.vhire.ph</a><br></br></center>
