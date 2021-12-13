@@ -59,6 +59,111 @@
         @endforeach
     </table></center>
     </div>
+    <div class="subcontainer white-bg" style="background-color: #FFFFFF; padding:0px 0px 0px 0px;overflow: hidden; position:relative; top: 0px;border-radius:12px">
+    <center><table class="table new"  cellspacing="0" cellpadding="0" style="margin:0%; border-collapse: separate;border-spacing: 0px 25px;">
+        <tr style="background-color: #0F0645;color:white;">
+            <th>VHIRE #</th>
+            <th>ROUTE</th>
+            <th>DEPART - ARRIVE</th>
+            <th>DRIVER</th>
+            <th style="border-radius: 0px;">STATUS</th>
+            <th style="border-radius: 0px 12px 12px 0px;"></th>
+        </tr>
+        @foreach($vhires as $vhire)
+        <tr class="sc">
+            <td>{{$vhire->PlateNum}}</td>
+            <td>{{$vhire->routeID}}</td>
+            <td>{{substr($vhire->ETA,0,-3)}}-{{substr($vhire->ETD,0,-3)}}</td>
+            <td>{{$vhire->username}}</td>
+            @if($vhire->Status == 'ACTIVE')
+                <td>OPEN <img src="{{url('images/active.png')}}" style="float: right;margin-right:20px"/></td>
+            @elseif($vhire->Status == 'ARRIVED')
+                <td>ARRIVED <img src="{{url('images/inactive.png')}}" style="float: right;margin-right:20px"/></td>
+            @else
+                <td>CLOSED <img src="{{url('images/cancelled.png')}}" style="float: right;margin-right:20px"/></td>
+            @endif
+            <td>
+                <table>
+                    <tr>
+                        <td class="vhire" style="cursor: pointer;"><img src="{{url('images/edit.png')}}"/></td>
+                        <td class="del-scheds" style="cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        @endforeach
+    </table></center>
+    </div>
+    <div class="subcontainer white-bg" style="background-color: #FFFFFF; padding:0px 0px 0px 0px;overflow: hidden; position:relative; top: 0px;border-radius:12px">
+    <center><table class="table new"  cellspacing="0" cellpadding="0" style="margin:0%; border-collapse: separate;border-spacing: 0px 25px;">
+        <tr style="background-color: #0F0645;color:white;">
+            <th>VHIRE #</th>
+            <th>ROUTE</th>
+            <th>DEPART - ARRIVE</th>
+            <th>DRIVER</th>
+            <th style="border-radius: 0px;">STATUS</th>
+            <th style="border-radius: 0px 12px 12px 0px;"></th>
+        </tr>
+        @foreach($vhires as $vhire)
+        <tr class="sc">
+            <td>{{$vhire->PlateNum}}</td>
+            <td>{{$vhire->routeID}}</td>
+            <td>{{substr($vhire->ETA,0,-3)}}-{{substr($vhire->ETD,0,-3)}}</td>
+            <td>{{$vhire->username}}</td>
+            @if($vhire->Status == 'ACTIVE')
+                <td>OPEN <img src="{{url('images/active.png')}}" style="float: right;margin-right:20px"/></td>
+            @elseif($vhire->Status == 'ARRIVED')
+                <td>ARRIVED <img src="{{url('images/inactive.png')}}" style="float: right;margin-right:20px"/></td>
+            @else
+                <td>CLOSED <img src="{{url('images/cancelled.png')}}" style="float: right;margin-right:20px"/></td>
+            @endif
+            <td>
+                <table>
+                    <tr>
+                        <td class="vhire" style="cursor: pointer;"><img src="{{url('images/edit.png')}}"/></td>
+                        <td class="del-scheds" style="cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        @endforeach
+    </table></center>
+    </div>
+    <div class="subcontainer white-bg" style="background-color: #FFFFFF; padding:0px 0px 0px 0px;overflow: hidden; position:relative; top: 0px;border-radius:12px">
+    <center><table class="table new"  cellspacing="0" cellpadding="0" style="margin:0%; border-collapse: separate;border-spacing: 0px 25px;">
+        <tr style="background-color: #0F0645;color:white;">
+            <th>VHIRE #</th>
+            <th>ROUTE</th>
+            <th>DEPART - ARRIVE</th>
+            <th>DRIVER</th>
+            <th style="border-radius: 0px;">STATUS</th>
+            <th style="border-radius: 0px 12px 12px 0px;"></th>
+        </tr>
+        @foreach($vhires as $vhire)
+        <tr class="sc">
+            <td>{{$vhire->PlateNum}}</td>
+            <td>{{$vhire->routeID}}</td>
+            <td>{{substr($vhire->ETA,0,-3)}}-{{substr($vhire->ETD,0,-3)}}</td>
+            <td>{{$vhire->username}}</td>
+            @if($vhire->Status == 'ACTIVE')
+                <td>OPEN <img src="{{url('images/active.png')}}" style="float: right;margin-right:20px"/></td>
+            @elseif($vhire->Status == 'ARRIVED')
+                <td>ARRIVED <img src="{{url('images/inactive.png')}}" style="float: right;margin-right:20px"/></td>
+            @else
+                <td>CLOSED <img src="{{url('images/cancelled.png')}}" style="float: right;margin-right:20px"/></td>
+            @endif
+            <td>
+                <table>
+                    <tr>
+                        <td class="vhire" style="cursor: pointer;"><img src="{{url('images/edit.png')}}"/></td>
+                        <td class="del-scheds" style="cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        @endforeach
+    </table></center>
+    </div>
 </div>
 
 <!-- The Modal -->
