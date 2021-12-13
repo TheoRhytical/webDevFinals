@@ -4,6 +4,11 @@
     #book{
         background-color: #EFF2FF;
     }
+
+    #hidden {
+        display:none;    
+    }
+
 </style>
 @section('content')
 <div class="container grey-bg">
@@ -17,7 +22,7 @@
         <div class="mini-btn red" style="width:70%">
             <button style="background-color: #4C15E9;" id="bookALL">ALL</button>
             <button id="bookCON">CONFIRMED</button>
-            <button id="bookPEN">PENDING</button>
+            <button id="bookPEN">UNCONFIRMED</button>
             <button id="bookCAN">CANCELLED</button>
         </div>
     </div>
@@ -31,12 +36,13 @@
         </tr>
             @foreach($book as $booking)
             <tr class="sc bookAll">
+                <td id="hidden">{{$booking->orderID}}</td>
                 <td>{{$booking->username}}</td>
                 <td>{{$booking->orderCreationDT}}</td>
                 <td>{{$booking->routeID}}</td>
                 @if($booking->Status == 'CONFIRMED')
                     <td>{{$booking->Status}} <img src="{{url('images/active.png')}}" style="float: right;margin-right:20px"/></td>
-                @elseif($booking->Status == 'PENDING')
+                @elseif($booking->Status == 'UNCONFIRMED')
                     <td>{{$booking->Status}} <img src="{{url('images/inactive.png')}}" style="float: right;margin-right:20px"/></td>
                 @else
                     <td>{{$booking->Status}} <img src="{{url('images/cancelled.png')}}" style="float: right;margin-right:20px"/></td>
@@ -45,7 +51,7 @@
                     <table>
                         <tr>
                             <td class="vhire" style="cursor: pointer;"><img src="{{url('images/edit.png')}}"/></td>
-                            <td class="del-scheds" style="cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
+                            <td class="del-books" data-book-id="{{$booking->orderID}}" style="cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
                         </tr>
                     </table>
                 </td>
@@ -63,7 +69,7 @@
                     <table>
                         <tr>
                             <td class="vhire" style="cursor: pointer;"><img src="{{url('images/edit.png')}}"/></td>
-                            <td class="del-scheds" style="cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
+                            <td class="del-books" data-book-id="{{$confirm->orderID}}" style="cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
                         </tr>
                     </table>
                 </td>
@@ -80,7 +86,7 @@
                     <table>
                         <tr>
                             <td class="vhire" style="cursor: pointer;"><img src="{{url('images/edit.png')}}"/></td>
-                            <td class="del-scheds" style="cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
+                            <td class="del-books" data-book-id="{{$pend->orderID}}" style="cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
                         </tr>
                     </table>
                 </td>
@@ -97,7 +103,7 @@
                     <table>
                         <tr>
                             <td class="vhire" style="cursor: pointer;"><img src="{{url('images/edit.png')}}"/></td>
-                            <td class="del-scheds" style="cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
+                            <td class="del-books" data-book-id="{{$cancel->orderID}}" style="cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
                         </tr>
                     </table>
                 </td>
@@ -116,51 +122,59 @@
   <div class="modal-content dark" style="height: 450px;">
     <span class="close">&times;</span>
     <div class="vhire-form" id="modal-book">
-        <form>
+        <form action="book_form" method="POST" id="b-form">
+            @csrf
             <div class="form-left">
                 <label>DATE</label><br>
-                <input type="date"/><br><br>
+                <input type="date" name="date"/><br><br>
+                <label>QUANTITY</label><br>
+                <input type="number" name="quantity"/><br><br>
                 <label>PASSENGER</label><br>
-                <select>
+                <select name="passID">
                 @foreach($passenger as $pass)
-                    <option value="{{$pass->customerID}}">{{$pass->Username}}</option>
+                    <option value="{{$pass->userID}}">{{$pass->username}}</option>
                 @endforeach
                 </select>
             </div>
             <div class="form-right">
                 <label>TRIP</label><br>
-                <select>
+                <select name="tripID">
                 @foreach($trips as $trip)
                     <option value="{{$trip->tripID}}">{{$trip->routeID}} &nbsp; {{$trip->ETD}} - {{$trip->ETA}}</option>
                 @endforeach
                 </select>
                 <br><br>
                 <label>STATUS</label><br>
-                <select>
-                    <option>PENDING</option>
-                    <option>CONFIRMED</option>
+                <select name="book_status">
+                    <option value="unconfirmed">CONFIRMED</option>
+                    <option value="confirmed">UNCONFIRMED</option>
+                    <option value="cancelled">CANCELLED</option>
                 </select>
             </div>
-            <div class="confirm" style="float: left;width:90%;margin-left:30px;">
-                <button style="background-color: #27C124">SAVE</button>
-                <button style="background-color: #FFA800; float:right;">CANCEL</button>
-            </div>
         </form>
+        <div class="confirm" style="float: left;width:90%;margin-left:30px;">
+            <button form="b-form" style="background-color: #27C124">SAVE</button>
+            <button class="exit-modal" style="background-color: #FFA800; float:right;">CANCEL</button>
+        </div>
     </div>
   </div>
 </div>
 </div>
 
 <!-- The Modal -->
-<div id="del-sched" class="modal">
+<div id="del-book-modal" class="modal">
 
   <!-- Modal content -->
   <div class="modal-content dark">
     <span class="close">&times;</span>
     <center><h2>ARE YOU SURE YOU WANT TO<br> DELETE SELECTED BOOKING?</h2></center>
     <div class="confirm" style="float: left;width:90%;margin-left:30px;">
-        <button style="background-color: #27C124">YES</button>
-        <button style="background-color: #FFA800; float:right;">NO</button>
+        <form id="del-form" action="delete_books" method="POST">
+            @csrf
+            <input name="del_book" type="hidden" id="del_book" value="">
+        </form>
+        <button form="del-form" style="background-color: #27C124">YES</button>
+        <button class="exit-modal" style="background-color: #FFA800; float:right;">NO</button>
     </div>
   </div>
 </div>

@@ -44,7 +44,7 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'contactNum' => '032 1234 123',
-            'role' => 'ADMIN',
+            'role' => 'CUSTOMER',
             'created_at' => time(),
             'updated_at' => time(),
         ]);
