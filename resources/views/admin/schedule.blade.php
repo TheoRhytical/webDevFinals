@@ -36,6 +36,7 @@
         <!--ALL-->
         @foreach($vhires as $vhire)
         <tr class="sc">
+            <td class="trip" style="display:none;">{{$vhire->tripID}}</td>
             <td class="plate">{{$vhire->PlateNum}}</td>
             <td class="rtID">{{$vhire->routeID}}</td>
             <td><p class="etd">{{substr($vhire->ETD,0,-3)}}</p>-<p class="eta">{{substr($vhire->ETA,0,-3)}}</p></td>
@@ -162,25 +163,27 @@
   <div class="modal-content dark" style="height: 500px;">  <!-- add to trip table-->
     <span class="close">&times;</span>
     <div class="vhire-form">
-        <form>
+        <form id="editSched" method="POST" action="/editSched">
+            @csrf
             <div class="form-left">
+                <input type="hidden" id="trip" name="trip">
                 <label>VHIRE #</label><br>
-                <input type="text" id="vnum"/><br><br>
+                <input type="text" id="vnum" name="vhire" readonly/><br><br>
                 <label>DEPARTURE TIME</label><br> <!--timeof departure-->
-                <select id="dept">
+                <select id="dept" name="ETD">
                     <option>08:00</option>
                     <option>08:45</option>
                 </select>
                 <br><br>
                 <label>ROUTE</label><br>
-                <select id="rot">
+                <select id="rot" name="route">
                     @foreach($routes as $route)
                     <option value="{{$route->routeID}}">{{$route->routeID}}</option>
                     @endforeach
                 </select>
                 <br><br>
                 <label>STATUS</label><br>
-                <select id="statt">
+                <select id="statt" name="status">
                     <option>OPEN</option>
                     <option>CLOSED</option>
                     <option>ARRIVED</option>
@@ -195,18 +198,18 @@
                 </select>
                 <br><br>
                 <label>ARRIVAL TIME</label><br><!--timeof arrival-->
-                <select id="arrv">
+                <select id="arrv" name="ETA">
                     <option>08:45</option>
                     <option>09:30</option>
                 </select>
                 <br><br>
                 <label>SEAT CAPACITY</label><br>
-                <input type="number" min="1" value="1" id="cpcty"/>
+                <input type="number" min="1" value="1" id="cpcty" name="capacity"/>
             </div>
         </form>
     </div>
     <div class="confirm" style="float: left;width:90%;margin-left:30px;">
-        <button style="background-color: #27C124">SAVE</button>
+        <button style="background-color: #27C124" type="submit" form="editSched">SAVE</button>
         <button style="background-color: #FFA800; float:right;">CANCEL</button>
     </div>
   </div>
@@ -220,25 +223,31 @@
   <div class="modal-content dark" style="height: 500px;">  <!-- add to trip table-->
     <span class="close">&times;</span>
     <div class="vhire-form">
-        <form>
+        <form method="POST" action="/addSched" id="addSched">
+            @csrf
             <div class="form-left">
                 <label>VHIRE #</label><br>
-                <input type="text"/><br><br>
+                <select name="vhire">
+                @foreach($vehicles as $vehicle)
+                <option value="{{$vehicle->PlateNum}}">{{$vehicle->PlateNum}}</option>
+                @endforeach
+                </select>
                 <label>DEPARTURE TIME</label><br> <!--timeof departure-->
-                <select>
+                <input type="time" name="ETD">
+                <!--<select>
                     <option>08:00</option>
                     <option>08:45</option>
-                </select>
+                </select>-->
                 <br><br>
                 <label>ROUTE</label><br>
-                <select>
+                <select name="route">
                     @foreach($routes as $route)
                     <option value="{{$route->routeID}}">{{$route->routeID}}</option>
                     @endforeach
                 </select>
                 <br><br>
                 <label>STATUS</label><br>
-                <input type="text" value="OPEN" readonly/>
+                <input type="text" value="OPEN" name="status" readonly/>
             </div>
             <div class="form-right">
                 <label>DRIVER</label><br>
@@ -249,18 +258,19 @@
                 </select>
                 <br><br>
                 <label>ARRIVAL TIME</label><br><!--timeof arrival-->
-                <select>
+                <input type="time" name="ETA">
+                <!--<select>
                     <option>08:45</option>
                     <option>09:30</option>
-                </select>
+                </select>-->
                 <br><br>
                 <label>SEAT CAPACITY</label><br>
-                <input type="number" min="1" value="1"/>
+                <input type="number" min="1" value="1" name="capacity"/>
             </div>
         </form>
     </div>
     <div class="confirm" style="float: left;width:90%;margin-left:30px;">
-        <button style="background-color: #27C124">SAVE</button>
+        <button style="background-color: #27C124" type="submit" form="addSched">SAVE</button>
         <button style="background-color: #FFA800; float:right;">CANCEL</button>
     </div>
   </div>

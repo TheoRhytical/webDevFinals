@@ -42,6 +42,8 @@ Route::middleware('auth')->group(function () {
         Route::post("/deleteAcc", [PagesController::class, "DeleteAdminAcc"]);
         Route::post("/add_account", [PagesController::class, "AddAcc"]);
         Route::post("/update", [PagesController::class, "UpdateAcc"]);
+        Route::post("/addSched", [PagesController::class, "AddSched"]);
+        Route::post("/editSched", [PagesController::class, "EditSched"]);
     });
     
 });

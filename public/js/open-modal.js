@@ -103,6 +103,7 @@ $(document).on('click','.update',function(){
 $(document).on('click','.e-sched',function(){
   var _this = $(this).parents('.sc');
   
+  $('#trip').val(_this.find('.trip').text());
   $('#vnum').val(_this.find('.plate').text());
   $('#dept').val(_this.find('.etd').text());
   $('#rot').val(_this.find('.rtID').text());
