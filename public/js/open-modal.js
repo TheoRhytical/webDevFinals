@@ -9,10 +9,12 @@ var editbook = document.getElementById("edit-book");
 
 
 $( ".myBtn" ).click(function() {
-    $("#myModal").show();
+    $("#myAddModal").show();
 });
 
 $( ".Btnd" ).click(function() {
+    var routeID = $(this).attr('data-route-id');
+    $('#curr-route').val(routeID); 
     $("#mymodal").show();
 });
 
@@ -55,8 +57,8 @@ $( ".del-books" ).click(function() {
 
 
 $( ".close" ).click(function() {
+    $("#myAddModal").hide();
     $("#mymodal").hide();
-    $("#myModal").hide();
     $("#add-vhire").hide();
     $("#edit-vhire").hide();
     $("#del-sched").hide();
@@ -64,9 +66,11 @@ $( ".close" ).click(function() {
     $("#edit-route").hide();
     $("#edit-book").hide();
     $("#del-book-modal").hide();
-});
-
-$(".exit-modal").click(function (){
+  });
+  
+  $(".exit-modal").click(function (){
+  $("#myAddModal").hide();
+  $("#mymodal").hide();
   $('#del-sched').hide();
   $('#del-book-modal').hide();
   $('#add-vhire').hide();
@@ -109,6 +113,8 @@ $(document).on('click','.update',function(){
   $('#a_status').val(_this.find('.status').text());
 })
 
+
+
 $(document).on('click','.e-sched',function(){
   var _this = $(this).parents('.sc');
   
@@ -141,3 +147,4 @@ $(document).on('click','.e-book',function(){
   $('#tid').val(_this.find('.tp').text());
   $('#bstat').val(_this.find('.bstat').text());
 })
+

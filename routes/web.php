@@ -61,7 +61,9 @@ require __DIR__.'/auth.php';//this part is really important this will aunthentic
 
 
 Route::get("/routes",[PagesController::class,"showterminal"]);
+
 //Route::resource('route', RouteController::class);
+  Route::post("/deleteRoute",[PagesController::class,"DeleteRoute"]);
  Route::post("/routes",[PagesController::class,"condition"])->name('add.routes');;
 // Route::view("dashboard", 'admin.dashboard');
 // Route::view("scheds", 'admin.schedule');

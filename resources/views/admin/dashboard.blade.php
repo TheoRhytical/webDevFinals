@@ -5,10 +5,34 @@
         background-color: #EFF2FF;
     }
 
+    .scrolly{
+        overflow-y: auto;
+        height: 680px;
+    }
+
+    body{
+        overflow: hidden;
+    }
+
+    ::-webkit-scrollbar {
+        display: none;
+        padding: 0;
+        -ms-overflow-style: none;
+        scrollbar-width: 0px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        border-radius: 5px;
+    }
+    
+    ::-webkit-scrollbar-thumb { 
+        border-radius: 5px;
+    }
+
     
 </style>
 @section('content')
-<div class="container grey-bg">
+<div class="container grey-bg scrolly">
     <div class="subcontainer white-bg" style="background-color: #FFFFFF; padding:10px">
         <table>
             <tr>

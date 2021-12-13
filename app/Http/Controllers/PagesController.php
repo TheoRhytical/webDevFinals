@@ -93,6 +93,15 @@ class PagesController extends Controller
     }
 
 
+    public function DeleteRoute(Request $request)
+    {
+        // dd($request->all());
+
+        //delete
+        DB::table('route')->where('routeID', '=', $request->routeID)->delete();
+        return redirect('routes');
+    }
+
 
     public function Home(){
 
@@ -323,10 +332,12 @@ class PagesController extends Controller
     }
     public function AddBooking(Request $request){
 
+        // dd($request->all());
+
         $this->validate($request,[
-            'customerID' =>'required',
+            'passID' =>'required',
             'tripID' =>'required',
-            'Quantity' => 'required|max:255',
+            'quantity' => 'required|max:255',
         ]);
 
 
