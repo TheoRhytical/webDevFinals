@@ -82,7 +82,8 @@ class PagesController extends Controller
         $rID = $input['T1']."-".$input['T2'];
 
         $update = DB::table('route')
-            ->updateOrInsert(
+        //->updateorInsert;
+            ->upsert(
                 ['routeID' => $rID,'O_termID' => $input['T1'], 'D_termID' => $input['T2']],
                 ['Fare' => $input['fare'], 'Trip Duration' => $input['Travel']]
             );
