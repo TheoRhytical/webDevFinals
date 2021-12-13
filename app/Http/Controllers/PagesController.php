@@ -36,7 +36,7 @@ class PagesController extends Controller
     public function TicketDetails(Request $request){
 
         $users = DB::table('orders')
-        ->select('vhire.PlateNum','vhire.vehicleID','terminal.Location_Name','trip.ETD','trip.ETA', 'orders.Quantity','route.Fare', 'orders.orderID', 'orders.Date', 'trip.tripID')
+        ->select('vhire.PlateNum','vhire.vehicleID','terminal.Location_Name','trip.ETD','trip.ETA', 'orders.Quantity','route.Fare', 'orders.orderID', 'orders.orderCreationDT', 'orders.Date', 'trip.tripID')
         ->leftjoin('trip', 'orders.tripID', '=','trip.tripID')
         ->leftjoin('route', 'trip.routeID', '=','route.routeID')
         ->leftjoin('terminal','route.O_termID', '=', 'terminal.terminalID')
@@ -66,7 +66,7 @@ class PagesController extends Controller
     public function showterminal(){
         // $currUser = Auth::user();
         $rname = DB::table('route')
-        ->select ('O_termID', 'D_termID', 'Fare')
+        ->select ('O_termID', 'D_termID', 'Fare', 'Trip Duration')
         ->get();
 
                 //to get the user has an ID property
@@ -82,7 +82,8 @@ class PagesController extends Controller
         $rID = $input['T1']."-".$input['T2'];
 
         $update = DB::table('route')
-            ->updateOrInsert(
+        //->updateorInsert;
+            ->upsert(
                 ['routeID' => $rID,'O_termID' => $input['T1'], 'D_termID' => $input['T2']],
                 ['Fare' => $input['fare'], 'Trip Duration' => $input['Travel']]
             );
@@ -121,7 +122,7 @@ class PagesController extends Controller
 
     public function Dashboard(){
         $booking = DB::table('orders')
-        ->select('orders.orderID', 'orders.orderCreationDT', 'orders.tripID', 'users.username', 'orders.Status', 'terminal1.Location_Name AS origin', 'terminal2.Location_Name AS dest', 'trip.ETD', 'trip.ETA', 'vhire.vehicleID', 'vhire.PlateNum')
+        ->select('orders.orderID', 'orders.statusChangeDT', 'orders.tripID', 'users.username', 'orders.Status', 'terminal1.Location_Name AS origin', 'terminal2.Location_Name AS dest', 'trip.ETD', 'trip.ETA', 'vhire.vehicleID', 'vhire.PlateNum')
         ->join('users', 'orders.customerID', '=', 'users.userID')
         ->join('trip', 'orders.tripID', '=', 'trip.tripID')
         ->join('route', 'trip.routeID', '=', 'route.routeID')
@@ -137,6 +138,7 @@ class PagesController extends Controller
         ->get();
 
         $revenue = DB::table('orders')
+        ->where('status', '=', 'CONFIRMED')
         ->sum('AmountDue');
 
         $total = DB::table('orders')
@@ -212,11 +214,58 @@ class PagesController extends Controller
 
     public function AdminSched(){
         $vhires = DB::table('trip')
-        ->select('vhire.PlateNum', 'route.routeID', 'trip.ETD', 'trip.ETA', 'users.username', 'trip.Status', 'vhire.Capacity')
+        ->select('vhire.PlateNum', 'route.routeID', 'trip.ETD', 'trip.ETA', 'users.username', 'trip.Status', 'trip.FreeSeats', 'vhire.Capacity', 'trip.tripID')
         ->join('route', 'trip.routeID', '=', 'route.routeID')
         ->join('vhire', 'trip.vehicleID', '=', 'vhire.vehicleID')
         ->join('terminal', 'route.D_termID', '=', 'terminal.terminalID')
         ->join('users', 'vhire.driverID', '=', 'users.userID')
+        ->orderby('trip.ETD')
+        ->orderby('trip.routeID')
+        ->where('trip.status', '!=', 'DELETED')
+        ->get();
+
+        $open = DB::table('trip')
+        ->select('vhire.PlateNum', 'route.routeID', 'trip.ETD', 'trip.ETA', 'users.username', 'trip.Status', 'trip.FreeSeats',  'vhire.Capacity', 'trip.tripID')
+        ->join('route', 'trip.routeID', '=', 'route.routeID')
+        ->join('vhire', 'trip.vehicleID', '=', 'vhire.vehicleID')
+        ->join('terminal', 'route.D_termID', '=', 'terminal.terminalID')
+        ->join('users', 'vhire.driverID', '=', 'users.userID')
+        ->where('trip.status', 'OPEN')
+        ->orderby('trip.ETD')
+        ->orderby('trip.routeID')
+        ->get();
+
+        $closed = DB::table('trip')
+        ->select('vhire.PlateNum', 'route.routeID', 'trip.ETD', 'trip.ETA', 'users.username', 'trip.Status', 'trip.FreeSeats',  'vhire.Capacity', 'trip.tripID')
+        ->join('route', 'trip.routeID', '=', 'route.routeID')
+        ->join('vhire', 'trip.vehicleID', '=', 'vhire.vehicleID')
+        ->join('terminal', 'route.D_termID', '=', 'terminal.terminalID')
+        ->join('users', 'vhire.driverID', '=', 'users.userID')
+        ->where('trip.status', 'CLOSED')
+        ->orderby('trip.ETD')
+        ->orderby('trip.routeID')
+        ->get();
+
+        $arrived = DB::table('trip')
+        ->select('vhire.PlateNum', 'route.routeID', 'trip.ETD', 'trip.ETA', 'users.username', 'trip.Status',  'trip.FreeSeats', 'vhire.Capacity', 'trip.tripID')
+        ->join('route', 'trip.routeID', '=', 'route.routeID')
+        ->join('vhire', 'trip.vehicleID', '=', 'vhire.vehicleID')
+        ->join('terminal', 'route.D_termID', '=', 'terminal.terminalID')
+        ->join('users', 'vhire.driverID', '=', 'users.userID')
+        ->where('trip.status', 'ARRIVED')
+        ->orderby('trip.ETD')
+        ->orderby('trip.routeID')
+        ->get();
+
+        $deleted = DB::table('trip')
+        ->select('vhire.PlateNum', 'route.routeID', 'trip.ETD', 'trip.ETA', 'users.username', 'trip.Status',  'trip.FreeSeats', 'vhire.Capacity', 'trip.tripID')
+        ->join('route', 'trip.routeID', '=', 'route.routeID')
+        ->join('vhire', 'trip.vehicleID', '=', 'vhire.vehicleID')
+        ->join('terminal', 'route.D_termID', '=', 'terminal.terminalID')
+        ->join('users', 'vhire.driverID', '=', 'users.userID')
+        ->where('trip.status', 'DELETED')
+        ->orderby('trip.ETD')
+        ->orderby('trip.routeID')
         ->get();
 
         $routes = DB::table('route')
@@ -227,32 +276,36 @@ class PagesController extends Controller
         ->select('*')
         ->where('role', '=', 'DRIVER')
         ->get();
-        return view('admin.schedule',['vhires' => $vhires, 'routes' => $routes, 'drivers' => $drivers]);
+
+        $vehicles = DB::table('vhire')
+        ->select('PlateNum')
+        ->get();
+        return view('admin.schedule',['deleted' => $deleted, 'vehicles' => $vehicles, 'vhires' => $vhires, 'open' => $open, 'closed' => $closed, 'arrived' => $arrived, 'routes' => $routes, 'drivers' => $drivers]);
     }
 
     public function AdminBooking(){
         $book = DB::table('orders')
-        ->select('orders.orderID','users.username', 'orders.orderCreationDT', 'trip.routeID', 'orders.Status')
+        ->select('orders.orderID','users.username', 'orders.orderCreationDT', 'trip.routeID', 'trip.FreeSeats', 'orders.Status', 'orders.Quantity', 'trip.ETD', 'trip.ETA')
         ->join('users', 'users.userID', '=', 'orders.customerID')
         ->join('trip', 'trip.tripID', '=', 'orders.tripID')
         ->get();
 
         $confirmed = DB::table('orders')
-        ->select('orders.orderID','users.username', 'orders.orderCreationDT', 'trip.routeID', 'orders.Status')
+        ->select('orders.orderID','users.username', 'orders.orderCreationDT', 'trip.routeID', 'trip.FreeSeats',  'orders.Status', 'orders.Quantity', 'trip.ETD', 'trip.ETA')
         ->join('users', 'users.userID', '=', 'orders.customerID')
         ->join('trip', 'trip.tripID', '=', 'orders.tripID')
         ->where('orders.Status', '=', 'CONFIRMED')
         ->get();
 
         $pending = DB::table('orders')
-        ->select('orders.orderID','users.username', 'orders.orderCreationDT', 'trip.routeID', 'orders.Status')
+        ->select('orders.orderID','users.username', 'orders.orderCreationDT', 'trip.routeID', 'trip.FreeSeats',  'orders.Status', 'orders.Quantity', 'trip.ETD', 'trip.ETA')
         ->join('users', 'users.userID', '=', 'orders.customerID')
         ->join('trip', 'trip.tripID', '=', 'orders.tripID')
         ->where('orders.Status', '=', 'UNCONFIRMED')
         ->get();
 
         $cancelled = DB::table('orders')
-        ->select('orders.orderID','users.username', 'orders.orderCreationDT', 'trip.routeID', 'orders.Status')
+        ->select('orders.orderID','users.username', 'orders.orderCreationDT', 'trip.routeID', 'trip.FreeSeats',  'orders.Status', 'orders.Quantity')
         ->join('users', 'users.userID', '=', 'orders.customerID')
         ->join('trip', 'trip.tripID', '=', 'orders.tripID')
         ->where('orders.Status', '=', 'CANCELLED')
@@ -319,7 +372,8 @@ class PagesController extends Controller
             'orders.Date',
             'orders.Quantity',
             'route.Fare',
-            'orders.orderID'
+            'orders.orderID',
+            'orders.AmountDue'
             )
         ->join ('trip', 'orders.tripID', '=', 'trip.tripID')
         ->join('route', 'trip.routeID', '=', 'route.routeID')
@@ -410,5 +464,50 @@ class PagesController extends Controller
 
         //redirect
         return redirect()->route('account');
+    }
+    public function AddSched(Request $request){
+        //validate
+        $this->validate($request,[
+            'capacity' =>'required|min:1',
+        ]);
+
+        $vID = DB::table('vhire')
+                ->select('vehicleID')
+                ->where('PlateNum', $request->vhire)
+                ->get()->first()->vehicleID;
+
+        //insert in database
+        DB::table('trip')->insert([
+            'vehicleID' => $vID,
+            'ETD' => $request->ETD,
+            'ETA' => $request->ETA,  
+            'routeID' => $request->route,
+            'status' => 'OPEN',
+            'FreeSeats' => $request->capacity,
+        ]);
+
+        //redirect
+        return redirect('/scheds');
+    }
+
+    public function EditSched(Request $request){
+        //validate
+        $vID = DB::table('vhire')
+                ->select('vehicleID')
+                ->where('PlateNum', $request->vhire)
+                ->get()->first()->vehicleID;
+
+        DB::update('update trip 
+            set ETD=?,
+                ETA=?,
+                routeID=?,
+                status=?,
+                FreeSeats=?
+                where tripID = ?',
+            [$request->ETD,$request->ETA,$request->route,$request->status,$request->capacity,$request->trip]
+        );
+
+        //redirect
+        return redirect('/scheds');
     }
 }

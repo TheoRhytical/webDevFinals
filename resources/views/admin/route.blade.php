@@ -55,18 +55,60 @@
     <center><table class="table"  cellspacing="0" cellpadding="0" style="width:100%; margin:0%; border-collapse: separate;border-spacing: 3px 25px;">
     @foreach($rname as $route)
         <tr class="row">
-            <td id="hidden"></td>
-            <td>{{$route->O_termID}}-{{$route->D_termID}}</td>
-            <td>{{$route->O_termID}}</td>
-            <td>{{$route->D_termID}}</td>
-            <td>{{$route->Fare}}</td>
-            <td class="myBtn" style="width: 6%;cursor: pointer;"><img src="{{url('images/edit.png')}}"/></td>
-            <td  class="Btnd"  data-route-id="{{$route->O_termID}}-{{$route->D_termID}}" style="width: 6%;cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
+
+            <td class="rrr">{{$route->O_termID}}-{{$route->D_termID}}</td>
+            <td class="ot">{{$route->O_termID}}</td>
+            <td class="dt">{{$route->D_termID}}</td>
+            <td class="fare">{{$route->Fare}}</td>
+            <td class="time" style="display: none;"><?php echo $route->{'Trip Duration'}; ?></td>
+            <td class="e-route" style="width: 6%;cursor: pointer;"><img src="{{url('images/edit.png')}}"/></td>
+             <td  class="Btnd"  data-route-id="{{$route->O_termID}}-{{$route->D_termID}}" style="width: 6%;cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
+
             <td style="width: 6%;cursor: pointer;"><img src="{{url('images/refresh.png')}}"/></td>
         </tr>
     @endforeach
     </table></center>
     </div>
+
+    <!--Update Modal-->
+    <div id="edit-route" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div class="form">
+        <form method="POST" action="{{route('add.routes')}}"> 
+            @csrf
+            <label for="rname">Route name</label>
+            <input type="text" id="rname"></input><br><br>
+            <label for="L1">Terminal origin</label>
+            
+            <select id="T1" name="T1">
+                @foreach ($rname as $indivroute)  
+                <option value="{{$indivroute->O_termID}}">{{$indivroute->O_termID}}</option>
+                @endforeach
+            </select><br><br><br>
+            <label for="L2">Terminal destination</label>
+            <select id="T2" name="T2">
+                @foreach ($rname as $indivroute)  
+                <option value="{{$indivroute->D_termID}}">{{$indivroute->D_termID}}</option>
+                @endforeach
+    
+            </select><br><br><br>
+            <label for="rname">Fare Price</label>
+            <input id="fare" name="fare" ></input><br><br>
+
+            <label for="rname">Travel Time</label>
+            <input id="TT" name="Travel"></input><br>
+
+            <div class="confirm">
+                <button style="background-color: #27C124" id="save"  type="submit">SAVE</button>
+                <button style="background-color: #FFA800; float:right;">CANCEL</button>
+            </div>
+        </form>
+    </div>
+    <img src="{{url('images/modal.png')}}" class="modal-img">
+  </div>
+</div>
 
     <!--Modal-->
 <div id="myAddModal" class="modal">

@@ -58,7 +58,7 @@
         @foreach($booking as $book)
         <div class="routes a-route" style="margin-right: 4px;">
             <p class="small">{{$book->orderID}}</p> <br>
-            <p>{{$book->orderCreationDT}}</p> <br>
+            <p>{{date("F j, Y g:i a", strtotime($book->statusChangeDT))}}</p> <br>
             <p class="big">{{$book->username}}</p> <br>
             @if($book->Status=="UNCONFIRMED")
                 <p class="status" style="color: white; background-color: #FFA800">Status: {{$book->Status}}</p> <br>
@@ -68,7 +68,7 @@
                 <p class="status" style="color: white;">Status: {{$book->Status}}</p> <br>
             @endif
             <p style="font-weight: 800;">FROM {{$book->origin}} <br> TO {{$book->dest}}</p> <br>
-            <p>{{$book->ETD}} - {{$book->ETA}}</p> <br>
+            <p>{{substr($book->ETD,0,-3)}} - {{substr($book->ETA,0,-3)}}</p> <br>
             <p>Plate Number {{$book->PlateNum}}</p> <br>
         </div>
         @endforeach
