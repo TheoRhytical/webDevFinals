@@ -41,7 +41,7 @@
             <td><p class="etd">{{substr($vhire->ETD,0,-3)}}</p>-<p class="eta">{{substr($vhire->ETA,0,-3)}}</p></td>
             <td class="pass">{{$vhire->username}}</td>
             <td class="seat" style="display: none;">{{$vhire->FreeSeats}}</td>
-            @if($vhire->Status == 'ACTIVE')
+            @if($vhire->Status == 'OPEN')
                 <td><p class="stat">OPEN</p> <img src="{{url('images/active.png')}}" style="float: right;margin-right:20px; margin-top:15px"/></td>
             @elseif($vhire->Status == 'ARRIVED')
                 <td><p class="stat">ARRIVED</p>  <img src="{{url('images/inactive.png')}}" style="float: right;margin-right:20px; margin-top:15px"/></td>
@@ -78,13 +78,7 @@
             <td><p class="etd">{{substr($vhire->ETD,0,-3)}}</p>-<p class="eta">{{substr($vhire->ETA,0,-3)}}</p></td>
             <td class="pass">{{$vhire->username}}</td>
             <td class="seat" style="display: none;">{{$vhire->FreeSeats}}</td>
-            @if($vhire->Status == 'ACTIVE')
-                <td><p class="stat">OPEN</p> <img src="{{url('images/active.png')}}" style="float: right;margin-right:20px; margin-top:15px"/></td>
-            @elseif($vhire->Status == 'ARRIVED')
-                <td><p class="stat">ARRIVED</p>  <img src="{{url('images/inactive.png')}}" style="float: right;margin-right:20px; margin-top:15px"/></td>
-            @else
-                <td><p class="stat">CLOSED</p>  <img src="{{url('images/cancelled.png')}}" style="float: right;margin-right:20px; margin-top:15px"/></td>
-            @endif
+            <td><p class="stat">OPEN</p> <img src="{{url('images/active.png')}}" style="float: right;margin-right:20px; margin-top:15px"/></td>
             <td>
                 <table>
                     <tr>
@@ -115,13 +109,7 @@
             <td><p class="etd">{{substr($vhire->ETD,0,-3)}}</p>-<p class="eta">{{substr($vhire->ETA,0,-3)}}</p></td>
             <td class="pass">{{$vhire->username}}</td>
             <td class="seat" style="display: none;">{{$vhire->FreeSeats}}</td>
-            @if($vhire->Status == 'ACTIVE')
-                <td><p class="stat">OPEN</p> <img src="{{url('images/active.png')}}" style="float: right;margin-right:20px; margin-top:15px"/></td>
-            @elseif($vhire->Status == 'ARRIVED')
-                <td><p class="stat">ARRIVED</p>  <img src="{{url('images/inactive.png')}}" style="float: right;margin-right:20px; margin-top:15px"/></td>
-            @else
-                <td><p class="stat">CLOSED</p>  <img src="{{url('images/cancelled.png')}}" style="float: right;margin-right:20px; margin-top:15px"/></td>
-            @endif
+            <td><p class="stat">CLOSED</p>  <img src="{{url('images/cancelled.png')}}" style="float: right;margin-right:20px; margin-top:15px"/></td>
             <td>
                 <table>
                     <tr>
@@ -152,13 +140,7 @@
             <td><p class="etd">{{substr($vhire->ETD,0,-3)}}</p>-<p class="eta">{{substr($vhire->ETA,0,-3)}}</p></td>
             <td class="pass">{{$vhire->username}}</td>
             <td class="seat" style="display: none;">{{$vhire->FreeSeats}}</td>
-            @if($vhire->Status == 'ACTIVE')
-                <td><p class="stat">OPEN</p> <img src="{{url('images/active.png')}}" style="float: right;margin-right:20px; margin-top:15px"/></td>
-            @elseif($vhire->Status == 'ARRIVED')
-                <td><p class="stat">ARRIVED</p>  <img src="{{url('images/inactive.png')}}" style="float: right;margin-right:20px; margin-top:15px"/></td>
-            @else
-                <td><p class="stat">CLOSED</p>  <img src="{{url('images/cancelled.png')}}" style="float: right;margin-right:20px; margin-top:15px"/></td>
-            @endif
+            <td><p class="stat">ARRIVED</p>  <img src="{{url('images/inactive.png')}}" style="float: right;margin-right:20px; margin-top:15px"/></td>
             <td>
                 <table>
                     <tr>
@@ -199,9 +181,9 @@
                 <br><br>
                 <label>STATUS</label><br>
                 <select id="statt">
-                    <option>ACTIVE</option>
                     <option>OPEN</option>
                     <option>CLOSED</option>
+                    <option>ARRIVED</option>
                 </select>
             </div>
             <div class="form-right">
