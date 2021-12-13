@@ -66,7 +66,7 @@ class PagesController extends Controller
     public function showterminal(){
         // $currUser = Auth::user();
         $rname = DB::table('route')
-        ->select ('O_termID', 'D_termID', 'Fare')
+        ->select ('O_termID', 'D_termID', 'Fare', 'Trip Duration')
         ->get();
 
                 //to get the user has an ID property

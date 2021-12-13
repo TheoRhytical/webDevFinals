@@ -4,6 +4,7 @@ var Modal = document.getElementById("mymodal");
 var addv = document.getElementById("add-vhire");
 var delsched = document.getElementById("del-sched");
 var editsched = document.getElementById("edit-sched");
+var editroute = document.getElementById("edit-route");
 
 
 $( ".myBtn" ).click(function() {
@@ -24,6 +25,10 @@ $( ".update" ).click(function() {
 
 $( ".e-sched" ).click(function() {
   $("#edit-sched").show();
+});
+
+$( ".e-route" ).click(function() {
+  $("#edit-route").show();
 });
 
 $( ".del-scheds" ).click(function() {
@@ -51,6 +56,7 @@ $( ".close" ).click(function() {
     $("#edit-vhire").hide();
     $("#del-sched").hide();
     $("#edit-sched").hide();
+    $("#edit-route").hide();
     $("#del-book-modal").hide();
 });
 
@@ -79,6 +85,9 @@ window.onclick = function(event) {
   if (event.target == editsched) {
     editsched.style.display = "none";
   }
+  if (event.target == editroute) {
+    editroute.style.display = "none";
+  }
 }
 
 $(document).on('click','.update',function(){
@@ -101,4 +110,14 @@ $(document).on('click','.e-sched',function(){
   $('#drvr').val(_this.find('.pass').text());
   $('#arrv').val(_this.find('.eta').text());
   $('#cpcty').val(_this.find('.seat').text());
+})
+
+$(document).on('click','.e-route',function(){
+  var _this = $(this).parents('.row');
+  
+  $('#rname').val(_this.find('.rrr').text());
+  $('#T1').val(_this.find('.ot').text());
+  $('#T2').val(_this.find('.dt').text());
+  $('#fare').val(_this.find('.fare').text());
+  $('#TT').val(_this.find('.time').text());
 })
