@@ -38,7 +38,7 @@
 <div class="container grey-bg scrolly">
     <div class="subcontainer white-bg" style="background-color: #FFFFFF; padding:0px 0px 0px 0px;overflow: hidden; position:relative; top: 0px;border-radius:12px">
     <div class="btns" style="width:95%; float: left; margin: 5% 0% 0% 3%; text-align:center;">
-        <div class="button vhire" style="float: left; padding: 7px 25px 7px 0px; width:25%;">
+        <div class="button add_book_btn" style="float: left; padding: 7px 25px 7px 0px; width:25%;">
         <img src="{{url('images/booking.png')}}" style="position: relative;left:12%;top:2px;height:15px;float:left;"/>
         <img src="{{url('images/booking1.png')}}" style="position: relative;left:0%;top:7px;height:15px;float:left;"/>
             ADD BOOKING
@@ -157,7 +157,7 @@
   <div class="modal-content dark" style="height: 450px;">
     <span class="close">&times;</span>
     <div class="vhire-form" id="modal-book">
-        <form action="book_form" method="POST" id="b-form">
+        <form action="book_form" method="POST" id="edit-form">
             @csrf
             <div class="form-left">
                 <label>DATE edit</label><br>
@@ -180,7 +180,7 @@
             </div>
         </form>
         <div class="confirm" style="float: left;width:90%;margin-left:30px;">
-            <button form="b-form" style="background-color: #27C124">SAVE</button>
+            <button form="edit-form" style="background-color: #27C124">SAVE</button>
             <button class="exit-modal" style="background-color: #FFA800; float:right;">CANCEL</button>
         </div>
     </div>
@@ -189,14 +189,14 @@
 </div>
 
 <!-- The Modal -->
-<div id="add-vhire" class="modal"> 
-
+<div id="add-booking" class="modal"> 
   <!-- Modal content -->
   <div class="modal-content dark" style="height: 450px;">
     <span class="close">&times;</span>
     <div class="vhire-form" id="modal-book">
         <form action="book_form" method="POST" id="b-form">
             @csrf
+            
             <div class="form-left">
                 <label>DATE</label><br>
                 <input type="date" name="date"/><br><br>
@@ -219,11 +219,9 @@
                 <br><br>
                 <label>STATUS</label><br>
                 <select name="book_status">
-
                     <option value="CONFIRMED">CONFIRMED</option>
                     <option value="UNCONFIRMED">UNCONFIRMED</option>
                     <option value="CANCELLED">CANCELLED</option>
-
                 </select>
             </div>
         </form>

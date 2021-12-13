@@ -332,8 +332,6 @@ class PagesController extends Controller
     }
     public function AddBooking(Request $request){
 
-        // dd($request->all());
-
         $this->validate($request,[
             'passID' =>'required',
             'tripID' =>'required',
@@ -509,5 +507,29 @@ class PagesController extends Controller
 
         //redirect
         return redirect('/scheds');
+    }
+
+
+    public function UpdateRoute(Request $request){
+        // validate
+
+        // dd($request->all());
+
+        $this->validate($request,[
+            'rname' =>'required',
+            'T1' =>'required',
+            'T2' =>'required',
+            'fare' =>'required',
+            'Travel' =>'required',
+        ]);
+
+        DB::table('route')->where('routeID', '=', $request->rname)->update([
+            'O_termID'      => $request->T1,
+            'D_termID'      => $request->T2,
+            'Fare'          => $request->fare,
+            'Trip Duration' => $request->Travel
+        ]);
+        
+        return redirect('routes');
     }
 }
