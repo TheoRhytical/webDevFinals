@@ -26,7 +26,6 @@ Route::middleware('auth')->group(function () {
     Route::get("/sched", [PagesController::class, "Schedule"]);
     Route::get("/route", [PagesController::class, "AvailableRoutes"]);
     Route::post('/TicketDetails',[PagesController::class,"TicketDetails"]);
-    Route::post("/cancel", [PagesController::class, "TicketDetails"]);
     Route::get("/ticket", [PagesController::class, "Ticket"]);
     Route::post("/search", [PagesController::class, "Search"]);
     Route::post("/HomeSearch", [PagesController::class, "HomeSearch"]);
@@ -44,6 +43,7 @@ Route::middleware('auth')->group(function () {
         Route::post("/update", [PagesController::class, "UpdateAcc"]);
         Route::post("/addSched", [PagesController::class, "AddSched"]);
         Route::post("/editSched", [PagesController::class, "EditSched"]);
+        Route::post("/editBook", [PagesController::class, "EditBook"]);
     });
     
 });

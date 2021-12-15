@@ -122,14 +122,14 @@
             <label for="L1">Terminal origin</label>
             
             <select id="T1" name="T1">
-                @foreach ($rname as $indivroute)  
-                <option value="{{$indivroute->O_termID}}">{{$indivroute->O_termID}}</option>
+                @foreach ($tname as $indivroute)  
+                <option value="{{$indivroute->terminalID}}">{{$indivroute->terminalID}}</option>
                 @endforeach
             </select><br><br><br>
             <label for="L2">Terminal destination</label>
             <select id="T2" name="T2">
-                @foreach ($rname as $indivroute)  
-                <option value="{{$indivroute->D_termID}}">{{$indivroute->D_termID}}</option>
+                @foreach ($tname as $indivroute)  
+                <option value="{{$indivroute->terminalID}}">{{$indivroute->terminalID}}</option>
                 @endforeach
     
             </select><br><br><br>

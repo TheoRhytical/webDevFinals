@@ -206,10 +206,7 @@
                 <label>VHIRE #</label><br>
                 <input type="text" id="vnum" name="vhire" readonly/><br><br>
                 <label>DEPARTURE TIME</label><br> <!--timeof departure-->
-                <select id="dept" name="ETD">
-                    <option>08:00</option>
-                    <option>08:45</option>
-                </select>
+                <input type="time" id="dept" name="ETD">
                 <br><br>
                 <label>ROUTE</label><br>
                 <select id="rot" name="route">
@@ -235,10 +232,7 @@
                 </select>
                 <br><br>
                 <label>ARRIVAL TIME</label><br><!--timeof arrival-->
-                <select id="arrv" name="ETA">
-                    <option>08:45</option>
-                    <option>09:30</option>
-                </select>
+                <input type="time" id="arrv" name="ETA">
                 <br><br>
                 <label>SEAT CAPACITY</label><br>
                 <input type="number" min="1" value="1" id="cpcty" name="capacity"/>

@@ -151,7 +151,8 @@ $(document).on('click','.e-book',function(){
   $('#date').val(_this.find('.dateT').text());
   $('#qty').val(_this.find('.pcs').text());
   $('#passID').val(_this.find('.bpass').text());
-  $('#tid').val(_this.find('.tp').text());
+  $('#tid').val(_this.find('.oID').text());
+  $('#order').val(_this.find('.tid').text());
   $('#bstat').val(_this.find('.bstat').text());
 })
 

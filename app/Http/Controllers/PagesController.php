@@ -27,10 +27,10 @@ class PagesController extends Controller
         ->join('route', 'trip.routeID', '=', 'route.routeID')
         ->join('terminal AS terminal1', 'terminal1.terminalID', '=', 'route.O_termID')
         ->join('terminal AS terminal2', 'terminal2.terminalID', '=', 'route.D_termID')
+        ->groupby('trip.routeID')
         ->get();
         
         return view('user.route',['route'=>$route, 'terminal'=>$terminal]);
-        //
         }
     
     public function TicketDetails(Request $request){
@@ -69,11 +69,14 @@ class PagesController extends Controller
         ->select ('O_termID', 'D_termID', 'Fare', 'Trip Duration')
         ->get();
 
+        $tname = DB::table('terminal')
+        ->select('terminalID')->get();
+
                 //to get the user has an ID property
         
         // var_dump($rname);
         // return view('user.route',['route'=>$route]);
-        return view('admin.route',['rname'=>$rname]);
+        return view('admin.route',['rname'=>$rname, 'tname' => $tname]);
         }    
 
     public function condition(Request $request){
@@ -85,7 +88,7 @@ class PagesController extends Controller
         //->updateorInsert;
             ->upsert(
                 ['routeID' => $rID,'O_termID' => $input['T1'], 'D_termID' => $input['T2']],
-                ['Fare' => $input['fare'], 'Trip Duration' => $input['Travel']]
+                ['Fare' => $input['fare'], 'Trip Duration' => strtotime($input['Travel'])]
             );
         // var_dump($request);
         return redirect('routes');
@@ -317,7 +320,6 @@ class PagesController extends Controller
 
         $passenger = DB::table('users')
         ->select('*')
-        ->where('role', '=', 'CUSTOMER')
         ->get();
         return view('admin.booking', ['book' => $book, 'confirmed' => $confirmed, 'pending' => $pending, 'cancelled' => $cancelled, 'trips' => $trips, 'passenger' => $passenger]);
     }
@@ -338,7 +340,6 @@ class PagesController extends Controller
             'quantity' => 'required|max:255',
         ]);
 
-
             $fare = DB::table('trip')
             ->select('*')
             ->join('route', 'trip.routeID', '=', 'route.routeID')
@@ -352,7 +353,7 @@ class PagesController extends Controller
                 'Quantity'   => $request->quantity,
                 'Date'       => $request->date,
                 'status'     => $request->book_status,
-                'AmountDue'  => $request->quantity * $fare[0]->Fare
+                'AmountDue'  => $request->quantity * $fare->first()->Fare
             ]);
 
         return redirect()->route('booking');
@@ -531,5 +532,14 @@ class PagesController extends Controller
         ]);
         
         return redirect('routes');
+    }
+
+    public function EditBook(Request $request){
+        DB::update('update orders
+            set status = ?
+            where orderID = ?',
+            [$request->book_status, $request->tripID]);
+
+        return redirect('/bookings');
     }
 }

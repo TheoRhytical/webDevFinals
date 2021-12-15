@@ -65,6 +65,7 @@
                 <td class="dateT">{{$booking->orderCreationDT}}</td>
                 <td class="brid">{{$booking->routeID}}</td>
                 <td class="pcs" style="display:none;">{{$booking->Quantity}}</td>
+                <td class="oID" style="display:none;">{{$booking->orderID}}</td>
                 <td class="tp" style="display:none;">{{$booking->routeID}} &nbsp; {{$booking->ETD}} - {{$booking->ETA}}</td>
                 @if($booking->Status == 'CONFIRMED')
                     <td><p class="bstat">{{$booking->Status}}</p> <img src="{{url('images/active.png')}}" style="float: right;margin-right:20px; margin-top:15px;"/></td>
@@ -92,6 +93,7 @@
                 <td class="dateT">{{$booking->orderCreationDT}}</td>
                 <td class="brid">{{$booking->routeID}}</td>
                 <td class="pcs" style="display:none;">{{$booking->Quantity}}</td>
+                <td class="oID" style="display:none;">{{$booking->orderID}}</td>
                 <td class="tp" style="display:none;">{{$booking->routeID}} &nbsp; {{$booking->ETD}} - {{$booking->ETA}}</td>
                 <td><p class="bstat">CONFIRMED</p> <img src="{{url('images/active.png')}}" style="float: right;margin-right:20px; margin-top:15px;"/></td>
                 <td>
@@ -112,6 +114,7 @@
                 <td class="dateT">{{$booking->orderCreationDT}}</td>
                 <td class="brid">{{$booking->routeID}}</td>
                 <td class="pcs" style="display:none;">{{$booking->Quantity}}</td>
+                <td class="oID" style="display:none;">{{$booking->orderID}}</td>
                 <td class="tp" style="display:none;">{{$booking->routeID}} &nbsp; {{$booking->ETD}} - {{$booking->ETA}}</td>
                 <td><p class="bstat">UNCONFIRMED</p> <img src="{{url('images/inactive.png')}}" style="float: right;margin-right:20px; margin-top:15px;"/></td>
                 <td>
@@ -132,6 +135,7 @@
                 <td class="dateT">{{$booking->orderCreationDT}}</td>
                 <td class="brid">{{$booking->routeID}}</td>
                 <td class="pcs" style="display:none;">{{$booking->Quantity}}</td>
+                <td class="oID" style="display:none;">{{$booking->orderID}}</td>
                 <td class="tp" style="display:none;">{{$booking->routeID}} &nbsp; {{$booking->ETD}} - {{$booking->ETA}}</td>
                 <td><p class="bstat">CANCELLED</p> <img src="{{url('images/cancelled.png')}}" style="float: right;margin-right:20px; margin-top:15px;"/></td>
                 <td>
@@ -157,7 +161,7 @@
   <div class="modal-content dark" style="height: 450px;">
     <span class="close">&times;</span>
     <div class="vhire-form" id="modal-book">
-        <form action="book_form" method="POST" id="edit-form">
+        <form action="/editBook" method="POST" id="edit-form">
             @csrf
             <div class="form-left">
                 <label>DATE edit</label><br>
