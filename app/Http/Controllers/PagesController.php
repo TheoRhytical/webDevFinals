@@ -233,7 +233,7 @@ class PagesController extends Controller
         ->join('vhire', 'trip.vehicleID', '=', 'vhire.vehicleID')
         ->join('terminal', 'route.D_termID', '=', 'terminal.terminalID')
         ->join('users', 'vhire.driverID', '=', 'users.userID')
-        ->where('trip.status', 'OPEN')
+        ->where('trip.status', 'ACTIVE')
         ->orderby('trip.ETD')
         ->orderby('trip.routeID')
         ->get();
