@@ -13,7 +13,7 @@
             ADD VHIRE
         </div>
         <div class="mini-btn" >
-            <label style="position:relative; top: 5px; font-weight:800;">FILTER BY ROUTE:</label>
+            <label style="position:relative; top: 5px; font-weight:800;">FILTER BY STATUS:</label>
             <select class="filter" >
                 <option>ALL</option>
                 <option>OPEN</option>

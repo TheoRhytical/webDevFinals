@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('password')->required();
             $table->string('contactNum');
             $table->enum('status', ['ACTIVE', 'INACTIVE'])->default('ACTIVE');
-            $table->enum('role', ['CUSTOMER', 'ADMIN', 'DRIVER']);
+            $table->enum('role', ['CUSTOMER', 'ADMIN', 'DRIVER'])->default('CUSTOMER');
             $table->timestamps();
         });
     }

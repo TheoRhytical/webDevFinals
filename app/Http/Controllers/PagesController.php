@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use App\Models\Orders;
+use App\Models\Trip;
+use App\Models\Route;
 
 
 class PagesController extends Controller
@@ -36,7 +39,7 @@ class PagesController extends Controller
     public function TicketDetails(Request $request){
 
         $users = DB::table('orders')
-        ->select('vhire.PlateNum','vhire.vehicleID','terminal.Location_Name','trip.ETD','trip.ETA', 'orders.Quantity','route.Fare', 'orders.orderID', 'orders.orderCreationDT', 'orders.Date', 'trip.tripID')
+        ->select('vhire.PlateNum','vhire.vehicleID','terminal.Location_Name','trip.ETD','trip.ETA', 'orders.Quantity','route.Fare', 'orders.orderID', 'orders.statusChangeDT', 'orders.Status', 'orders.Date', 'trip.tripID')
         ->leftjoin('trip', 'orders.tripID', '=','trip.tripID')
         ->leftjoin('route', 'trip.routeID', '=','route.routeID')
         ->leftjoin('terminal','route.O_termID', '=', 'terminal.terminalID')
@@ -87,7 +90,7 @@ class PagesController extends Controller
         $update = DB::table('route')
         //->updateorInsert;
             ->upsert(
-                ['routeID' => $rID,'O_termID' => $input['T1'], 'D_termID' => $input['T2']],
+                ['routeID' => $rID,'O_termID' => $input['T1'], 'D_termID' => $input['T2'], 'Fare' => $input['fare'], 'Trip Duration' => strtotime($input['Travel'])],
                 ['Fare' => $input['fare'], 'Trip Duration' => strtotime($input['Travel'])]
             );
         // var_dump($request);
@@ -308,7 +311,7 @@ class PagesController extends Controller
         ->get();
 
         $cancelled = DB::table('orders')
-        ->select('orders.orderID','users.username', 'orders.orderCreationDT', 'trip.routeID', 'trip.FreeSeats',  'orders.Status', 'orders.Quantity')
+        ->select('orders.orderID','users.username', 'orders.orderCreationDT', 'trip.routeID', 'trip.FreeSeats',  'orders.Status', 'orders.Quantity', 'trip.ETD', 'trip.ETA')
         ->join('users', 'users.userID', '=', 'orders.customerID')
         ->join('trip', 'trip.tripID', '=', 'orders.tripID')
         ->where('orders.Status', '=', 'CANCELLED')
@@ -372,7 +375,8 @@ class PagesController extends Controller
             'orders.Quantity',
             'route.Fare',
             'orders.orderID',
-            'orders.AmountDue'
+            'orders.AmountDue',
+            'orders.Status'
             )
         ->join ('trip', 'orders.tripID', '=', 'trip.tripID')
         ->join('route', 'trip.routeID', '=', 'route.routeID')
@@ -515,6 +519,10 @@ class PagesController extends Controller
         // validate
 
         // dd($request->all());
+        $route = Route::find($request->rname);
+        $oldFare = (float) $route->Fare;
+        $newFare = (float) $request->fare;
+        $multiplier = $newFare / $oldFare;
 
         $this->validate($request,[
             'rname' =>'required',
@@ -530,15 +538,24 @@ class PagesController extends Controller
             'Fare'          => $request->fare,
             'Trip Duration' => $request->Travel
         ]);
-        
+
+        $trips = Trip::select('*')->where('routeID', $request->rname)->get();
+        foreach($trips as $trip){
+            Orders::where('tripID', $trip->tripID)
+            ->update([
+                'AmountDue' => DB::raw('AmountDue * '.$multiplier)
+            ]);
+        }        
         return redirect('routes');
     }
 
     public function EditBook(Request $request){
         DB::update('update orders
-            set status = ?
+            set status = ?, statusChangeDT = ?
             where orderID = ?',
-            [$request->book_status, $request->tripID]);
+            [$request->book_status, now(),$request->tripID]);
+
+        if($request->Status == "CANCELLED")
 
         return redirect('/bookings');
     }

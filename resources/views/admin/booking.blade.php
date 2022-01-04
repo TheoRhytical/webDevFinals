@@ -62,7 +62,7 @@
             <tr class="sc bookAll">
                 <td id="hidden">{{$booking->orderID}}</td>
                 <td class="bpass">{{$booking->username}}</td>
-                <td class="dateT">{{$booking->orderCreationDT}}</td>
+                <td class="dateT">{{date("F j, Y g:i a", strtotime($booking->orderCreationDT))}}</td>
                 <td class="brid">{{$booking->routeID}}</td>
                 <td class="pcs" style="display:none;">{{$booking->Quantity}}</td>
                 <td class="oID" style="display:none;">{{$booking->orderID}}</td>
@@ -88,13 +88,13 @@
 
             @foreach($confirmed as $confirm)
             <tr class="sc bookConfirmed" style="display: none;">
-                <td id="hidden">{{$booking->orderID}}</td>
-                <td class="bpass">{{$booking->username}}</td>
-                <td class="dateT">{{$booking->orderCreationDT}}</td>
-                <td class="brid">{{$booking->routeID}}</td>
-                <td class="pcs" style="display:none;">{{$booking->Quantity}}</td>
-                <td class="oID" style="display:none;">{{$booking->orderID}}</td>
-                <td class="tp" style="display:none;">{{$booking->routeID}} &nbsp; {{$booking->ETD}} - {{$booking->ETA}}</td>
+                <td id="hidden">{{$confirm->orderID}}</td>
+                <td class="bpass">{{$confirm->username}}</td>
+                <td class="dateT">{{date("F j, Y g:i a", strtotime($confirm->orderCreationDT))}}</td>
+                <td class="brid">{{$confirm->routeID}}</td>
+                <td class="pcs" style="display:none;">{{$confirm->Quantity}}</td>
+                <td class="oID" style="display:none;">{{$confirm->orderID}}</td>
+                <td class="tp" style="display:none;">{{$confirm->routeID}} &nbsp; {{$confirm->ETD}} - {{$confirm->ETA}}</td>
                 <td><p class="bstat">CONFIRMED</p> <img src="{{url('images/active.png')}}" style="float: right;margin-right:20px; margin-top:15px;"/></td>
                 <td>
                     <table>
@@ -109,13 +109,13 @@
 
             @foreach($pending as $pend)
             <tr class="sc bookPending" style="display: none;">
-                <td id="hidden">{{$booking->orderID}}</td>
-                <td class="bpass">{{$booking->username}}</td>
-                <td class="dateT">{{$booking->orderCreationDT}}</td>
-                <td class="brid">{{$booking->routeID}}</td>
-                <td class="pcs" style="display:none;">{{$booking->Quantity}}</td>
-                <td class="oID" style="display:none;">{{$booking->orderID}}</td>
-                <td class="tp" style="display:none;">{{$booking->routeID}} &nbsp; {{$booking->ETD}} - {{$booking->ETA}}</td>
+                <td id="hidden">{{$pend->orderID}}</td>
+                <td class="bpass">{{$pend->username}}</td>
+                <td class="dateT">{{date("F j, Y g:i a", strtotime($pend->orderCreationDT))}}</td>
+                <td class="brid">{{$pend->routeID}}</td>
+                <td class="pcs" style="display:none;">{{$pend->Quantity}}</td>
+                <td class="oID" style="display:none;">{{$pend->orderID}}</td>
+                <td class="tp" style="display:none;">{{$pend->routeID}} &nbsp; {{$pend->ETD}} - {{$pend->ETA}}</td>
                 <td><p class="bstat">UNCONFIRMED</p> <img src="{{url('images/inactive.png')}}" style="float: right;margin-right:20px; margin-top:15px;"/></td>
                 <td>
                     <table>
@@ -130,13 +130,13 @@
 
             @foreach($cancelled as $cancel)
             <tr class="sc bookCancel" style="display: none;">
-                <td id="hidden">{{$booking->orderID}}</td>
-                <td class="bpass">{{$booking->username}}</td>
-                <td class="dateT">{{$booking->orderCreationDT}}</td>
-                <td class="brid">{{$booking->routeID}}</td>
-                <td class="pcs" style="display:none;">{{$booking->Quantity}}</td>
-                <td class="oID" style="display:none;">{{$booking->orderID}}</td>
-                <td class="tp" style="display:none;">{{$booking->routeID}} &nbsp; {{$booking->ETD}} - {{$booking->ETA}}</td>
+                <td id="hidden">{{$cancel->orderID}}</td>
+                <td class="bpass">{{$cancel->username}}</td>
+                <td class="dateT">{{date("F j, Y g:i a", strtotime($cancel->orderCreationDT))}}</td>
+                <td class="brid">{{$cancel->routeID}}</td>
+                <td class="pcs" style="display:none;">{{$cancel->Quantity}}</td>
+                <td class="oID" style="display:none;">{{$cancel->orderID}}</td>
+                <td class="tp" style="display:none;">{{$cancel->routeID}} &nbsp; {{$cancel->ETD}} - {{$cancel->ETA}}</td>
                 <td><p class="bstat">CANCELLED</p> <img src="{{url('images/cancelled.png')}}" style="float: right;margin-right:20px; margin-top:15px;"/></td>
                 <td>
                     <table>
