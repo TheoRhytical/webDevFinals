@@ -27,7 +27,7 @@ class UserFactory extends Factory
             'lname' => $this->faker->word(16),
             'username' => $this->faker->name(),
             'role' => $role[rand(0, 2)],
-            'contactNum' => $this->faker->text(11),
+            'contactNum' => "0".strval(rand(9060000000, 9959999999)),
             'created_at' => now(),
             'updated_at' => now(),
             'Status' => $stat[rand(0, 1)],

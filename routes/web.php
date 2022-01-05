@@ -22,14 +22,6 @@ Route::get('/', function () {
 });
 
 
-Route::get('/test', function(){
-    $terminal = DB::table('terminal')
-    ->select('Location_Name', 'terminalID')
-    ->get();
-
-    return $terminal;
-});
-
 Route::middleware('auth')->group(function () {
     Route::get("/home", [PagesController::class, "Home"]);
     Route::get("/sched", [PagesController::class, "Schedule"]);
