@@ -32,7 +32,7 @@ class PagesController extends Controller
         ->join('terminal AS terminal2', 'terminal2.terminalID', '=', 'route.D_termID')
         ->groupby('trip.routeID')
         ->get();
-        
+        return $route;
         return view('user.route',['route'=>$route, 'terminal'=>$terminal]);
         }
     
@@ -236,7 +236,7 @@ class PagesController extends Controller
         ->join('vhire', 'trip.vehicleID', '=', 'vhire.vehicleID')
         ->join('terminal', 'route.D_termID', '=', 'terminal.terminalID')
         ->join('users', 'vhire.driverID', '=', 'users.userID')
-        ->where('trip.status', 'ACTIVE')
+        ->where('trip.status', 'OPEN')
         ->orderby('trip.ETD')
         ->orderby('trip.routeID')
         ->get();
@@ -523,6 +523,7 @@ class PagesController extends Controller
         $oldFare = (float) $route->Fare;
         $newFare = (float) $request->fare;
         $multiplier = $newFare / $oldFare;
+        $newname = $request->T1."-".$request->T2;
 
         $this->validate($request,[
             'rname' =>'required',
@@ -533,6 +534,7 @@ class PagesController extends Controller
         ]);
 
         DB::table('route')->where('routeID', '=', $request->rname)->update([
+            'routeID'       => $newname,
             'O_termID'      => $request->T1,
             'D_termID'      => $request->T2,
             'Fare'          => $request->fare,

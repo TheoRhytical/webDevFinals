@@ -16,7 +16,7 @@
             <label style="position:relative; top: 5px; font-weight:800;">FILTER BY STATUS:</label>
             <select class="filter" >
                 <option>ALL</option>
-                <option>ACTIVE</option>
+                <option>OPEN</option>
                 <option>CLOSED</option>
                 <option>ARRIVED</option>
                 <option>DELETED</option>
@@ -43,8 +43,8 @@
             <td><p class="etd">{{substr($vhire->ETD,0,-3)}}</p>-<p class="eta">{{substr($vhire->ETA,0,-3)}}</p></td>
             <td class="pass">{{$vhire->username}}</td>
             <td class="seat" style="display: none;">{{$vhire->FreeSeats}}</td>
-            @if($vhire->Status == 'ACTIVE')
-                <td><p class="stat">ACTIVE</p> <img src="{{url('images/active.png')}}" style="float: right;margin-right:20px; margin-top:15px"/></td>
+            @if($vhire->Status == 'OPEN')
+                <td><p class="stat">OPEN</p> <img src="{{url('images/active.png')}}" style="float: right;margin-right:20px; margin-top:15px"/></td>
             @elseif($vhire->Status == 'ARRIVED')
                 <td><p class="stat">ARRIVED</p>  <img src="{{url('images/inactive.png')}}" style="float: right;margin-right:20px; margin-top:15px"/></td>
             @else

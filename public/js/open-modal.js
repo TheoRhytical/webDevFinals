@@ -57,9 +57,9 @@ $( ".del-books" ).click(function() {
   $("#del-book-modal").show();
 });
 
-
-
-
+$('.refresh').click(function() {
+  location.reload();
+});
 
 $( ".close" ).click(function() {
     $("#myAddModal").hide();
@@ -155,4 +155,5 @@ $(document).on('click','.e-book',function(){
   $('#order').val(_this.find('.tid').text());
   $('#bstat').val(_this.find('.bstat').text());
 })
+
 

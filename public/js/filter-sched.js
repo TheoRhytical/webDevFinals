@@ -4,7 +4,7 @@
             case 'ALL':
                 $('#all').show();
                 break;
-            case 'ACTIVE':
+            case 'OPEN':
                 $('#open').show();
                 break;
             case 'CLOSED':

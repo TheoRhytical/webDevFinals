@@ -63,7 +63,7 @@
             <td class="time" style="display: none;"><?php echo $route->{'Trip Duration'}; ?></td>
             <td class="e-route" style="width: 6%;cursor: pointer;"><img src="{{url('images/edit.png')}}"/></td>
              <td  class="Btnd"  data-route-id="{{$route->O_termID}}-{{$route->D_termID}}" style="width: 6%;cursor: pointer;"><img src="{{url('images/delete-dark.png')}}"/></td>
-            <td style="width: 6%;cursor: pointer;"><img src="{{url('images/refresh.png')}}"/></td>
+            <td style="width: 6%;cursor: pointer;"><img src="{{url('images/refresh.png')}}" class="refresh"/></td>
         </tr>
     @endforeach
     </table></center>
@@ -77,19 +77,17 @@
     <div class="form">
         <form method="POST" action="updateRoute" id="edit-route-form"> 
             @csrf
-            <label for="rname">Route name</label>
-            <input type="text" id="rname" name="rname"></input><br><br>
-            <label for="L1">Terminal origin</label>
-            
+            <input type="text" id="rname" name="rname" style="display: none;"></input>
+            <label for="L1">Terminal origin</label>           
             <select id="T1" name="T1">
-                @foreach ($rname as $indivroute)  
-                <option value="{{$indivroute->O_termID}}">{{$indivroute->O_termID}}</option>
+                @foreach ($tname as $indivroute)  
+                <option value="{{$indivroute->terminalID}}">{{$indivroute->terminalID}}</option>
                 @endforeach
             </select><br><br><br>
             <label for="L2">Terminal destination</label>
             <select id="T2" name="T2">
-                @foreach ($rname as $indivroute)  
-                <option value="{{$indivroute->D_termID}}">{{$indivroute->D_termID}}</option>
+                @foreach ($tname as $indivroute)  
+                <option value="{{$indivroute->terminalID}}">{{$indivroute->terminalID}}</option>
                 @endforeach
     
             </select><br><br><br>
@@ -117,10 +115,7 @@
     <div class="form">
         <form id="add_route_form" method="POST" action="{{route('add.routes')}}"> 
             @csrf
-            <label for="rname">Route name</label>
-            <input type="text" id="rname"></input><br><br>
             <label for="L1">Terminal origin</label>
-            
             <select id="T1" name="T1">
                 @foreach ($tname as $indivroute)  
                 <option value="{{$indivroute->terminalID}}">{{$indivroute->terminalID}}</option>
