@@ -5,13 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Orders;
+use App\Models\Trip;
 
 
 class OrdersController extends Controller
 {
     public function book(Request $request){
         $currUser = Auth::user();
-        $query = DB::table('orders')->insert([
+
+        $trip = Trip::find($request->input('tripID'));
+        $trip->FreeSeats -= $request->input('quantity');
+        $trip->save();
+
+        Orders::insert([
             'tripID' => $request->input('tripID'),
             'customerID' => $currUser->userID,
             'Quantity' => $request->input('quantity'),
@@ -21,17 +28,26 @@ class OrdersController extends Controller
         return redirect('/ticket');
     }
     public function cancel(Request $request){
-        $query = DB::table('orders')
-            ->where('orderID', $request->input('orderID'))
-            ->update(['Status' => 'CANCELLED']);
+
+        $order = Orders::find($request->input('orderID'));
+        $order->Status = 'CANCELLED';
+        $order->statusChangeDT = now();
+        $order->save();
+        
+        $trip = Trip::find($order->tripID);
+        $trip->FreeSeats += $order->Quantity;
+        $trip->save();
 
         return redirect('/ticket');
     }
-    public function confirm(Request $request){
+    public function confirm($orderID){
         $query = DB::table('orders')
-            ->where('orderID', $request->input('orderID'))
-            ->update(['Status' => 'CONFIRMED']);
+            ->where('orderID', $orderID)
+            ->update([
+                'Status' => 'CONFIRMED', 
+                'statusChangeDT' => now()
+            ]);
 
-        return redirect('/bookings');
+        return redirect('/close');
     }
 }

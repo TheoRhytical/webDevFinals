@@ -5,6 +5,7 @@ use App\Http\Controllers\PagesController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\RouteController;
 use Routes\Auth;
+use App\Models\Terminal;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,6 +21,14 @@ Route::get('/', function () {
     return redirect("/dashboard");
 });
 
+
+Route::get('/test', function(){
+    $terminal = DB::table('terminal')
+    ->select('Location_Name', 'terminalID')
+    ->get();
+
+    return $terminal;
+});
 
 Route::middleware('auth')->group(function () {
     Route::get("/home", [PagesController::class, "Home"]);
@@ -44,6 +53,7 @@ Route::middleware('auth')->group(function () {
         Route::post("/addSched", [PagesController::class, "AddSched"]);
         Route::post("/editSched", [PagesController::class, "EditSched"]);
         Route::post("/editBook", [PagesController::class, "EditBook"]);
+        Route::get("/confirm/{orderID}", [OrdersController::class, "confirm"]);
     });
     
 });
@@ -86,6 +96,7 @@ Route::post("/delete_books", [PagesController::class, "DeleteBooking"]);
 Route::view("/signup", 'auth.register');
 Route::view("/admin", 'auth.login-admin');
 Route::view("/passenger", 'auth.login');
+Route::view("/close", 'close');
 
 // Route::view("/account", 'admin.account');
 

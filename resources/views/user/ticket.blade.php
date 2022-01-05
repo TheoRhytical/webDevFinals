@@ -17,7 +17,13 @@
         @csrf
         @foreach($orders as $order)
         <button type="submit" name="orderID" value="{{$order->orderID}}">
+            @if($order->Status == "CONFIRMED")
+            <div class="tick" style="background: #BDFCC9">
+            @elseif($order->Status == "CANCELLED")
+            <div class="tick" style="background: #FAA0A0">
+            @else()
             <div class="tick">
+            @endif()
                 <h3>{{$order->O_Loc}} - {{$order->D_Loc}}</h3>
                 <p style="float:right; padding-right:25px; padding-top:5px"><b style="color:#4C15E9">PHP {{$order->AmountDue}}.00</b></p><br>
                 <p><b>Time</b></p>

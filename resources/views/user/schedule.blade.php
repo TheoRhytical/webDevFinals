@@ -31,9 +31,15 @@
                                         <td>
                                             <p>PHP {{$trip->Fare}}.00</p>
                                         </td>
+                                        @if($trip->FreeSeats > 0)
                                         <td>
                                             <button type="submit" value="{{$trip->tripID}}" name="tripID"></button>
                                         </td>
+                                        @else()
+                                        <td>
+                                            <button type="submit" value="{{$trip->tripID}}" name="tripID" style="pointer-events: none; display:none"></button>
+                                        </td>
+                                        @endif()
                                     </tr>
                                 </table>
                             </div>

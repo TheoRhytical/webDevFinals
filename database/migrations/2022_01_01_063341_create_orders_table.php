@@ -15,14 +15,16 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('orderID');
-            $table->integer('customerID');
-            $table->integer('tripID');
+            $table->integer('customerID')->unsigned();
+            $table->integer('tripID')->unsigned();
             $table->integer('Quantity')->default(1);
             $table->date('Date')->default(DB::raw('CURRENT_DATE'));
             $table->integer('AmountDue')->default(100);
             $table->enum('Status', ['UNCONFIRMED', 'CONFIRMED', 'CANCELLED'])->default('UNCONFIRMED');
             $table->timestamp('orderCreationDT')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('statusChangeDT')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('statusChangeDT')->default(DB::raw('CURRENT_TIMESTAMP'))->attribute();
+            $table->foreign('customerID')->references('userID')->on('users')->cascadeondelete()->cascadeonupdate();
+            $table->foreign('tripID')->references('tripID')->on('trip')->cascadeondelete()->cascadeonupdate();
         });
     }
 

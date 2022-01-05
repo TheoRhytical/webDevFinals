@@ -27,6 +27,7 @@ class User extends Authenticatable
         'contactNum',
         'created_at',
         'updated_at',
+        'Status'
     ];
 
     /**
