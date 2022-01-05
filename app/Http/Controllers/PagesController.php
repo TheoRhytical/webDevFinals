@@ -32,7 +32,6 @@ class PagesController extends Controller
         ->join('terminal AS terminal2', 'terminal2.terminalID', '=', 'route.D_termID')
         ->groupby('trip.routeID')
         ->get();
-        return $route;
         return view('user.route',['route'=>$route, 'terminal'=>$terminal]);
         }
     
